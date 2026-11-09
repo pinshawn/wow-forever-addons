@@ -1,0 +1,105 @@
+{
+  "說明": "插件自動更新（v1.3 起）每次都會先讀這份清單：這裡新加的插件會自己加進每個人的更新清單；跟本機 addons.json 同一個主資料夾的，用這裡的寫法。type：github-release＝作者在 GitHub 發布版本；github-branch＝作者把每一版放在 GitHub 分支（看 .toc 的版本號）；json-manifest＝作者自己網站公布的版本清單（有版本號、下載網址、檢查碼）；manual＝只在 CurseForge，要自己按下載，下載好再雙擊一次會從「下載」資料夾自動裝；own＝自己做的，不檢查。autoInstall＝沒裝也幫你裝；needs＝要先有哪個插件才裝。",
+  "notice": "",
+  "addons": [
+    {
+      "name": "Questie（含 QuestieDB）",
+      "type": "github-release",
+      "repo": "Questie/Questie",
+      "asset": "^Questie-.*\\.zip$",
+      "folders": [
+        "Questie",
+        "QuestieDB"
+      ]
+    },
+    {
+      "name": "Shortest Path Forever",
+      "type": "github-release",
+      "repo": "cjber/shortest-path-forever",
+      "asset": "-forever\\.zip$",
+      "folders": [
+        "ShortestPathForever"
+      ]
+    },
+    {
+      "name": "OneForAll",
+      "type": "github-branch",
+      "repo": "smoergi/OneForAll_Forever",
+      "branch": "main",
+      "toc": "OneForAll/OneForAll.toc",
+      "folders": [
+        "OneForAll"
+      ]
+    },
+    {
+      "name": "DungeonsForever（無限副本手冊，8 個模組）",
+      "type": "github-branch",
+      "repo": "ayuanbro/DungeonsForever",
+      "branch": "master",
+      "toc": "DungeonsForever/DungeonsForever.toc",
+      "folders": [
+        "DungeonsForever",
+        "DungeonsForeverClass",
+        "DungeonsForeverExplore",
+        "DungeonsForeverFaction",
+        "DungeonsForeverGear",
+        "DungeonsForeverProf",
+        "DungeonsForeverPvP",
+        "DungeonsForeverSpell"
+      ]
+    },
+    {
+      "name": "GearInsight Forever",
+      "type": "json-manifest",
+      "manifest": [
+        "https://gearinsight.app/static/data/releases.json",
+        "https://gearinsight.cn/static/data/releases.json"
+      ],
+      "key": "forever_v2",
+      "folders": [
+        "GearInsight_Forever",
+        "GearInsight_Forever_Group",
+        "GearInsight_Forever_Guild"
+      ]
+    },
+    {
+      "name": "有愛黑體切換（含字型）",
+      "type": "github-branch",
+      "repo": "pinshawn/wow-forever-addons",
+      "branch": "main",
+      "toc": "AAA_NowarSansSwitch/AAA_NowarSansSwitch.toc",
+      "folders": [
+        "AAA_NowarSansSwitch"
+      ],
+      "autoInstall": true
+    },
+    {
+      "name": "OneForAll 繁體中文包",
+      "type": "github-branch",
+      "repo": "pinshawn/wow-forever-addons",
+      "branch": "main",
+      "toc": "OneForAll_zhTW/OneForAll_zhTW.toc",
+      "folders": [
+        "OneForAll_zhTW"
+      ],
+      "needs": [
+        "OneForAll"
+      ],
+      "autoInstall": true
+    },
+    {
+      "name": "Questie 只顯示這一區",
+      "type": "github-branch",
+      "repo": "pinshawn/wow-forever-addons",
+      "branch": "main",
+      "toc": "QuestieZoneOnly/QuestieZoneOnly.toc",
+      "folders": [
+        "QuestieZoneOnly"
+      ],
+      "needs": [
+        "Questie"
+      ],
+      "autoInstall": true
+    }
+  ]
+}

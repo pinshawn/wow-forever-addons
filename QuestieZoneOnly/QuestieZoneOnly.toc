@@ -1,0 +1,10 @@
+## Interface: 16001
+## Title: Questie |cff66ccff只顯示這一區|r
+## Notes: Questie 右邊的任務追蹤只顯示你現在所在區域的任務。點追蹤框標題旁的 [只看這區] 切換，或打 /這區任務。
+## Author: 只看這區
+## Version: 1.0.0
+## Dependencies: Questie
+## SavedVariables: QuestieZoneOnlyDB
+## X-License: GPL-3.0-or-later
+
+Core.lua
