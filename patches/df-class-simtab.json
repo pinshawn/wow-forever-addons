@@ -1,0 +1,158 @@
+{
+ "format": 2,
+ "id": "df-class-simtab",
+ "name": "無限副本手冊 職業模組：「天賦模擬」改成自己的按鈕（打怪中開天賦視窗不再被擋）",
+ "file": "Interface\\AddOns\\DungeonsForeverClass\\Core\\NativeTalentPage.lua",
+ "marker": "df-class-simtab v1",
+ "made": "2026-11-11",
+ "note": "補丁裡不放原作者的程式碼：位置用每一行的 SHA-256 認，只寫我們改的部分。原檔沒有這些行（作者改過）就整個不補、檔案不動。",
+ "edits": [
+  {
+   "kind": "sub",
+   "lines": [
+    "7ef938ff68481b94f3dc86c8e8db9a23b6796d7e7319c9975a1dc13e26cc1e76"
+   ],
+   "count": 1,
+   "find": "T:GetTab() == NP.tabID",
+   "repl": "NP.SimOn()",
+   "why": "技能順序小標：看自己的開關"
+  },
+  {
+   "kind": "replace",
+   "lines": [
+    "a84e954977132037ccfbd568b5b149b1f09d8e1336f0653e340494bef15b5b0d"
+   ],
+   "text": "    local tab = nil   -- [修正 df-class-simtab v1] 不再碰暴雪的分頁\n",
+   "why": "不再拿暴雪分頁清單裡的按鈕"
+  },
+  {
+   "kind": "replace",
+   "lines": [
+    "90afa6bb127d1bff4c6ebf0bb0dc60509f0f446d383835cd18729bd22155a71e"
+   ],
+   "text": "        if T.DisabledOverlay and T.DisabledOverlay:IsShown() then NP.ovWas = true; T.DisabledOverlay:Hide() end\n",
+   "why": "開：只把灰色遮罩藏起來，不跑暴雪的程式"
+  },
+  {
+   "kind": "replace",
+   "lines": [
+    "2f9de439dd213e4ea808ce5bdbf02c20eaee8af428d3c83da590eb282ef829fc"
+   ],
+   "text": "        if NP.SimTabVisual then NP.SimTabVisual(true) end\n",
+   "why": "開：自己的按鈕變選中"
+  },
+  {
+   "kind": "replace",
+   "lines": [
+    "de3dda617e2b64835bf1dd2b3f909e773ef78d06375a131f73d7cc0a0631b93b"
+   ],
+   "text": "        if NP.ovWas and T.DisabledOverlay then T.DisabledOverlay:Show() end\n        NP.ovWas = nil\n        if NP.SimTabVisual then NP.SimTabVisual(false) end\n",
+   "why": "關：遮罩放回去、按鈕變回沒選中"
+  },
+  {
+   "kind": "sub",
+   "lines": [
+    "616e99018639271b87ff4f85dfa831e0a6c073826e04f683d53fbafb08e21574"
+   ],
+   "count": 1,
+   "find": "T:GetTab() == NP.tabID",
+   "repl": "NP.SimOn()",
+   "why": "SyncShow：看自己的開關"
+  },
+  {
+   "kind": "sub",
+   "lines": [
+    "889395f80cf4d703f710390616e31d8d4ca1ecd289f633c1610f516f6bb475a9"
+   ],
+   "count": 1,
+   "find": "NP.frame:GetTab() == NP.tabID",
+   "repl": "NP.SimOn()",
+   "why": "天賦事件：看自己的開關"
+  },
+  {
+   "kind": "sub",
+   "lines": [
+    "12d816f9b1a02828b2af3ad6c92a238cec7043b353e31c629939520432eb982e"
+   ],
+   "count": 2,
+   "find": "NP.frame:GetTab() == NP.tabID",
+   "repl": "NP.SimOn()",
+   "why": "兩個掛勾：看自己的開關"
+  },
+  {
+   "kind": "sub",
+   "lines": [
+    "22c2317ab88e2f00fcd19cdd049b93d24b011354dd7ad34a28679314f936b5f8"
+   ],
+   "count": 1,
+   "find": "NP.frame:GetTab() == NP.tabID",
+   "repl": "NP.SimOn()",
+   "why": "點數顯示：看自己的開關"
+  },
+  {
+   "kind": "replace",
+   "lines": [
+    "d5d3683a29bb3ac30130dadd5b0e3b2312d67d2341cd234391c855bf49349c8a",
+    "24fcdf5a5f6fd9022c741633134670973fcd0792986be85a8450b0fd3ae15857",
+    "58eef1b8aef5fe808929174eb671c0332b63c69a24c994716d070e0acc321203",
+    "2a1c8c463fffb88ae24ac04440892115e2a06971407324e73561383c05b32cb4",
+    "9c72781d5c9cbe39aa979d803429403713973daca2cdd1e177b2633c4ec51aee",
+    "d2afff897c9452c8e4d5bbe0e8d3f05ab02247a0484fedacb31456f1bec1f055",
+    "3d60e24075e49421d3b60282f5d523a7c4bac111854aaa250b593572685fe580"
+   ],
+   "text": "        -- [修正 df-class-simtab v1] 不換掉暴雪「按了分頁要做什麼」；按暴雪的分頁＝離開天賦模擬\n",
+   "why": "不換掉暴雪的分頁反應"
+  },
+  {
+   "kind": "insertAfter",
+   "lines": [
+    "81a56abe75412518ac4a6feff9461568fd72ff2d768a32d2bf88de9829f708de"
+   ],
+   "text": "                NP.simOn = false\n",
+   "why": "按暴雪的分頁時關掉天賦模擬"
+  },
+  {
+   "kind": "sub",
+   "lines": [
+    "b4bd4ded9758bb1980c5dc813feffd5ee87d0a864143e624fd366ab9c741eb6e"
+   ],
+   "count": 1,
+   "find": "NP.frame:GetTab() ~= NP.tabID",
+   "repl": "not NP.SimOn()",
+   "why": "Build 結尾：看自己的開關"
+  },
+  {
+   "kind": "insertBefore",
+   "lines": [
+    "aa9123b3c9921a757a65286c59ac90c5c00e9b08a0b85e2df70e7c945743c0c7"
+   ],
+   "text": "-- [修正 df-class-simtab v1]\n-- 原本把「天賦模擬」用 AddNamedTab 加進暴雪天賦視窗的分頁清單，還換掉暴雪按分頁的反應；\n-- 暴雪的程式之後每次整理分頁都會碰到這些插件改過的東西，打怪中開天賦視窗就被擋\n-- （taint.log：PlayerSpellsFrame:SetWidth() blocked）。改成：分頁旁邊一顆自己的按鈕，開關記在 NP.simOn。\nfunction NP.SimOn()\n    return NP.simOn == true\nend\n\nlocal function SimTabPlace()\n    local b, T = NP.simBtn, NP.frame\n    local ts = T and T.TabSystem\n    if not (b and ts) then return end\n    local last\n    local list = ts.tabs\n    if type(list) == 'table' then\n        for i = #list, 1, -1 do\n            local t = list[i]\n            if t and t.IsShown and t:IsShown() then last = t break end\n        end\n    end\n    b:ClearAllPoints()\n    if last then\n        b:SetPoint('TOPLEFT', last, 'TOPRIGHT', tonumber(ts.spacing) or 0, 0)\n    else\n        b:SetPoint('TOPLEFT', ts, 'TOPLEFT', 0, 0)\n    end\n    local inspecting = T.IsInspecting and T:IsInspecting()\n    b:SetShown(ts:IsShown() and not inspecting)\nend\n\nfunction NP.SimTabVisual(on)\n    local b = NP.simBtn\n    if not b then return end\n    SimTabPlace()\n    if b.SetTabSelected then pcall(b.SetTabSelected, b, on and true or false) end\n    b:SetEnabled(true)   -- 選中時也能按：再按一次回到天賦\nend\n\nfunction NP.MakeSimTab(T, label)\n    if NP.simBtn then return NP.simBtn end\n    local ts = T and T.TabSystem\n    if not ts then return nil end\n    local ok, b = pcall(CreateFrame, 'Button', 'DungeonsForeverTalentSimTab', T, 'TabSystemButtonArtTemplate')\n    if not ok or not b then return nil end\n    local ref = type(ts.tabs) == 'table' and ts.tabs[1] or nil\n    if ref then\n        b.isTabOnTop = ref.isTabOnTop\n        b.selectedFontObject = ref.selectedFontObject\n        b.unselectedFontObject = ref.unselectedFontObject\n        b.textOffsetY = ref.textOffsetY\n        b.textPadding = ref.textPadding\n    end\n    local h = (ref and ref.GetHeight and ref:GetHeight()) or 0\n    if h < 10 then h = 32 end\n    b:SetHeight(h)\n    if b.HandleRotation then pcall(b.HandleRotation, b) end\n    b:SetText(label)\n    local tw = 60\n    if b.Text and b.Text.GetStringWidth then tw = (b.Text:GetStringWidth() or 60) end\n    local w = tw + (tonumber(b.textPadding) or 0) + 40\n    local rw = (ref and ref.GetWidth and ref:GetWidth()) or 0\n    if rw > w then w = rw end\n    b:SetWidth(w)\n    if b.SetTabHeight then pcall(b.SetTabHeight, b, h) end\n    b:SetScript('OnClick', function()\n        NP.simOn = not NP.SimOn()\n        if PlaySound and SOUNDKIT and SOUNDKIT.IG_CHARACTER_INFO_TAB then pcall(PlaySound, SOUNDKIT.IG_CHARACTER_INFO_TAB) end\n        NP.SyncShow()\n        HookNativeTalents()\n        if not NP.SimOn() and NP.SyncPlan then NP.SyncPlan() end\n    end)\n    b:SetScript('OnEnter', function(self)\n        TipBegin(self, 'ANCHOR_RIGHT')\n        GameTooltip:SetText(label, 1, 1, 1)\n        GameTooltip:AddLine(NP.SimOn() and '再按一次：回到天賦' or '按一下：打開天賦模擬', 0.9, 0.9, 0.9, true)\n        GameTooltip:Show()\n    end)\n    b:SetScript('OnLeave', function() GameTooltip:Hide() end)\n    if T.HookScript then T:HookScript('OnShow', SimTabPlace) end\n    NP.simBtn = b\n    SimTabPlace()\n    NP.SimTabVisual(NP.SimOn())\n    return b\nend\n\n",
+   "why": "加上自己的按鈕"
+  },
+  {
+   "kind": "replace",
+   "lines": [
+    "d5a443770681d7d94032f241b4944cdc8b2ebfb8de5d4ea89ae1aa9a36be9d51",
+    "d5d3683a29bb3ac30130dadd5b0e3b2312d67d2341cd234391c855bf49349c8a",
+    "7c3f0ffac8a21242e82f1ba98dcc7e637202e11d6406f6983ddc5994839f4237",
+    "1cca73c73ea144f7334827d85d2db087b7ef9c2fa3de4f2ac35afc588b668aa4",
+    "ebf3914130519e2672ffa7bb6d65e428b3a52e16c250bf1a1612d9e2bd7edbbf",
+    "b2769b6495c13cbca828da9dd33cbaf1b103f57872c8f7d06db36e0a0032af90",
+    "3d60e24075e49421d3b60282f5d523a7c4bac111854aaa250b593572685fe580",
+    "82fa15c472f9739642153065794e2620b50324a20570ffacf81423c799d85e2c",
+    "d3ba9cb7803620f24be5150616930fe87c4158a2d1d16909e5600296a822b987",
+    "d5d3683a29bb3ac30130dadd5b0e3b2312d67d2341cd234391c855bf49349c8a",
+    "88f6b8d83a66eab08953caf719666d958dd8899846d3bf0fd4af16c6e22c5475",
+    "b1610f9dadcc2097e57dde59711f610a60ecc821c5a91aef75904c8d4e757da7",
+    "798efdd7446ee866ce9c764e7215274c3cfc4b085f893c1f49e2b9243b66aa22",
+    "c902cd3dbc8b0adf4eaa15b5abeda2f70a56344b818374059f617dfbd9f50dc4",
+    "ca9f7dfd8ec2a2438336f05bedb87fbe5b2d85c3ea2eceebc75e84f542d4c136",
+    "a244c4dd1d1b802fb204e9edfef0d8af8a38fb69d6a612513a4b832028e6555c",
+    "3d60e24075e49421d3b60282f5d523a7c4bac111854aaa250b593572685fe580",
+    "82fa15c472f9739642153065794e2620b50324a20570ffacf81423c799d85e2c"
+   ],
+   "text": "    if not NP.tabID then   -- [修正 df-class-simtab v1] 不加進暴雪的分頁清單\n        if NP.MakeSimTab(T, TabLabel()) then NP.tabID = 'df_sim' end\n    end\n",
+   "why": "Init：做自己的按鈕，不加進暴雪分頁"
+  }
+ ]
+}

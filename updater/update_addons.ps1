@@ -10,8 +10,10 @@
 #       版本一樣但前置插件沒裝，就同一版重裝一次補上；最後檢查每個插件的前置插件，缺了就用紅字說。
 # v1.3.5：更新程式自己更新：線上清單的 updater 寫了比較新的版本，就下載新的 update_addons.ps1
 #       （檢查碼要對、讀得懂、版本號要對才換），舊的留在 舊版_v<版本>\，換好用新的從頭跑一次。
+# v1.3.6：共用補丁：線上清單的 patches 列的補丁大家都會補（不放原作者程式碼的 format 2）；
+#       addons.json 可以寫 sharedPatches: false 或 skipPatches 不要。
 
-$UpdaterVersion = '1.3.5'
+$UpdaterVersion = '1.3.6'
 $SelfPath = $MyInvocation.MyCommand.Path
 $ErrorActionPreference = 'Stop'
 $ProgressPreference = 'SilentlyContinue'   # 不顯示下載進度條（PowerShell 5.1 顯示進度條會慢很多）
@@ -816,6 +818,7 @@ New-Item -ItemType Directory -Path $script:TmpRoot -Force | Out-Null
 $entries = New-Object System.Collections.ArrayList
 foreach ($e in @($config.addons)) { if ($e) { [void]$entries.Add($e) } }
 $relaunch = $false
+$sharedPatchList = New-Object System.Collections.ArrayList
 foreach ($u in @($config.lists)) {
     if (-not $u) { continue }
     try {
@@ -835,6 +838,7 @@ foreach ($u in @($config.lists)) {
         if ($added.Count -gt 0) { $msg += "，addons.json 沒寫的：" + ($added -join '、') }
         Say $msg 'DarkGray'
         if ($rl.notice) { Say ("清單上的公告：" + [string]$rl.notice) 'Cyan' }
+        foreach ($pm in @($rl.patches)) { if ($pm) { [void]$sharedPatchList.Add($pm) } }
     } catch {
         Say "讀不到線上清單（$u）：$($_.Exception.Message)　這次照 addons.json 裡寫的跑。" 'Yellow'
     }
@@ -896,9 +900,14 @@ foreach ($entry in $entries) {
 }
 
 # ---------------------------------------------------------------------------
-# 本機補丁（addons.json 的 localPatches；只在這台電腦用，補丁檔放 插件更新\本機補丁\）
-# 補丁檔（.json）：file＝要補的檔（從遊戲資料夾算）、marker＝補好的記號、edits＝[{old,new}] 每段原文要剛好出現 1 次
-# 已經有記號＝補過了；有一段找不到（作者改了）就整個不動，畫面寫「補丁套不上」
+# 補丁：改別人插件的一小段程式（更新完檢查一次，被新版蓋掉就再補；作者改到那段、補不上就不動檔案，寫出來）
+# ・共用補丁（v1.3.6 起）：線上清單的 patches 列的，大家都會補。addons.json 寫 "sharedPatches": false＝全部不要；
+#   "skipPatches": ["補丁的 id"]＝某幾個不要。補丁檔是 format 2：不放原作者的程式碼，位置用每一行的 SHA-256 認。
+# ・本機補丁：addons.json 的 localPatches（只在這台電腦），補丁檔放 插件更新\本機補丁\；format 1（原文對原文）或 format 2 都可以。
+#   本機補丁的 id 跟共用補丁一樣時，用共用的、本機那個不再單獨補。
+# ・作者自己修好了：線上清單把那個補丁標 "retired": true（停用）→ 大家都不再補；或補丁檔寫 "maxVersion"＋"versionFolder"
+#   （只補到那一版），插件比它新就不補。作者的新版本來就會整個蓋掉舊檔，所以不會擋到作者。
+# 已經有記號（marker）＝補過了；補之前的原檔放 插件更新\本機補丁\補之前的原檔\<日期時間>\
 # ---------------------------------------------------------------------------
 function Get-OccurCount([string]$text, [string]$part) {
     if (-not $part) { return 0 }
@@ -910,43 +919,152 @@ function Get-OccurCount([string]$text, [string]$part) {
     }
     return $n
 }
-function Invoke-LocalPatch($p) {
-    $name = [string]$p.name
-    $specPath = Join-Path $Here ([string]$p.patch)
-    if (-not (Test-Path -LiteralPath $specPath)) { Add-Result $name '' '' "本機補丁：找不到補丁檔 $($p.patch)" 'Yellow'; return }
-    $spec = Get-Content -LiteralPath $specPath -Raw -Encoding UTF8 | ConvertFrom-Json
-    $target = Join-Path $GameDir ([string]$spec.file)
-    if (-not (Test-Path -LiteralPath $target)) { Add-Result $name '' '' '本機補丁：要補的檔案不在（插件沒裝？），跳過' 'DarkGray'; return }
-    $bytes = [IO.File]::ReadAllBytes($target)
-    $bom = ($bytes.Length -ge 3 -and $bytes[0] -eq 0xEF -and $bytes[1] -eq 0xBB -and $bytes[2] -eq 0xBF)
-    $skipN = 0; if ($bom) { $skipN = 3 }
-    $text = (New-Object Text.UTF8Encoding $false).GetString($bytes, $skipN, $bytes.Length - $skipN)
-    if ($text.Contains([string]$spec.marker)) { Add-Result $name '' '' '本機補丁：補著（不用再補）' 'DarkGray'; return }
+$script:Sha = [Security.Cryptography.SHA256]::Create()
+function Get-Sha256Hex([string]$s) {
+    return ([BitConverter]::ToString($script:Sha.ComputeHash([Text.Encoding]::UTF8.GetBytes($s))) -replace '-', '').ToLower()
+}
+function Split-NewText([string]$t) {
+    $t = $t.Replace("`r`n", "`n")
+    if ($t.EndsWith("`n")) { $t = $t.Substring(0, $t.Length - 1) }
+    if ($t.Length -eq 0) { return , ([string[]]@()) }
+    return , ([string[]]$t.Split("`n"))
+}
+# format 1：edits＝[{old,new}]，每段原文要剛好出現 1 次
+function Invoke-PatchV1($spec, [string]$text) {
     $crlf = $text.Contains("`r`n")
     $pairs = @()
-    $bad = @()
     $i = 0
     foreach ($e in @($spec.edits)) {
         $i++
         $old = [string]$e.old; $new = [string]$e.new
         if ($crlf) { $old = $old.Replace("`n", "`r`n"); $new = $new.Replace("`n", "`r`n") }
         $n = Get-OccurCount $text $old
-        if ($n -ne 1) { $bad += ("第 {0} 段（{1}）找到 {2} 處" -f $i, [string]$e.why, $n) }
+        if ($n -ne 1) { return @{ Status = 'cannot'; Why = ("第 {0} 段（{1}）找到 {2} 處" -f $i, [string]$e.why, $n) } }
         $pairs += , @($old, $new)
-    }
-    if ($bad.Count -gt 0) {
-        Add-Result $name '' '' ("本機補丁套不上：作者改了這段程式，這次沒有補，檔案沒動（原本的問題會回來）。跟 Claude 說「補丁套不上」。" + $bad[0]) 'Yellow'
-        return
     }
     foreach ($pr in $pairs) {
         $k = $text.IndexOf($pr[0], [StringComparison]::Ordinal)
         $text = $text.Substring(0, $k) + $pr[1] + $text.Substring($k + $pr[0].Length)
     }
+    return @{ Status = 'applied'; Text = $text }
+}
+# format 2：edits＝[{kind, lines:[每一行的 SHA-256], count, find, repl, text}]
+#   kind：sub（那一行裡的 find 換成 repl）、replace（那幾行換成 text）、insertBefore／insertAfter（那一行前／後加 text）
+function Invoke-PatchV2($spec, [string]$text) {
+    $crlf = $text.Contains("`r`n")
+    $lines = New-Object 'System.Collections.Generic.List[string]'
+    foreach ($l in $text.Replace("`r`n", "`n").Split("`n")) { $lines.Add($l) }
+    $hs = New-Object 'string[]' $lines.Count
+    for ($i = 0; $i -lt $lines.Count; $i++) { $hs[$i] = Get-Sha256Hex $lines[$i] }
+    $plan = New-Object System.Collections.ArrayList
+    $k = 0
+    foreach ($e in @($spec.edits)) {
+        $k++
+        $want = @(@($e.lines) | ForEach-Object { ([string]$_).ToLower() })
+        $n = $want.Count
+        $cnt = 1; if ($e.count) { $cnt = [int]$e.count }
+        $hits = @()
+        if ($n -gt 0) {
+            for ($i = 0; $i -le $lines.Count - $n; $i++) {
+                if ($hs[$i] -ne $want[0]) { continue }
+                $ok = $true
+                for ($j = 1; $j -lt $n; $j++) { if ($hs[$i + $j] -ne $want[$j]) { $ok = $false; break } }
+                if ($ok) { $hits += $i }
+            }
+        }
+        if ($hits.Count -ne $cnt) { return @{ Status = 'cannot'; Why = ("第 {0} 段（{1}）找到 {2} 處" -f $k, [string]$e.why, $hits.Count) } }
+        foreach ($i in $hits) {
+            if ([string]$e.kind -eq 'sub' -and (Get-OccurCount $lines[$i] ([string]$e.find)) -ne 1) { return @{ Status = 'cannot'; Why = ("第 {0} 段（{1}）那一行裡找不到要換的字" -f $k, [string]$e.why) } }
+            if (@('sub', 'replace', 'insertBefore', 'insertAfter') -notcontains [string]$e.kind) { return @{ Status = 'cannot'; Why = "不認得的改法 $($e.kind)" } }
+            [void]$plan.Add([pscustomobject]@{ I = $i; N = $n; E = $e })
+        }
+    }
+    $spans = @($plan | ForEach-Object { $len = 0; if (@('replace', 'sub') -contains [string]$_.E.kind) { $len = $_.N }; [pscustomobject]@{ A = $_.I; B = $_.I + $len } } | Sort-Object A, B)
+    for ($t = 1; $t -lt $spans.Count; $t++) { if ($spans[$t - 1].B -gt $spans[$t].A) { return @{ Status = 'cannot'; Why = '補丁裡有兩段改到同一個地方' } } }
+    $rank = @{ 'insertBefore' = 0; 'replace' = 1; 'sub' = 1; 'insertAfter' = 2 }
+    $ordered = @($plan | Sort-Object @{ Expression = { $_.I }; Descending = $true }, @{ Expression = { $rank[[string]$_.E.kind] }; Descending = $true })
+    foreach ($p in $ordered) {
+        $e = $p.E; $i = $p.I
+        switch ([string]$e.kind) {
+            'sub' {
+                $f = [string]$e.find; $at = $lines[$i].IndexOf($f, [StringComparison]::Ordinal)
+                $lines[$i] = $lines[$i].Substring(0, $at) + [string]$e.repl + $lines[$i].Substring($at + $f.Length)
+            }
+            'replace' { $lines.RemoveRange($i, $p.N); $lines.InsertRange($i, (Split-NewText ([string]$e.text))) }
+            'insertBefore' { $lines.InsertRange($i, (Split-NewText ([string]$e.text))) }
+            'insertAfter' { $lines.InsertRange($i + 1, (Split-NewText ([string]$e.text))) }
+        }
+    }
+    $out = [string]::Join("`n", $lines)
+    if ($crlf) { $out = $out.Replace("`n", "`r`n") }
+    return @{ Status = 'applied'; Text = $out }
+}
+# 補一個檔：回傳 'applied'／'already'／'cannot: 原因'／'nofile'
+function Invoke-PatchSpec($spec) {
+    $target = Join-Path $GameDir ([string]$spec.file)
+    if (-not (Test-Path -LiteralPath $target)) { return 'nofile' }
+    $bytes = [IO.File]::ReadAllBytes($target)
+    $bom = ($bytes.Length -ge 3 -and $bytes[0] -eq 0xEF -and $bytes[1] -eq 0xBB -and $bytes[2] -eq 0xBF)
+    $skipN = 0; if ($bom) { $skipN = 3 }
+    $text = (New-Object Text.UTF8Encoding $false).GetString($bytes, $skipN, $bytes.Length - $skipN)
+    if ($spec.marker -and $text.Contains([string]$spec.marker)) { return 'already' }
+    # 補丁寫了 maxVersion（只補到這一版）：插件比它新＝作者已經修好，不補，用作者的
+    if ($spec.maxVersion -and $spec.versionFolder) {
+        $iv = Get-Ver (Get-LocalVersion ([string]$spec.versionFolder))
+        $mv = Get-Ver ([string]$spec.maxVersion)
+        if ($iv -and $mv -and $iv -gt $mv) { return 'fixed' }
+    }
+    if ([int]$spec.format -eq 2) { $r = Invoke-PatchV2 $spec $text } else { $r = Invoke-PatchV1 $spec $text }
+    if ($r.Status -ne 'applied') { return ('cannot: ' + $r.Why) }
     $bakDir = Join-Path $Here ('本機補丁\補之前的原檔\' + $script:Stamp)
     New-Item -ItemType Directory -Path $bakDir -Force | Out-Null
-    Copy-Item -LiteralPath $target -Destination (Join-Path $bakDir (Split-Path -Leaf $target)) -Force
-    [IO.File]::WriteAllText($target, $text, (New-Object Text.UTF8Encoding $bom))
-    Add-Result $name '' '' "本機補丁：補上了（補之前的原檔在 插件更新\本機補丁\補之前的原檔\$($script:Stamp)\）" 'Green'
+    $bakFile = Join-Path $bakDir (Split-Path -Leaf $target)
+    if (-not (Test-Path -LiteralPath $bakFile)) { Copy-Item -LiteralPath $target -Destination $bakFile }
+    [IO.File]::WriteAllText($target, $r.Text, (New-Object Text.UTF8Encoding $bom))
+    return 'applied'
+}
+function Invoke-LocalPatch($p) {
+    $name = [string]$p.name
+    $specPath = Join-Path $Here ([string]$p.patch)
+    if (-not (Test-Path -LiteralPath $specPath)) { Add-Result $name '' '' "本機補丁：找不到補丁檔 $($p.patch)" 'Yellow'; return }
+    $spec = Get-Content -LiteralPath $specPath -Raw -Encoding UTF8 | ConvertFrom-Json
+    if ($spec.id -and $script:RetiredPatchIds.ContainsKey(([string]$spec.id).ToLower())) { Add-Result $name '' '' '本機補丁：線上把這個補丁停用了（作者已經修好），這裡也不補' 'DarkGray'; return }
+    if ($spec.id -and $script:SharedPatchIds.ContainsKey(([string]$spec.id).ToLower())) { Add-Result $name '' '' '本機補丁：線上有一樣的共用補丁，用共用的（這個不再單獨補）' 'DarkGray'; return }
+    $st = Invoke-PatchSpec $spec
+    if ($st -eq 'fixed') { Add-Result $name '' '' '本機補丁：插件作者的新版已經修好，不用補了' 'DarkGray'; return }
+    if ($st -eq 'nofile') { Add-Result $name '' '' '本機補丁：要補的檔案不在（插件沒裝？），跳過' 'DarkGray' }
+    elseif ($st -eq 'already') { Add-Result $name '' '' '本機補丁：補著（不用再補）' 'DarkGray' }
+    elseif ($st -eq 'applied') { Add-Result $name '' '' "本機補丁：補上了（補之前的原檔在 插件更新\本機補丁\補之前的原檔\$($script:Stamp)\）" 'Green' }
+    else { Add-Result $name '' '' ("本機補丁套不上：作者改了這段程式，這次沒有補，檔案沒動（原本的問題會回來）。跟 Claude 說「補丁套不上」。" + $st.Substring(8)) 'Yellow' }
+}
+function Invoke-SharedPatch($meta) {
+    $name = '共用補丁：' + [string]$meta.name
+    $tmp = New-TempDir
+    $f = Join-Path $tmp 'patch.json'
+    Save-Download ([string]$meta.url) $f
+    $hash = (Get-FileHash -LiteralPath $f -Algorithm SHA256).Hash
+    if ($meta.sha256 -and $hash -ine [string]$meta.sha256) { Add-Result $name '' '' '補丁檔的檢查碼跟清單不一樣（GitHub 可能還在更新），這次沒補，檔案沒動' 'Yellow'; return }
+    $spec = [IO.File]::ReadAllText($f, [Text.Encoding]::UTF8) | ConvertFrom-Json
+    $st = Invoke-PatchSpec $spec
+    if ($st -eq 'nofile') { return }   # 沒裝那個插件：不用補，也不提
+    elseif ($st -eq 'fixed') { Add-Result $name '' '' '插件作者的新版已經修好，不用補了（用作者的）' 'DarkGray' }
+    elseif ($st -eq 'already') { Add-Result $name '' '' '補著（不用再補）' 'DarkGray' }
+    elseif ($st -eq 'applied') { Add-Result $name '' '' "補上了（補之前的原檔在 插件更新\本機補丁\補之前的原檔\$($script:Stamp)\）" 'Green' }
+    else { Add-Result $name '' '' ("套不上：插件作者改了這段程式，這次沒補，檔案沒動（原本的問題會回來）；等補丁跟著更新。" + $st.Substring(8)) 'Yellow' }
+}
+$script:SharedPatchIds = @{}
+$script:RetiredPatchIds = @{}
+$skipP = @{}
+foreach ($s in @($config.skipPatches)) { if ($s) { $skipP[([string]$s).ToLower()] = $true } }
+if ($config.sharedPatches -ne $false) {
+    foreach ($m in @($sharedPatchList)) {
+        if (-not $m -or -not $m.id -or (-not $m.url -and -not $m.retired)) { continue }
+        $id = ([string]$m.id).ToLower()
+        if ($m.retired) { $script:RetiredPatchIds[$id] = $true; continue }   # 停用的（作者修好了）：不補、不提
+        if ($skipP.ContainsKey($id) -or $script:SharedPatchIds.ContainsKey($id)) { continue }
+        $script:SharedPatchIds[$id] = $true
+        try { Invoke-SharedPatch $m } catch { Add-Result ('共用補丁：' + [string]$m.name) '' '' "出錯，檔案沒動：$($_.Exception.Message)" 'Yellow' }
+    }
 }
 foreach ($p in @($config.localPatches)) {
     if (-not $p -or -not $p.patch) { continue }
