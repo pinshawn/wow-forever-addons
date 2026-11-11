@@ -149,7 +149,16 @@ local function placeButton()
     toggleButton:ClearAllPoints()
     toggleButton:SetPoint("LEFT", label, "RIGHT", 6, 0)
     styleButton()
-    if header:IsShown() then toggleButton:Show() else toggleButton:Hide() end
+    if header:IsShown() then
+        toggleButton:Show()
+        -- 讓 Questie 算追蹤框寬度時把這個按鈕也算進去：Questie 每次更新都先重設標題寬度、再用它當追蹤框最小寬度，
+        -- 不加的話，任務少、追蹤框變窄時，按鈕會超出框外（框靠右放時會被螢幕右邊切掉）。
+        local bw = toggleButton:GetWidth() or 0
+        local hw = header:GetWidth() or 0
+        if bw > 0 and hw > 0 then header:SetWidth(hw + bw + 6) end
+    else
+        toggleButton:Hide()
+    end
 end
 
 if type(TrackerHeaderFrame.Update) == "function" then
