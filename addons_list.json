@@ -18,7 +18,8 @@
       "repo": "cjber/shortest-path-forever",
       "asset": "-forever\\.zip$",
       "folders": [
-        "ShortestPathForever"
+        "ShortestPathForever",
+        "ForeverCore"
       ]
     },
     {
