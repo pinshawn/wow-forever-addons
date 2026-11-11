@@ -7,6 +7,7 @@
 | `AAA_NowarSansSwitch` | 有愛黑體切換 | 整個遊戲（包含插件）的字換成有愛黑體；插件裡的簡體字轉繁體（台灣用字）；小地圖「字」圓鈕開關 |
 | `OneForAll_zhTW` | OneForAll 繁體中文包 | 把 OneForAll 的介面、地城、任務、物品名稱換成繁體中文（要先裝 OneForAll） |
 | `QuestieZoneOnly` | Questie 只顯示這一區 | Questie 任務追蹤只列你所在區域的任務，標題旁 [只看這區] 切換（要先裝 Questie） |
+| `!Details_zhTW` | Details! 繁體中文 | Details!（傷害統計）的介面翻成繁體中文，我們自己翻的；不改 Details! 本體（要先裝 Details!） |
 
 ## 線上清單 `addons_list.json`
 
@@ -25,4 +26,5 @@
 
 - 有愛黑體切換：字型是 Nowar Sans（有愛黑體）1.0.1 改成 TrueType 外框的版本，依 SIL Open Font License 1.1（`AAA_NowarSansSwitch/Fonts/LICENSE.txt`）散布；依授權，字型名稱改成「WCHei TW TT」，不使用原本的保留名稱。簡轉繁資料取自 OpenCC，Apache License 2.0（`AAA_NowarSansSwitch/OpenCC-LICENSE.txt`）。
 - OneForAll 繁體中文包、Questie 只顯示這一區：GPL-3.0（各資料夾的 `LICENSE.txt`）。
+- Details! 繁體中文：中文翻譯是我們自己翻的，可以自由分享；檔案裡只有 Details! 字串的代號和我們的中文，沒有 Details! 的程式碼和英文原文（Details! 本體是作者 Tercioo 的作品，保留所有權利）。內附的 LibStub、AceLocale-3.0 來自 Ace3（BSD 式授權，`!Details_zhTW/Libs/Ace3-LICENSE.txt`）。
 - 免費分享，不得販售。

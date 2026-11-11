@@ -1,0 +1,42 @@
+Details! 繁體中文 v0.1.0（給魔獸世界：永恆 / WoW Forever）
+================================================================
+
+這是什麼
+  Details!（傷害統計）從作者 GitHub 下載的版本沒有中文。
+  這個資料夾是另外一個小插件，把 Details! 的介面文字換成繁體中文（共 1424 句）。
+  中文是我們自己翻的，不是 CurseForge 上的社群翻譯。
+  不改 Details! 本體，所以 Details! 更新後照樣能用
+  （新版多出來的新句子會先顯示英文，等這個包更新）。
+
+怎麼裝
+  有用「插件更新」的話不用自己裝：它會跟 Details! 一起裝、一起更新。
+  自己裝的話：
+  1. 先裝好 Details!。
+  2. 把整個「!Details_zhTW」資料夾放進：
+       World of Warcraft\_forever_\Interface\AddOns\
+     放好後應該是 ...\AddOns\!Details_zhTW\!Details_zhTW.toc
+  3. 進遊戲，角色選擇畫面左下「插件」裡確認「Details! 繁體中文」有勾。
+
+想用 CurseForge 的社群繁中
+  從 CurseForge 下載的 Details! 本身帶社群繁中。這個包裝著的時候用我們的翻譯；
+  在插件清單把「Details! 繁體中文」取消勾選，就會改用社群繁中（如果有的話）。
+
+用詞
+  戰鬥段（segment）、總計（overall）、統計類型（attribute）、列（bar）、
+  外觀主題（skin）、模組（plugin）、滑鼠提示（tooltip）、背景圖（wallpaper）、
+  每秒傷害（DPS）、每秒治療（HPS）、斷法（interrupt）、驅散（dispel）、小怪（trash）。
+  斜線指令維持英文（/details show、/details hide…），比較好打。
+
+已知限制
+  - 歌詞那一句不翻，維持英文。
+  - Details! 的模組（首領戰細節、仇恨表等）有自己的文字，這一版還沒翻。
+  - 這個包沒辦法在遊戲裡實際測過；看到沒翻到、翻錯、或畫面跑版，截圖告訴我。
+
+改版紀錄
+  v0.1.0  第一版：Details! 本體 1,470 句裡翻了 1424 句（其餘是空白、指令字和歌詞）。
+
+授權
+  - 中文翻譯：我們自己翻的，可以自由給朋友使用、修改、分享。
+    Details! 本體是作者 Tercioo 的作品（保留所有權利），這個包裡沒有它的程式碼和英文原文；
+    如果作者不希望有這個翻譯包，我們就拿下來。
+  - Libs\LibStub、Libs\AceLocale-3.0 來自 Ace3（BSD 式授權），授權全文在 Libs\Ace3-LICENSE.txt。

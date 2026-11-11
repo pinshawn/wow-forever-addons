@@ -12,8 +12,11 @@
 #       （檢查碼要對、讀得懂、版本號要對才換），舊的留在 舊版_v<版本>\，換好用新的從頭跑一次。
 # v1.3.6：共用補丁：線上清單的 patches 列的補丁大家都會補（不放原作者程式碼的 format 2）；
 #       addons.json 可以寫 sharedPatches: false 或 skipPatches 不要。
+# v1.3.7：curseforge-assist：只在 CurseForge 的插件（例：Details），看作者 GitHub 的版本號，有新版就幫你打開
+#       CurseForge 下載頁（下載會自己開始），等下載好就裝。
+#       github-source：作者 GitHub 只有原始碼的（例：Details），自己組裝（搬附加、填版本號），完全不經過 CurseForge。
 
-$UpdaterVersion = '1.3.6'
+$UpdaterVersion = '1.3.7'
 $SelfPath = $MyInvocation.MyCommand.Path
 $ErrorActionPreference = 'Stop'
 $ProgressPreference = 'SilentlyContinue'   # 不顯示下載進度條（PowerShell 5.1 顯示進度條會慢很多）
@@ -710,6 +713,194 @@ function Update-Manual($entry, $state) {
     Add-Result $name $localStr '?' "只在 CurseForge，查不到新版。要更新：打開 $($entry.page) 按 Download，下載好再雙擊一次就會自動裝" 'Cyan'
 }
 
+# 只在 CurseForge、但作者把程式放在 GitHub 的插件（例：Details）：半自動（v1.3.7 起）
+# ・看作者 GitHub 上的版本號（check.url 裡用 check.pattern 抓數字），跟本機那個檔（check.localFile）比
+# ・「下載」資料夾已經有比較新的 zip → 直接裝
+# ・有新版、下載資料夾沒有 → 幫你打開 CurseForge 下載頁（download），下載會自己開始；等它下載好就裝
+#   同一個新版只會自動打開一次；沒等到就說「下載好再雙擊一次」
+function Open-Url([string]$url) { Start-Process $url }
+function Get-NumberFrom([string]$text, [string]$pattern) {
+    if (-not $text) { return $null }
+    $m = [regex]::Match($text, $pattern)
+    if (-not $m.Success) { return $null }
+    $n = 0L
+    if ([long]::TryParse($m.Groups[1].Value, [ref]$n)) { return $n }
+    return $null
+}
+function Find-NewerZip($entry, $localVer, [datetime]$since) {
+    $dl = Get-DownloadsDir
+    $best = $null
+    $zips = @(Get-ChildItem -LiteralPath $dl -Filter '*.zip' -File -ErrorAction SilentlyContinue |
+        Where-Object { $_.LastWriteTime -gt (Get-Date).AddDays(-60) -and $_.LastWriteTime -ge $since -and $_.Length -lt 300MB })
+    foreach ($zf in $zips) {
+        $v = Get-ZipAddonVersion $zf.FullName $entry.folders[0]
+        $vv = Get-Ver $v
+        if ($vv -and ((-not $localVer) -or $vv -gt $localVer) -and ((-not $best) -or $vv -gt $best.Ver)) {
+            $best = [pscustomobject]@{ File = $zf; Str = $v; Ver = $vv }
+        }
+    }
+    return $best
+}
+function Install-FromZip($entry, $z, $localStr, $localVer) {
+    Say "  從下載資料夾裝 $($entry.name) $($z.Str)（$($z.File.Name)）…"
+    $tmp = New-TempDir
+    $ex = Join-Path $tmp 'x'
+    Expand-Zip $z.File.FullName $ex
+    $note = Install-Folders $entry $ex
+    $notes = Get-NotesSafe { Get-NotesFromFolder (Join-Path $script:AddOns $entry.folders[0]) $localVer $z.Ver }
+    Add-Result $entry.name $localStr $z.Str ((Get-DoneWord $localStr) + "（從下載資料夾的 $($z.File.Name)）" + $note) 'Green' $notes
+}
+function Update-CurseForgeAssist($entry, $state) {
+    $name = $entry.name
+    $localStr = Get-LocalVersion $entry.folders[0]
+    $localVer = Get-Ver $localStr
+    # 1. 下載資料夾已經有比較新的
+    $z = Find-NewerZip $entry $localVer ([datetime]::MinValue)
+    if ($z) { Install-FromZip $entry $z $localStr $localVer; return }
+    # 2. 看作者 GitHub 上的版本號
+    $remoteNum = $null
+    try { $remoteNum = Get-NumberFrom (Get-Text ([string]$entry.check.url)) ([string]$entry.check.pattern) } catch { }
+    $localNum = $null
+    if ($localStr -and $entry.check.localFile) {
+        $lf = Join-Path $script:AddOns ([string]$entry.check.localFile)
+        if (Test-Path -LiteralPath $lf) { $localNum = Get-NumberFrom ([IO.File]::ReadAllText($lf)) ([string]$entry.check.pattern) }
+    }
+    if (-not $remoteNum) {
+        Add-Result $name $localStr '?' "查不到作者 GitHub 上的版本號，這次不檢查。要更新：打開 $($entry.page) 按 Download，下載好再雙擊一次" 'Yellow'
+        return
+    }
+    if ($localStr -and $localNum -and $remoteNum -le $localNum) { Add-Result $name $localStr "第 $remoteNum 版" '已經是最新' 'DarkGray'; return }
+    $key = 'cfassist|' + $entry.folders[0]
+    $what = "第 $remoteNum 版"
+    if ([string]$state.$key -eq [string]$remoteNum) {
+        Add-Result $name $localStr $what "有新版，之前幫你打開過下載頁。下載好再雙擊一次就會裝（下載頁：$($entry.download)）" 'Cyan'
+        return
+    }
+    $state | Add-Member -NotePropertyName $key -NotePropertyValue ([string]$remoteNum) -Force
+    $since = (Get-Date).AddSeconds(-5)
+    if ($localStr) { Say "  $name 有新版（$what），幫你打開 CurseForge 的下載頁，下載會自己開始…" 'Cyan' }
+    else { Say "  幫你裝 $name：打開 CurseForge 的下載頁，下載會自己開始…" 'Cyan' }
+    try { Open-Url ([string]$entry.download) } catch { Add-Result $name $localStr $what "打不開瀏覽器：請自己打開 $($entry.download)，下載好再雙擊一次" 'Yellow'; return }
+    $wait = 120; if ($env:ADDON_UPDATER_WAIT) { $wait = [int]$env:ADDON_UPDATER_WAIT }
+    $t0 = Get-Date
+    while (((Get-Date) - $t0).TotalSeconds -lt $wait) {
+        Start-Sleep -Seconds 2
+        $z = Find-NewerZip $entry $localVer $since
+        if ($z) { Start-Sleep -Seconds 1; Install-FromZip $entry $z $localStr $localVer; return }
+    }
+    Add-Result $name $localStr $what "等了 $wait 秒還沒看到下載好的檔。瀏覽器下載好以後，再雙擊一次就會裝（下載頁：$($entry.download)）" 'Cyan'
+}
+
+# 作者把程式放在 GitHub、成品只在別的網站發布的插件（例：Details）：從作者 GitHub 的原始碼自己組裝（v1.3.7 起）
+# 跟作者的發布工具做一樣的事：附加的資料夾搬到外面（layout）、填版本號、debug 區塊註解掉
+# entry：repo、branch、check{file, pattern}（看哪個檔的版本號）、layout{資料夾: repo 裡的路徑（"" = 整個 repo）}、
+#        keepIfStub（新的那個檔是空殼、舊的有內容就留舊的，例：翻譯檔）
+# 下載資料夾有作者正式版的 zip、而且不比 GitHub 舊，就用正式版
+function Get-ZipEntryText([string]$zipPath, [string]$entryPath) {
+    $z = $null
+    try {
+        $z = [IO.Compression.ZipFile]::Open($zipPath, [IO.Compression.ZipArchiveMode]::Read, [Text.Encoding]::UTF8)
+        $want = $entryPath.Replace('\', '/')
+        foreach ($e in $z.Entries) {
+            if ($e.FullName.Replace('\', '/') -ieq $want) {
+                $sr = New-Object IO.StreamReader($e.Open(), [Text.Encoding]::UTF8)
+                $t = $sr.ReadToEnd(); $sr.Close(); return $t
+            }
+        }
+        return $null
+    } catch { return $null }
+    finally { if ($z) { $z.Dispose() } }
+}
+function Get-LineCount([string]$path) {
+    if (-not (Test-Path -LiteralPath $path)) { return 0 }
+    return @([IO.File]::ReadAllLines($path)).Count
+}
+function Update-GitHubSource($entry, $state) {
+    $name = $entry.name
+    $main = [string]$entry.folders[0]
+    $localStr = Get-LocalVersion $main
+    $pattern = [string]$entry.check.pattern
+    $branch = [string]$entry.branch; if (-not $branch) { $branch = 'main' }
+    $remoteNum = Get-NumberFrom (Get-Text "https://raw.githubusercontent.com/$($entry.repo)/$branch/$($entry.check.file)") $pattern
+    if (-not $remoteNum) { Add-Result $name $localStr '' '看不懂 GitHub 上的版本號，略過（原本的沒動）' 'Yellow'; return }
+    $what = "第 $remoteNum 版"
+    $localNum = $null
+    $lf = Join-Path (Join-Path $script:AddOns $main) ([string]$entry.check.file)
+    if (Test-Path -LiteralPath $lf) { $localNum = Get-NumberFrom ([IO.File]::ReadAllText($lf)) $pattern }
+    $localWhat = $localStr; if ($localNum) { $localWhat = "第 $localNum 版" }
+    # 下載資料夾的作者正式版 zip
+    $best = $null
+    $dl = Get-DownloadsDir
+    foreach ($zf in @(Get-ChildItem -LiteralPath $dl -Filter '*.zip' -File -ErrorAction SilentlyContinue | Where-Object { $_.LastWriteTime -gt (Get-Date).AddDays(-60) -and $_.Length -lt 300MB })) {
+        $n = Get-NumberFrom (Get-ZipEntryText $zf.FullName ("$main/" + [string]$entry.check.file)) $pattern
+        if ($n -and $n -ge $remoteNum -and ((-not $localNum) -or $n -gt $localNum) -and ((-not $best) -or $n -gt $best.N)) { $best = [pscustomobject]@{ File = $zf; N = $n } }
+    }
+    if ($best) {
+        Say "  從下載資料夾裝 $name 第 $($best.N) 版（作者正式版 $($best.File.Name)）…"
+        $tmp = New-TempDir; $ex = Join-Path $tmp 'x'
+        Expand-Zip $best.File.FullName $ex
+        $note = Install-Folders $entry $ex
+        Add-Result $name $localWhat "第 $($best.N) 版" ((Get-DoneWord $localStr) + "（從下載資料夾的 $($best.File.Name)）" + $note) 'Green'
+        return
+    }
+    $lack = @(Get-MissingDeps $main)
+    if ($localNum -and $remoteNum -le $localNum -and $lack.Count -eq 0) { Add-Result $name $localWhat $what '已經是最新' 'DarkGray'; return }
+
+    Say "  下載 $name $what（作者 GitHub 的原始碼）…"
+    $tmp = New-TempDir
+    $zip = Join-Path $tmp 'download.zip'
+    Save-Download "https://github.com/$($entry.repo)/archive/refs/heads/$branch.zip" $zip
+    $ex = Join-Path $tmp 'x'
+    Expand-Zip $zip $ex
+    $roots = @(Get-ChildItem -LiteralPath $ex -Directory)
+    if ($roots.Count -ne 1) { throw '下載的原始碼格式看不懂（最上層不是一個資料夾）' }
+    $root = $roots[0].FullName
+    Say "  組裝 $name…"
+    $stage = Join-Path $tmp 'build'
+    New-Item -ItemType Directory -Path $stage -Force | Out-Null
+    $moved = @()
+    foreach ($f in @($entry.folders)) {
+        $rel = [string]$entry.layout.$f
+        $src = $root; if ($rel) { $src = Join-Path $root ($rel.Replace('/', '\')) }
+        if (-not (Test-Path -LiteralPath $src)) { continue }
+        Copy-Item -LiteralPath $src -Destination (Join-Path $stage $f) -Recurse
+        if ($rel) { $moved += $rel.Replace('/', '\') }
+    }
+    $mainStage = Join-Path $stage $main
+    if (-not (Test-Path -LiteralPath $mainStage)) { throw "原始碼裡找不到主資料夾 $main" }
+    # 主資料夾是整個 repo 時：搬出去的附加，主資料夾裡那一份刪掉（作者的發布工具也是這樣）
+    if (-not [string]$entry.layout.$main) {
+        foreach ($m in $moved) { $p = Join-Path $mainStage $m; if (Test-Path -LiteralPath $p) { Remove-Item -LiteralPath $p -Recurse -Force } }
+    }
+    # 開頭是「.」的（.git、.github、.pkgmeta 這種開發用的）拿掉，作者的發布工具也不放
+    foreach ($d in @(Get-ChildItem -LiteralPath $stage -Recurse -Force | Where-Object { $_.Name.StartsWith('.') } | Sort-Object { $_.FullName.Length } -Descending)) {
+        if (Test-Path -LiteralPath $d.FullName) { Remove-Item -LiteralPath $d.FullName -Recurse -Force }
+    }
+    # 填版本號、debug 區塊註解掉
+    $ver = "GitHub-$remoteNum"
+    foreach ($t in @(Get-ChildItem -LiteralPath $stage -Filter '*.toc' -File -Recurse)) {
+        $s = [IO.File]::ReadAllText($t.FullName)
+        if ($s.Contains('@project-version@')) { [IO.File]::WriteAllText($t.FullName, $s.Replace('@project-version@', $ver), (New-Object Text.UTF8Encoding $false)) }
+    }
+    foreach ($l in @(Get-ChildItem -LiteralPath $stage -Filter '*.lua' -File -Recurse)) {
+        $s = [IO.File]::ReadAllText($l.FullName)
+        if ($s.Contains('--@debug@')) {
+            $s = $s.Replace('--@end-debug@', '--@end-debug@]==]').Replace('--@debug@', '--[==[@debug@')
+            [IO.File]::WriteAllText($l.FullName, $s, (New-Object Text.UTF8Encoding $false))
+        }
+    }
+    # 新的是空殼、舊的有內容（例：之前裝的正式版的翻譯）→ 留舊的
+    $kept = @()
+    foreach ($k in @($entry.keepIfStub)) {
+        if (-not $k) { continue }
+        $old = Join-Path $script:AddOns $k; $new = Join-Path $stage $k
+        if ((Get-LineCount $old) -gt 5 -and (Get-LineCount $new) -le 5) { Copy-Item -LiteralPath $old -Destination $new -Force; $kept += (Split-Path -Leaf $k) }
+    }
+    $note = Install-Folders $entry $stage
+    if ($kept.Count -gt 0) { $note += "（留著原本的 $($kept -join '、')）" }
+    Add-Result $name $localWhat $what ((Get-DoneWord $localStr) + '（作者 GitHub 的原始碼，自己組裝）' + $note) 'Green'
+}
+
 # ---------------------------------------------------------------------------
 # 更新程式自己更新（v1.3.5 起）
 # 線上清單寫 "updater": { "version": "1.3.6", "files": [{ "path": "插件更新/update_addons.ps1", "url": ..., "sha256": ... }], "notes": [...] }
@@ -889,6 +1080,8 @@ foreach ($entry in $entries) {
             'json-manifest' { Update-JsonManifest $entry $state }
             'bundled' { Update-Bundled $entry $state }
             'manual' { Update-Manual $entry $state }
+            'curseforge-assist' { Update-CurseForgeAssist $entry $state }
+            'github-source' { Update-GitHubSource $entry $state }
             default { Add-Result $entry.name '' '' "不認得的 type：$($entry.type)" 'Yellow' }
         }
     } catch {

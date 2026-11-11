@@ -1,0 +1,10 @@
+## Interface: 16001
+## Title: Details! |cff66ccff繁體中文|r
+## Notes: Details!（傷害統計）的繁體中文翻譯，我們自己翻的。不修改 Details! 本體，Details! 更新後照樣能用。
+## Author: wow-forever-addons
+## Version: 0.1.0
+## X-Website: https://github.com/pinshawn/wow-forever-addons
+
+Libs\LibStub\LibStub.lua
+Libs\AceLocale-3.0\AceLocale-3.0.lua
+Details-zhTW.lua

@@ -1,19 +1,19 @@
 {
-  "說明": "插件自動更新（v1.3 起）每次都會先讀這份清單：這裡新加的插件會自己加進每個人的更新清單；跟本機 addons.json 同一個主資料夾的，用這裡的寫法。type：github-release＝作者在 GitHub 發布版本；github-branch＝作者把每一版放在 GitHub 分支（看 .toc 的版本號）；json-manifest＝作者自己網站公布的版本清單（有版本號、下載網址、檢查碼）；manual＝只在 CurseForge，要自己按下載，下載好再雙擊一次會從「下載」資料夾自動裝；own＝自己做的，不檢查。autoInstall＝沒裝也幫你裝；needs＝要先有哪個插件才裝。",
+  "說明": "插件自動更新（v1.3 起）每次都會先讀這份清單：這裡新加的插件會自己加進每個人的更新清單；跟本機 addons.json 同一個主資料夾的，用這裡的寫法。type：github-release＝作者在 GitHub 發布版本；github-branch＝作者把每一版放在 GitHub 分支（看 .toc 的版本號）；json-manifest＝作者自己網站公布的版本清單（有版本號、下載網址、檢查碼）；manual＝只在 CurseForge，要自己按下載，下載好再雙擊一次會從「下載」資料夾自動裝；own＝自己做的，不檢查。autoInstall＝沒裝也幫你裝；needs＝要先有哪個插件才裝。github-source＝作者 GitHub 只有原始碼的（例：Details）：從作者 GitHub 下載原始碼自己組裝（搬附加資料夾、填版本號），不經過 CurseForge。",
   "notice": "",
   "updater": {
-    "version": "1.3.6",
+    "version": "1.3.7",
     "files": [
       {
         "path": "插件更新/update_addons.ps1",
         "url": "https://raw.githubusercontent.com/pinshawn/wow-forever-addons/main/updater/update_addons.ps1",
-        "sha256": "9510808e5c309a895f9ce2b1a6aae0221862a18bc3307f867c12c1f82d2f4196"
+        "sha256": "6539db6df264608261929031680033697426f777a7cc06acde83a220f8e43fc3"
       }
     ],
     "notes": [
+      "v1.3.7：Details 直接從作者 GitHub 下載、自己組裝、自己更新，完全不經過 CurseForge；另外會一起裝我們自己翻的 Details 繁體中文",
       "v1.3.6：可以收「共用補丁」（我們修好的別人插件的問題），朋友雙擊就會自己補上；作者自己修好了，補丁就停用、用作者的",
-      "v1.3.5：更新程式以後會自己更新，不用再拿新的一包",
-      "v1.3.4：插件要的前置插件（例：導航要的 ForeverCore）會一起裝；缺了會用紅字說"
+      "v1.3.5：更新程式以後會自己更新，不用再拿新的一包"
     ]
   },
   "patches": [
@@ -122,6 +122,54 @@
       ],
       "needs": [
         "Questie"
+      ],
+      "autoInstall": true
+    },
+    {
+      "name": "Details!（傷害統計，8 個資料夾）",
+      "type": "github-source",
+      "repo": "Tercioo/Details-Damage-Meter",
+      "branch": "master",
+      "check": {
+        "file": "boot.lua",
+        "pattern": "build_counter\\s*=\\s*(\\d+)"
+      },
+      "layout": {
+        "Details": "",
+        "Details_DataStorage": "plugins/Details_DataStorage",
+        "Details_EncounterDetails": "plugins/Details_EncounterDetails",
+        "Details_RaidCheck": "plugins/Details_RaidCheck",
+        "Details_Streamer": "plugins/Details_Streamer",
+        "Details_TinyThreat": "plugins/Details_TinyThreat",
+        "Details_Vanguard": "plugins/Details_Vanguard",
+        "Details_Compare2": "plugins/Details_Compare2"
+      },
+      "keepIfStub": [
+        "Details\\locales\\Details-zhTW.lua",
+        "Details\\locales\\Details-zhCN.lua"
+      ],
+      "folders": [
+        "Details",
+        "Details_DataStorage",
+        "Details_EncounterDetails",
+        "Details_RaidCheck",
+        "Details_Streamer",
+        "Details_TinyThreat",
+        "Details_Vanguard",
+        "Details_Compare2"
+      ],
+      "autoInstall": true
+    },
+    {
+      "name": "Details! 繁體中文（我們自己翻的）",
+      "type": "github-branch",
+      "repo": "pinshawn/wow-forever-addons",
+      "toc": "!Details_zhTW/!Details_zhTW.toc",
+      "folders": [
+        "!Details_zhTW"
+      ],
+      "needs": [
+        "Details"
       ],
       "autoInstall": true
     }
