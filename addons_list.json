@@ -1,16 +1,17 @@
 {
-  "說明": "插件自動更新（v1.3 起）每次都會先讀這份清單：這裡新加的插件會自己加進每個人的更新清單；跟本機 addons.json 同一個主資料夾的，用這裡的寫法。type：github-release＝作者在 GitHub 發布版本；github-branch＝作者把每一版放在 GitHub 分支（看 .toc 的版本號）；json-manifest＝作者自己網站公布的版本清單（有版本號、下載網址、檢查碼）；manual＝只在 CurseForge，要自己按下載，下載好再雙擊一次會從「下載」資料夾自動裝；own＝自己做的，不檢查。autoInstall＝沒裝也幫你裝；needs＝要先有哪個插件才裝。github-source＝作者 GitHub 只有原始碼的（例：Details）：從作者 GitHub 下載原始碼自己組裝（搬附加資料夾、填版本號），不經過 CurseForge。",
+  "說明": "插件自動更新（v1.3 起）每次都會先讀這份清單：這裡新加的插件會自己加進每個人的更新清單；跟本機 addons.json 同一個主資料夾的，用這裡的寫法。type：github-release＝作者在 GitHub 發布版本；github-branch＝作者把每一版放在 GitHub 分支（看 .toc 的版本號）；json-manifest＝作者自己網站公布的版本清單（有版本號、下載網址、檢查碼）；manual＝只在 CurseForge，要自己按下載，下載好再雙擊一次會從「下載」資料夾自動裝；own＝自己做的，不檢查。autoInstall＝沒裝也幫你裝；needs＝要先有哪個插件才裝。github-source＝作者 GitHub 只有原始碼的（例：Details）：從作者 GitHub 下載原始碼自己組裝（搬附加資料夾、填版本號），不經過 CurseForge。github-tag＝作者每一版在 GitHub 打版本標籤（例：ProcDoc）：照最新的標籤下載、填版本號（v1.3.8 起）。optional＝給要的人用的：installMissing 也不會自己裝，自己先放一次之後才幫你更新（v1.3.8 起）。",
   "notice": "",
   "updater": {
-    "version": "1.3.7",
+    "version": "1.3.8",
     "files": [
       {
         "path": "插件更新/update_addons.ps1",
         "url": "https://raw.githubusercontent.com/pinshawn/wow-forever-addons/main/updater/update_addons.ps1",
-        "sha256": "6539db6df264608261929031680033697426f777a7cc06acde83a220f8e43fc3"
+        "sha256": "70f24289dda42fe3682f67c859969455a622778a2694f1198cad4933429ab29a"
       }
     ],
     "notes": [
+      "v1.3.8：新增 ProcDoc（觸發特效時畫面跳出大圖案，每個職業都有）；可以照作者 GitHub 的「版本標籤」下載；清單上標 optional 的插件不會自己裝",
       "v1.3.7：Details 直接從作者 GitHub 下載、自己組裝、自己更新，完全不經過 CurseForge；另外會一起裝我們自己翻的 Details 繁體中文",
       "v1.3.6：可以收「共用補丁」（我們修好的別人插件的問題），朋友雙擊就會自己補上；作者自己修好了，補丁就停用、用作者的",
       "v1.3.5：更新程式以後會自己更新，不用再拿新的一包"
@@ -170,6 +171,15 @@
       ],
       "needs": [
         "Details"
+      ],
+      "autoInstall": true
+    },
+    {
+      "name": "ProcDoc（觸發提示，每個職業都有）",
+      "type": "github-tag",
+      "repo": "wsmaxcy/ProcDoc",
+      "folders": [
+        "ProcDoc"
       ],
       "autoInstall": true
     }

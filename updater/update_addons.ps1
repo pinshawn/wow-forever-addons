@@ -15,8 +15,10 @@
 # v1.3.7：curseforge-assist：只在 CurseForge 的插件（例：Details），看作者 GitHub 的版本號，有新版就幫你打開
 #       CurseForge 下載頁（下載會自己開始），等下載好就裝。
 #       github-source：作者 GitHub 只有原始碼的（例：Details），自己組裝（搬附加、填版本號），完全不經過 CurseForge。
+# v1.3.8：github-tag：作者每一版在 GitHub 打一個「版本標籤」（例：ProcDoc 的 v4.18.0），照標籤下載、填版本號。
+#       optional：清單上標了的插件，就算 addons.json 寫 installMissing 也不會自己裝；要的人自己先放一次，之後才幫他更新。
 
-$UpdaterVersion = '1.3.7'
+$UpdaterVersion = '1.3.8'
 $SelfPath = $MyInvocation.MyCommand.Path
 $ErrorActionPreference = 'Stop'
 $ProgressPreference = 'SilentlyContinue'   # 不顯示下載進度條（PowerShell 5.1 顯示進度條會慢很多）
@@ -901,6 +903,92 @@ function Update-GitHubSource($entry, $state) {
     Add-Result $name $localWhat $what ((Get-DoneWord $localStr) + '（作者 GitHub 的原始碼，自己組裝）' + $note) 'Green'
 }
 
+# 作者每一版在 GitHub 打版本標籤、.toc 的版本號只在發布時才填的插件（例：ProcDoc）：照最新的標籤下載（v1.3.8 起）
+# 跟作者的發布工具做一樣的事：.pkgmeta 的 ignore 拿掉、開頭是「.」的拿掉、填版本號、debug 區塊註解掉
+# entry：repo、folders、（可以不寫）tagPattern（只看符合的標籤）、layout{主資料夾: repo 裡的路徑}（不寫＝整個 repo 就是主資料夾）
+function Get-PkgmetaIgnore([string]$file) {
+    $out = @()
+    if (-not (Test-Path -LiteralPath $file)) { return $out }
+    $in = $false
+    foreach ($line in [IO.File]::ReadAllLines($file)) {
+        if ($line -match '^\S') { $in = ($line -match '^ignore\s*:\s*$'); continue }
+        if ($in) {
+            $m = [regex]::Match($line, '^\s+-\s+(.+?)\s*$')
+            if ($m.Success) { $out += $m.Groups[1].Value.Trim('"', "'") }
+        }
+    }
+    return $out
+}
+function Update-GitHubTag($entry, $state) {
+    $name = $entry.name
+    $main = [string]$entry.folders[0]
+    $localStr = Get-LocalVersion $main
+    $localVer = Get-Ver $localStr
+    $tags = @(Get-Json "https://api.github.com/repos/$($entry.repo)/tags?per_page=100" | ForEach-Object { $_ })
+    $tag = $null; $remoteVer = $null
+    foreach ($t in $tags) {
+        $n = [string]$t.name
+        if (-not $n) { continue }
+        if ($entry.tagPattern -and $n -notmatch [string]$entry.tagPattern) { continue }
+        $v = Get-Ver $n
+        if ($v -and ((-not $remoteVer) -or $v -gt $remoteVer)) { $remoteVer = $v; $tag = $n }
+    }
+    if (-not $tag) { Add-Result $name $localStr '' '找不到作者的版本標籤，略過（原本的沒動）' 'Yellow'; return }
+    $lack = @(Get-MissingDeps $main)
+    # 本機的版本號看不懂（例：直接拿原始碼放的，寫著 @project-version@）→ 換成標籤那一版
+    if ($localVer -and $remoteVer -le $localVer) {
+        $depKey = 'deps|' + $entry.repo + '/' + $main
+        if ($lack.Count -gt 0 -and [string]$state.$depKey -ne $tag) {
+            $state | Add-Member -NotePropertyName $depKey -NotePropertyValue $tag -Force
+            Say "  $name 少了它要的 $($lack -join '、')（沒有就開不起來），重新裝一次 $tag 補上…" 'Yellow'
+        } else {
+            Add-Result $name $localStr $tag '已經是最新' 'DarkGray'; return
+        }
+    }
+    Say "  下載 $name $tag（作者 GitHub 的版本標籤）…"
+    $tmp = New-TempDir
+    $zip = Join-Path $tmp 'download.zip'
+    Save-Download "https://github.com/$($entry.repo)/archive/refs/tags/$tag.zip" $zip
+    $ex = Join-Path $tmp 'x'
+    Expand-Zip $zip $ex
+    $roots = @(Get-ChildItem -LiteralPath $ex -Directory)
+    if ($roots.Count -ne 1) { throw '下載的檔案格式看不懂（最上層不是一個資料夾）' }
+    $root = $roots[0].FullName
+    $rel = [string]$entry.layout.$main
+    $src = $root; if ($rel) { $src = Join-Path $root ($rel.Replace('/', '\')) }
+    if (-not (Test-Path -LiteralPath $src)) { throw "下載的檔案裡找不到主資料夾 $main" }
+    $stage = Join-Path $tmp 'build'
+    New-Item -ItemType Directory -Path $stage -Force | Out-Null
+    $mainStage = Join-Path $stage $main
+    Copy-Item -LiteralPath $src -Destination $mainStage -Recurse
+    # .pkgmeta 寫的 ignore（作者發布時不放進去的：說明圖、做圖的工具…）
+    foreach ($ig in @(Get-PkgmetaIgnore (Join-Path $root '.pkgmeta'))) {
+        if (-not $ig -or $ig -match '\.\.' -or [IO.Path]::IsPathRooted($ig)) { continue }
+        $p = Join-Path $mainStage ($ig.Replace('/', '\'))
+        if (Test-Path -LiteralPath $p) { Remove-Item -LiteralPath $p -Recurse -Force }
+    }
+    foreach ($d in @(Get-ChildItem -LiteralPath $stage -Recurse -Force | Where-Object { $_.Name.StartsWith('.') } | Sort-Object { $_.FullName.Length } -Descending)) {
+        if (Test-Path -LiteralPath $d.FullName) { Remove-Item -LiteralPath $d.FullName -Recurse -Force }
+    }
+    if (-not @(Get-ChildItem -LiteralPath $mainStage -Filter '*.toc' -File -ErrorAction SilentlyContinue)) { throw "下載的檔案裡 $main 沒有 .toc" }
+    foreach ($t in @(Get-ChildItem -LiteralPath $stage -Filter '*.toc' -File -Recurse)) {
+        $s = [IO.File]::ReadAllText($t.FullName)
+        if ($s.Contains('@project-version@')) { [IO.File]::WriteAllText($t.FullName, $s.Replace('@project-version@', $tag), (New-Object Text.UTF8Encoding $false)) }
+    }
+    foreach ($l in @(Get-ChildItem -LiteralPath $stage -Filter '*.lua' -File -Recurse)) {
+        $s = [IO.File]::ReadAllText($l.FullName)
+        if ($s.Contains('--@debug@')) {
+            $s = $s.Replace('--@end-debug@', '--@end-debug@]==]').Replace('--@debug@', '--[==[@debug@')
+            [IO.File]::WriteAllText($l.FullName, $s, (New-Object Text.UTF8Encoding $false))
+        }
+    }
+    $note = Install-Folders $entry $stage
+    $state | Add-Member -NotePropertyName ($entry.repo + '/' + $main) -NotePropertyValue @{ version = $tag; updated = (Get-Date -Format 'yyyy-MM-dd HH:mm') } -Force
+    $notes = Get-NotesSafe { Get-NotesFromFolder (Join-Path $script:AddOns $main) $localVer $remoteVer }
+    if ($notes.Count -eq 0) { $notes = Get-NotesSafe { Get-CommitNotes $entry $tag $localStr } }
+    Add-Result $name $localStr $tag ((Get-DoneWord $localStr) + '（作者 GitHub 的版本標籤）' + $note) 'Green' $notes
+}
+
 # ---------------------------------------------------------------------------
 # 更新程式自己更新（v1.3.5 起）
 # 線上清單寫 "updater": { "version": "1.3.6", "files": [{ "path": "插件更新/update_addons.ps1", "url": ..., "sha256": ... }], "notes": [...] }
@@ -1062,8 +1150,11 @@ foreach ($entry in $entries) {
     }
     if ($entry.type -ne 'bundled' -and -not (Test-Path -LiteralPath $mainDir)) {
         # 沒裝的：addons.json 寫 installMissing，或清單上標 autoInstall（我們自己做的）才裝
-        if (-not ($config.installMissing -or $entry.autoInstall)) {
-            Add-Result $entry.name '（沒裝）' '' '沒裝，不更新（要裝的話自己先放一次）' 'DarkGray'
+        # 清單上標 optional（v1.3.8）的：installMissing 也不裝，要的人自己先放一次
+        if (-not ($entry.autoInstall -or ($config.installMissing -and -not $entry.optional))) {
+            $why = '沒裝，不更新（要裝的話自己先放一次）'
+            if ($entry.optional) { $why = '沒裝，不更新（這個是給要的人用的：自己先放一次，之後才會幫你更新）' }
+            Add-Result $entry.name '（沒裝）' '' $why 'DarkGray'
             continue
         }
         $lack = @(@($entry.needs) | Where-Object { $_ -and -not (Test-Path -LiteralPath (Join-Path $script:AddOns $_)) })
@@ -1082,6 +1173,7 @@ foreach ($entry in $entries) {
             'manual' { Update-Manual $entry $state }
             'curseforge-assist' { Update-CurseForgeAssist $entry $state }
             'github-source' { Update-GitHubSource $entry $state }
+            'github-tag' { Update-GitHubTag $entry $state }
             default { Add-Result $entry.name '' '' "不認得的 type：$($entry.type)" 'Yellow' }
         }
     } catch {
