@@ -23,6 +23,12 @@
       "name": "無限副本手冊 職業模組：「天賦模擬」改成自己的按鈕（打怪中按 N 不再被擋）",
       "url": "https://raw.githubusercontent.com/pinshawn/wow-forever-addons/main/patches/df-class-simtab.json",
       "sha256": "9a18f53e2ae30c15b2b28c1ec0aa2e2a2b5a5f7d66ee22dbab4723602e244672"
+    },
+    {
+      "id": "spf-secret-title",
+      "name": "Shortest Path Forever：滑到小地圖時不再出錯（提示框標題是密封值就跳過）",
+      "url": "https://raw.githubusercontent.com/pinshawn/wow-forever-addons/main/patches/spf-secret-title.json",
+      "sha256": "ee461abfe9c18e6afbbd21442cefe663ab100caeff505c6b3481ffdd23859ac6"
     }
   ],
   "addons": [
