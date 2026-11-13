@@ -2,7 +2,7 @@
 ## Title: OneForAll |cff66ccff繁體中文包|r
 ## Notes: 把 OneForAll（WoW Forever 全能助手）的介面、地城、任務、物品名稱換成繁體中文。不修改 OneForAll 本體，OneForAll 更新後照樣能用。
 ## Author: OneForAll zhTW
-## Version: 0.2.2
+## Version: 0.3.0
 ## Dependencies: OneForAll
 ## SavedVariables: OneForAll_zhTW_DB
 ## X-License: GPL-3.0-or-later
