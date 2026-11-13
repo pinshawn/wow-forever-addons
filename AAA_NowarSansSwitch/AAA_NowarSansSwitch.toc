@@ -2,7 +2,7 @@
 ## Title: |cff66ccff有愛黑體切換|r
 ## Notes: 整個遊戲換成有愛黑體（插件自己指定的字型也會換）；插件裡的簡體字轉成繁體。點小地圖旁的「字」圓鈕（或輸入 /字型）打開開關視窗。
 ## Author: 有愛黑體切換
-## Version: 1.6.1
+## Version: 1.6.2
 ## SavedVariables: NowarSansSwitchDB
 ## IconTexture: Interface\AddOns\AAA_NowarSansSwitch\Media\Icon
 ## AddonCompartmentFunc: NowarSansSwitch_OnCompartmentClick

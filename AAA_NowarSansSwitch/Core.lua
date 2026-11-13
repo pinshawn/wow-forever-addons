@@ -443,10 +443,29 @@ local function onLoaded()
     end
 end
 
+-- 再設一次（v1.6.2）：11/13 實測，遊戲重建字型暫存那次，一開始回 false 的那幾個字
+-- 讀好之後沒有自己換上（測試視窗新做的字一設就讀到了，這幾個卻一直是原本的字），
+-- 結果 15 分鐘都判成「沒讀好」。讀好之後再設就馬上成功，所以每隔 2 秒對還沒換上的再設一次。
+local lastProbe
+local function reprobe(force)
+    local now = GetTime and GetTime() or 0
+    if not force and lastProbe and now - lastProbe < 2 then return end
+    lastProbe = now
+    for _, name in ipairs(TW_FILES) do
+        local rec = PRE[name]
+        if rec.exists and not isPreLoaded(name) then
+            busy = true
+            pcall(rec.fs.SetFont, rec.fs, rec.path, 12, "")
+            busy = false
+        end
+    end
+end
+
 -- 主要介面那個讀好就開始算：5 個都好了，或主要介面好了已經過 5 秒，就換上
 local mainAt
-local function poll()
+local function poll(force)
     if loaded or not ready then return end
+    reprobe(force)
     if allLoaded() then onLoaded(); return end
     if isPreLoaded("blei00d") then
         local now = GetTime and GetTime() or 0
@@ -468,10 +487,11 @@ local function slowTick()
     tries = tries + 1
     poll()
     if loaded then stopTicker(); return end
-    if tries >= 870 then   -- 加上前面 30 秒，一共 15 分鐘
-        stopTicker()
+    if tries >= 870 and not gaveUp then   -- 加上前面 30 秒，一共 15 分鐘
         gaveUp = true
-        if enabled then say("有愛黑體 15 分鐘都沒讀好。請打 /字型 測試，把視窗截圖給我。") end
+        if enabled then say("有愛黑體 15 分鐘都沒讀好。請打 /字型 測試，把視窗截圖給我（之後還是每 10 秒看一次，讀好就換上）。") end
+        stopTicker()
+        ticker = C_Timer.NewTicker(10, function() poll(); if loaded then stopTicker() end end)
     end
 end
 local function fastTick()
@@ -558,7 +578,7 @@ local SAMPLE = "測試 ABC 123 鍵位 键位 主循环 動作條 12345"
 local testWin
 
 local function showTestWindow()
-    poll()   -- 剛好讀好了就馬上換上
+    poll(true)   -- 剛好讀好了就馬上換上
     if not testWin then
         local f = CreateFrame("Frame", "NowarSansSwitchTestWindow", UIParent)
         f:SetSize(760, 300)
@@ -682,7 +702,7 @@ local function setS2T(want)   -- 簡體轉繁體：true 開、false 關、nil �
 end
 
 local function status()
-    poll()   -- 剛好讀好了就馬上換上
+    poll(true)   -- 剛好讀好了就馬上換上
     local state
     if not ready then state = "找不到字型檔"
     elseif loaded then state = ("讀好了（%.1f 秒）"):format(loadedAt or 0)
