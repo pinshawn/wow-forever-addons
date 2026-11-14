@@ -26,9 +26,10 @@
     },
     {
       "id": "spf-secret-title",
-      "name": "Shortest Path Forever：滑到小地圖時不再出錯（提示框標題是密封值就跳過）",
+      "name": "Shortest Path Forever：滑到小地圖時不再出錯（停用：作者 v1.37.0 自己修好了）",
       "url": "https://raw.githubusercontent.com/pinshawn/wow-forever-addons/main/patches/spf-secret-title.json",
-      "sha256": "ee461abfe9c18e6afbbd21442cefe663ab100caeff505c6b3481ffdd23859ac6"
+      "sha256": "ee461abfe9c18e6afbbd21442cefe663ab100caeff505c6b3481ffdd23859ac6",
+      "retired": true
     }
   ],
   "addons": [
