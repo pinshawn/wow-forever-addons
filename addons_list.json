@@ -30,6 +30,12 @@
       "url": "https://raw.githubusercontent.com/pinshawn/wow-forever-addons/main/patches/spf-secret-title.json",
       "sha256": "ee461abfe9c18e6afbbd21442cefe663ab100caeff505c6b3481ffdd23859ac6",
       "retired": true
+    },
+    {
+      "id": "questie-questlog-taint",
+      "name": "Questie：點追蹤清單的任務名字不從 Questie 開任務日誌（戰鬥中按 M 開地圖不再被擋）",
+      "url": "https://raw.githubusercontent.com/pinshawn/wow-forever-addons/main/patches/questie-questlog-taint.json",
+      "sha256": "bdeec87dc7521d2d8f1e5ed4b9e324ab3892154fbdf6bca84741e7b1e8be998d"
     }
   ],
   "addons": [

@@ -1,0 +1,20 @@
+{
+ "format": 2,
+ "id": "questie-questlog-taint",
+ "name": "Questie：點追蹤清單的任務名字不再從 Questie 開任務日誌（戰鬥中開地圖不再被擋）",
+ "file": "Interface\\AddOns\\Questie\\Modules\\Tracker\\TrackerUtils.lua",
+ "marker": "questie-questlog-taint v1",
+ "made": "2026-11-12",
+ "why": "taint.log 2026-11-11 15:48 和 16:14：Execution tainted by Questie while reading field targetScrollY → 戰鬥中開世界地圖 Button:SetPassThroughButtons() 被擋（一次 66～260 次）。來源：TrackerUtils:ShowQuestLog 從插件程式呼叫 QuestMapFrame_OpenToQuestDetails。",
+ "note": "補丁裡不放原作者的程式碼：位置用那一行的 SHA-256 認，只寫我們加的 4 行。Questie 改了那一行就整個不補、檔案不動。",
+ "edits": [
+  {
+   "kind": "insertBefore",
+   "lines": [
+    "ff3323f1f5aa21453c1af2f5ba8a1068e32805a10fb7d40dd4fc48ba52363b4e"
+   ],
+   "text": "            if Questie.IsForever then   -- [修正 questie-questlog-taint v1] 從 Questie 開任務日誌，世界地圖這次登入會被記成 Questie 動過，戰鬥中按 M 就被擋\n                Questie:Print(\"請按 L 打開任務日誌（從 Questie 點任務名字打開，世界地圖會在戰鬥中被擋）\")\n                return\n            end\n",
+   "why": "Forever 上不從 Questie 開任務日誌，改成提示按 L"
+  }
+ ]
+}
