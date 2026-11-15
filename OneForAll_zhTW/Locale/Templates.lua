@@ -423,6 +423,7 @@ ns.F = {
   { "Speak with {1}.", "和{1}談談。" },
   { "Spell Power +{1}", "法術能量 +{1}" },
   { "Spell {1}", "法術 {1}" },
+  { "Spend %d more points in %s Talents", "{2}天賦還要再點 {1} 點" },
   { "Spent: {1}", "已用：{1}" },
   { "Stamina increased by %s.", "耐力提高{1}點。" },
   { "Start: {1}", "起點：{1}" },

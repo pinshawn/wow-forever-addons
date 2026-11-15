@@ -2595,6 +2595,7 @@ ns.T = {
   ["Rot and Regret"] = "腐朽與悔恨",
   ["Rotting Dwarf Corpse"] = "腐爛的矮人屍體",
   ["Roused Nature Footwraps"] = "自然甦醒裹足",
+  ["Royal Apothecary Society"] = "皇家藥劑師協會",
   ["Ruins of Lordaeron - Rath'mael"] = "羅德隆廢墟 - 拉斯梅爾",
   ["Rune-Etched Epaulets"] = "符刻肩冑",
   ["Runebound Gloves"] = "符文束縛手套",
