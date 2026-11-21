@@ -1,6 +1,6 @@
 ﻿# 魔獸世界：永恆 插件自動更新（不用 CurseForge）
 # 雙擊「更新插件.bat」執行。要更新哪些插件寫在 addons.json。
-# 換新版前，舊版整個搬到 <遊戲資料夾>\插件備份\<日期時間>\，不刪；確定沒問題再自己刪。
+# 換新版前，舊版整個搬到 <遊戲資料夾>\插件備份\<日期時間>\，不刪（v1.3.9 起只留最近幾次，更早的丟資源回收桶）。
 # 只用 Windows 內建的 PowerShell 5.1，不用另外裝東西。
 # v1.3：會先讀「線上清單」（addons.json 的 lists），清單上新加的插件自己加進來；
 #       換新版後列出「改了什麼」（作者的更新說明），完整的存在 最近更新說明.txt。
@@ -17,8 +17,12 @@
 #       github-source：作者 GitHub 只有原始碼的（例：Details），自己組裝（搬附加、填版本號），完全不經過 CurseForge。
 # v1.3.8：github-tag：作者每一版在 GitHub 打一個「版本標籤」（例：ProcDoc 的 v4.18.0），照標籤下載、填版本號。
 #       optional：清單上標了的插件，就算 addons.json 寫 installMissing 也不會自己裝；要的人自己先放一次，之後才幫他更新。
+# v1.3.9：自己整理舊版：插件更新 裡的「舊版_…」收進一個「舊版」資料夾；舊的更新程式只留最近 2 版、
+#       插件備份只留最近 5 次，更早的丟 Windows 資源回收桶（還沒真的刪，可以還原；會變成永久刪除時 Windows 會先問）。
+#       留幾版、幾次寫在 addons.json 的 keepUpdaterVersions、keepBackups（0＝不整理那一項）。
+#       curseforge-assist 的版本號可以從別的網站看（check.from 寫是哪裡）。
 
-$UpdaterVersion = '1.3.8'
+$UpdaterVersion = '1.3.9'
 $SelfPath = $MyInvocation.MyCommand.Path
 $ErrorActionPreference = 'Stop'
 $ProgressPreference = 'SilentlyContinue'   # 不顯示下載進度條（PowerShell 5.1 顯示進度條會慢很多）
@@ -717,6 +721,7 @@ function Update-Manual($entry, $state) {
 
 # 只在 CurseForge、但作者把程式放在 GitHub 的插件（例：Details）：半自動（v1.3.7 起）
 # ・看作者 GitHub 上的版本號（check.url 裡用 check.pattern 抓數字），跟本機那個檔（check.localFile）比
+#   （v1.3.9 起 check.url 也可以是別的網站的公開網頁，check.from 寫是哪裡，例：Wago 網站）
 # ・「下載」資料夾已經有比較新的 zip → 直接裝
 # ・有新版、下載資料夾沒有 → 幫你打開 CurseForge 下載頁（download），下載會自己開始；等它下載好就裝
 #   同一個新版只會自動打開一次；沒等到就說「下載好再雙擊一次」
@@ -768,7 +773,8 @@ function Update-CurseForgeAssist($entry, $state) {
         if (Test-Path -LiteralPath $lf) { $localNum = Get-NumberFrom ([IO.File]::ReadAllText($lf)) ([string]$entry.check.pattern) }
     }
     if (-not $remoteNum) {
-        Add-Result $name $localStr '?' "查不到作者 GitHub 上的版本號，這次不檢查。要更新：打開 $($entry.page) 按 Download，下載好再雙擊一次" 'Yellow'
+        $from = '作者 GitHub'; if ($entry.check.from) { $from = [string]$entry.check.from }
+        Add-Result $name $localStr '?' "查不到$from 上的版本號，這次不檢查。要更新：打開 $($entry.page) 按 Download，下載好再雙擊一次" 'Yellow'
         return
     }
     if ($localStr -and $localNum -and $remoteNum -le $localNum) { Add-Result $name $localStr "第 $remoteNum 版" '已經是最新' 'DarkGray'; return }
@@ -993,7 +999,7 @@ function Update-GitHubTag($entry, $state) {
 # 更新程式自己更新（v1.3.5 起）
 # 線上清單寫 "updater": { "version": "1.3.6", "files": [{ "path": "插件更新/update_addons.ps1", "url": ..., "sha256": ... }], "notes": [...] }
 # 比自己新才換；下載的檔：檢查碼要跟清單一樣、PowerShell 讀得懂、裡面寫的版本號要跟清單一樣，三個都對才換
-# 舊的留在 插件更新\舊版_v<舊版本>\；沒成功就照舊版跑，什麼都不動
+# 舊的留在 插件更新\舊版\v<舊版本>\（v1.3.9 起；之前是 舊版_v<舊版本>\）；沒成功就照舊版跑，什麼都不動
 # ---------------------------------------------------------------------------
 function Update-Self($info) {
     if (-not $info -or -not $info.version) { return $false }
@@ -1016,17 +1022,128 @@ function Update-Self($info) {
         $tokens = $null; $perr = $null
         [void][System.Management.Automation.Language.Parser]::ParseFile($new, [ref]$tokens, [ref]$perr)
         if ($perr -and @($perr).Count -gt 0) { throw "下載的檔有寫錯的地方（$(@($perr)[0].Message)）" }
-        $bakDir = Join-Path $Here ('舊版_v' + $UpdaterVersion)
+        $bakDir = Join-Path (Join-Path $Here '舊版') ('v' + $UpdaterVersion)
         New-Item -ItemType Directory -Path $bakDir -Force | Out-Null
         $bak = Join-Path $bakDir 'update_addons.ps1'
         if (-not (Test-Path -LiteralPath $bak)) { Copy-Item -LiteralPath $SelfPath -Destination $bak }
         Copy-Item -LiteralPath $new -Destination $SelfPath -Force
-        Say "更新程式換成 v$($info.version) 了（舊的在 插件更新\舊版_v$UpdaterVersion\），用新的從頭再跑一次：" 'Green'
+        Say "更新程式換成 v$($info.version) 了（舊的在 插件更新\舊版\v$UpdaterVersion\），用新的從頭再跑一次：" 'Green'
         foreach ($n in @($info.notes)) { if ($n) { Say "  ・$n" 'Gray' } }
         return $true
     } catch {
         Say "更新程式自己更新沒成功，這次照舊版跑：$($_.Exception.Message)" 'Yellow'
         return $false
+    }
+}
+
+# ---------------------------------------------------------------------------
+# 整理舊版（v1.3.9 起）
+# ・插件更新 裡的「舊版_xxx」資料夾 → 搬進 插件更新\舊版\xxx（不丟）
+# ・舊版\ 裡舊的更新程式（v1.3.7 這種）只留最近 keepUpdaterVersions 版（沒寫＝2），更早的丟資源回收桶
+# ・插件備份 只留最近 keepBackups 次（沒寫＝5），更早的丟資源回收桶
+# 丟資源回收桶＝還沒真的刪（從桌面的資源回收筒可以還原）；會變成永久刪除時（回收桶關掉、太大放不下）Windows 會先跳出來問
+# 出任何錯就那一個不動，寫在結果裡
+# ---------------------------------------------------------------------------
+function Get-KeepCount($value, [int]$default) {
+    if ($null -eq $value) { return $default }
+    $n = 0
+    if ([int]::TryParse([string]$value, [ref]$n)) { return $n }
+    return $default
+}
+$script:RecycleReady = $false
+function Remove-ToRecycleBin([string]$path) {
+    # 回傳 $true＝已經丟進回收桶（原本的位置沒有了）
+    if (-not (Test-Path -LiteralPath $path)) { return $true }
+    if (-not $script:RecycleReady) {
+        Add-Type -TypeDefinition @"
+using System;
+using System.Runtime.InteropServices;
+public static class AddonUpdaterRecycle {
+    [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
+    struct SHFILEOPSTRUCT {
+        public IntPtr hwnd; public uint wFunc;
+        [MarshalAs(UnmanagedType.LPWStr)] public string pFrom;
+        [MarshalAs(UnmanagedType.LPWStr)] public string pTo;
+        public ushort fFlags; public bool fAnyOperationsAborted; public IntPtr hNameMappings;
+        [MarshalAs(UnmanagedType.LPWStr)] public string lpszProgressTitle;
+    }
+    [DllImport("shell32.dll", CharSet = CharSet.Unicode)]
+    static extern int SHFileOperation(ref SHFILEOPSTRUCT op);
+    // FO_DELETE=3；FOF_ALLOWUNDO=0x40（丟回收桶）、FOF_NOCONFIRMATION=0x10、FOF_SILENT=0x4、FOF_NOERRORUI=0x400、
+    // FOF_WANTNUKEWARNING=0x4000（會變成永久刪除時先問）
+    public static int Recycle(string path) {
+        SHFILEOPSTRUCT op = new SHFILEOPSTRUCT();
+        op.wFunc = 3; op.pFrom = path + "\0\0";
+        op.fFlags = (ushort)(0x40 | 0x10 | 0x4 | 0x400 | 0x4000);
+        int r = SHFileOperation(ref op);
+        if (r == 0 && op.fAnyOperationsAborted) return -1;
+        return r;
+    }
+}
+"@
+        $script:RecycleReady = $true
+    }
+    $full = (Resolve-Path -LiteralPath $path).ProviderPath
+    $r = [AddonUpdaterRecycle]::Recycle($full)
+    return ($r -eq 0 -and -not (Test-Path -LiteralPath $path))
+}
+function Get-UpdaterDirVersion([string]$name) {
+    $m = [regex]::Match($name, '^v(\d+(?:\.\d+)*)(.*)$')
+    if (-not $m.Success) { return $null }
+    $v = Get-Ver $m.Groups[1].Value
+    if (-not $v) { return $null }
+    return [pscustomobject]@{ Ver = $v; Plain = ($m.Groups[2].Value -eq '') }
+}
+function Invoke-TidyOld($config) {
+    $keepUp = Get-KeepCount $config.keepUpdaterVersions 2
+    $keepBk = Get-KeepCount $config.keepBackups 5
+    $oldRoot = Join-Path $Here '舊版'
+    $moved = @(); $binUp = @(); $binBk = @(); $fail = @()
+    # 1. 「舊版_xxx」收進 舊版\xxx
+    foreach ($d in @(Get-ChildItem -LiteralPath $Here -Directory -ErrorAction SilentlyContinue | Where-Object { $_.Name -like '舊版_*' })) {
+        $rest = $d.Name.Substring(3)
+        if (-not $rest) { continue }
+        try {
+            if (-not (Test-Path -LiteralPath $oldRoot)) { New-Item -ItemType Directory -Path $oldRoot -Force | Out-Null }
+            $dest = Join-Path $oldRoot $rest
+            if (Test-Path -LiteralPath $dest) { $dest = Join-Path $oldRoot ($rest + '_' + $script:Stamp) }
+            Move-Item -LiteralPath $d.FullName -Destination $dest
+            $moved += $d.Name
+        } catch { $fail += "$($d.Name)（$($_.Exception.Message)）" }
+    }
+    # 2. 舊的更新程式只留最近幾版
+    if ($keepUp -gt 0 -and (Test-Path -LiteralPath $oldRoot)) {
+        $ups = @()
+        foreach ($d in @(Get-ChildItem -LiteralPath $oldRoot -Directory -ErrorAction SilentlyContinue)) {
+            $info = Get-UpdaterDirVersion $d.Name
+            if ($info) { $ups += [pscustomobject]@{ Dir = $d; Ver = $info.Ver; Plain = $info.Plain } }
+        }
+        $sorted = @($ups | Sort-Object -Property @{ Expression = 'Ver'; Descending = $true }, @{ Expression = 'Plain'; Descending = $true }, @{ Expression = { $_.Dir.Name }; Descending = $false })
+        for ($i = $keepUp; $i -lt $sorted.Count; $i++) {
+            $d = $sorted[$i].Dir
+            try { if (Remove-ToRecycleBin $d.FullName) { $binUp += $d.Name } else { $fail += "舊版\$($d.Name)（沒丟成功，原本的還在）" } }
+            catch { $fail += "舊版\$($d.Name)（$($_.Exception.Message)）" }
+        }
+    }
+    # 3. 插件備份只留最近幾次
+    if ($keepBk -gt 0 -and (Test-Path -LiteralPath $script:BackupRoot)) {
+        $runs = @(Get-ChildItem -LiteralPath $script:BackupRoot -Directory -ErrorAction SilentlyContinue |
+            Where-Object { $_.Name -match '^\d{4}-\d{2}-\d{2}_\d{6}$' } | Sort-Object -Property Name -Descending)
+        for ($i = $keepBk; $i -lt $runs.Count; $i++) {
+            $d = $runs[$i]
+            if ($d.Name -eq $script:Stamp) { continue }
+            try { if (Remove-ToRecycleBin $d.FullName) { $binBk += $d.Name } else { $fail += "插件備份\$($d.Name)（沒丟成功，原本的還在）" } }
+            catch { $fail += "插件備份\$($d.Name)（$($_.Exception.Message)）" }
+        }
+    }
+    $parts = @()
+    if ($moved.Count -gt 0) { $parts += "收進 插件更新\舊版\：" + ($moved -join '、') }
+    if ($binUp.Count -gt 0) { $parts += "舊的更新程式丟資源回收桶：" + ($binUp -join '、') + "（留最近 $keepUp 版）" }
+    if ($binBk.Count -gt 0) { $parts += "插件備份丟資源回收桶 $($binBk.Count) 次：" + ($binBk -join '、') + "（留最近 $keepBk 次）" }
+    if ($fail.Count -gt 0) {
+        Add-Result '整理舊版' '' '' ((@($parts) + ('沒整理到的（原本的沒動）：' + ($fail -join '、'))) -join '；') 'Yellow'
+    } elseif ($parts.Count -gt 0) {
+        Add-Result '整理舊版' '' '' (($parts -join '；') + '。要拿回來：桌面的「資源回收筒」→ 右鍵「還原」') 'Green'
     }
 }
 
@@ -1375,6 +1492,8 @@ foreach ($dir in @(Get-ChildItem -LiteralPath $script:AddOns -Directory -ErrorAc
 # 清單裡沒有的插件
 $others =@(Get-ChildItem -LiteralPath $script:AddOns -Directory | Where-Object { -not $known.ContainsKey($_.Name.ToLower()) -and -not $_.Name.StartsWith('Blizzard_') })
 
+try { Invoke-TidyOld $config } catch { Add-Result '整理舊版' '' '' "出錯，這次沒整理（原本的沒動）：$($_.Exception.Message)" 'Yellow' }
+
 try { $state | ConvertTo-Json -Depth 5 | Set-Content -LiteralPath $statePath -Encoding UTF8 } catch { }
 Remove-Item -LiteralPath $script:TmpRoot -Recurse -Force -ErrorAction SilentlyContinue
 
@@ -1418,7 +1537,9 @@ if ($others.Count -gt 0) {
 }
 if (Test-Path -LiteralPath $script:BackupRoot) {
     Say ''
-    Say "舊版都在 $script:BackupRoot，進遊戲確定沒問題再自己刪。" 'DarkGray'
+    $kb = Get-KeepCount $config.keepBackups 5
+    if ($kb -gt 0) { Say "換掉的舊版在 $script:BackupRoot（只留最近 $kb 次，更早的會丟資源回收桶）。" 'DarkGray' }
+    else { Say "舊版都在 $script:BackupRoot，進遊戲確定沒問題再自己刪。" 'DarkGray' }
 }
 
 $log = Join-Path $Here '更新紀錄.txt'
