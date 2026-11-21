@@ -21,8 +21,11 @@
 #       插件備份只留最近 5 次，更早的丟 Windows 資源回收桶（還沒真的刪，可以還原；會變成永久刪除時 Windows 會先問）。
 #       留幾版、幾次寫在 addons.json 的 keepUpdaterVersions、keepBackups（0＝不整理那一項）。
 #       curseforge-assist 的版本號可以從別的網站看（check.from 寫是哪裡）。
+# v1.3.10：清單可以寫 folderPrefix（例：Polestar 的 "Polestar_"）：下載裡名字這樣開頭的資料夾全部一起裝；
+#       作者拿掉的（上次裝過、這次下載裡沒有）搬到 插件備份。addons.json 可以寫 want（例：["Polestar"]）：
+#       清單上標 optional 的、你沒裝的，寫在這裡也會幫你裝。
 
-$UpdaterVersion = '1.3.9'
+$UpdaterVersion = '1.3.10'
 $SelfPath = $MyInvocation.MyCommand.Path
 $ErrorActionPreference = 'Stop'
 $ProgressPreference = 'SilentlyContinue'   # 不顯示下載進度條（PowerShell 5.1 顯示進度條會慢很多）
@@ -239,6 +242,29 @@ function Install-Folders($entry, [string]$extracted) {
     if ($plan.Count -eq 0) { throw "下載的檔案裡找不到 $($entry.folders -join '、')" }
     if ($plan[0].Name -ne $entry.folders[0]) { throw "下載的檔案裡找不到主資料夾 $($entry.folders[0])" }
 
+    # 清單寫了 folderPrefix（v1.3.10）：主資料夾旁邊、名字這樣開頭的插件資料夾全部一起裝；
+    # 上次一起裝過、這次下載裡沒有的（作者拿掉了）搬到備份
+    $stale = @()
+    $setKey = $null
+    if ($entry.folderPrefix) {
+        $pre = [string]$entry.folderPrefix
+        $have = @($plan | ForEach-Object { $_.Name.ToLower() })
+        $root = Split-Path -Parent $plan[0].Src
+        foreach ($d in @(Get-ChildItem -LiteralPath $root -Directory -ErrorAction SilentlyContinue | Sort-Object Name)) {
+            if (-not $d.Name.StartsWith($pre, [StringComparison]::OrdinalIgnoreCase)) { continue }
+            if ($have -contains $d.Name.ToLower()) { continue }
+            if (-not (Get-ChildItem -LiteralPath $d.FullName -Filter '*.toc' -File -ErrorAction SilentlyContinue | Select-Object -First 1)) { continue }
+            $plan += [pscustomobject]@{ Name = $d.Name; Src = $d.FullName }
+            $have += $d.Name.ToLower()
+        }
+        $setKey = 'set|' + $entry.folders[0]
+        foreach ($old in @($state.$setKey)) {
+            if (-not $old) { continue }
+            if ($have -contains ([string]$old).ToLower()) { continue }
+            if (Test-Path -LiteralPath (Join-Path $script:AddOns ([string]$old))) { $stale += [string]$old }
+        }
+    }
+
     # 新版 .toc 寫的必要前置插件，下載裡也有的就一起裝（例：Shortest Path v1.29 起要 ForeverCore，作者放在同一個 zip）
     # 本機已經有、而且比下載裡的新，就不換成舊的
     $extra = @()
@@ -272,6 +298,11 @@ function Install-Folders($entry, [string]$extracted) {
                 $moved += $p.Name
             }
         }
+        foreach ($n in $stale) {
+            New-Item -ItemType Directory -Path $backup -Force | Out-Null
+            Move-Item -LiteralPath (Join-Path $script:AddOns $n) -Destination (Join-Path $backup $n)
+            $moved += $n
+        }
         foreach ($p in $plan) {
             Move-Item -LiteralPath $p.Src -Destination (Join-Path $script:AddOns $p.Name)
             $placed += $p.Name
@@ -289,7 +320,9 @@ function Install-Folders($entry, [string]$extracted) {
     $note = ''
     if ($extra.Count -gt 0) { $note = "（一起裝了 $($extra -join '、')：$($entry.folders[0]) 要它才開得起來）" }
     if ($missing.Count -gt 0) { $note += "（下載裡沒有：$($missing -join '、')，原本的留著沒動）" }
+    if ($stale.Count -gt 0) { $note += "（作者拿掉了：$($stale -join '、')，舊的一起搬到備份）" }
     if ($moved.Count -gt 0) { $note += "　舊版備份在 插件備份\$($script:Stamp)\$($entry.folders[0])" }
+    if ($setKey) { $state | Add-Member -NotePropertyName $setKey -NotePropertyValue @($plan | ForEach-Object { $_.Name }) -Force }
     return $note
 }
 
@@ -1252,6 +1285,9 @@ $skip = @{}
 foreach ($s in @($config.skip)) { if ($s) { $skip[([string]$s).ToLower()] = $true } }
 
 $known = @{}
+$wantSet = @{}
+foreach ($w in @($config.want)) { if ($w) { $wantSet[([string]$w).ToLower()] = $true } }
+$prefixes = @($entries | Where-Object { $_.folderPrefix } | ForEach-Object { [string]$_.folderPrefix })
 foreach ($entry in $entries) {
     foreach ($f in $entry.folders) { $known[$f.ToLower()] = $true }
     $mainDir = Join-Path $script:AddOns $entry.folders[0]
@@ -1268,9 +1304,10 @@ foreach ($entry in $entries) {
     if ($entry.type -ne 'bundled' -and -not (Test-Path -LiteralPath $mainDir)) {
         # 沒裝的：addons.json 寫 installMissing，或清單上標 autoInstall（我們自己做的）才裝
         # 清單上標 optional（v1.3.8）的：installMissing 也不裝，要的人自己先放一次
-        if (-not ($entry.autoInstall -or ($config.installMissing -and -not $entry.optional))) {
+        $wanted = $wantSet.ContainsKey(([string]$entry.folders[0]).ToLower())
+        if (-not ($entry.autoInstall -or $wanted -or ($config.installMissing -and -not $entry.optional))) {
             $why = '沒裝，不更新（要裝的話自己先放一次）'
-            if ($entry.optional) { $why = '沒裝，不更新（這個是給要的人用的：自己先放一次，之後才會幫你更新）' }
+            if ($entry.optional) { $why = '沒裝，不更新（這個是給要的人用的：自己先放一次，或在 addons.json 的 want 寫它的資料夾名，之後就會幫你裝、幫你更新）' }
             Add-Result $entry.name '（沒裝）' '' $why 'DarkGray'
             continue
         }
@@ -1490,7 +1527,11 @@ foreach ($dir in @(Get-ChildItem -LiteralPath $script:AddOns -Directory -ErrorAc
 }
 
 # 清單裡沒有的插件
-$others =@(Get-ChildItem -LiteralPath $script:AddOns -Directory | Where-Object { -not $known.ContainsKey($_.Name.ToLower()) -and -not $_.Name.StartsWith('Blizzard_') })
+$others =@(Get-ChildItem -LiteralPath $script:AddOns -Directory | Where-Object {
+    $n = $_.Name
+    -not $known.ContainsKey($n.ToLower()) -and -not $n.StartsWith('Blizzard_') -and
+    -not (@($prefixes | Where-Object { $n.StartsWith($_, [StringComparison]::OrdinalIgnoreCase) }).Count -gt 0)
+})
 
 try { Invoke-TidyOld $config } catch { Add-Result '整理舊版' '' '' "出錯，這次沒整理（原本的沒動）：$($_.Exception.Message)" 'Yellow' }
 
