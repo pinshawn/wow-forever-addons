@@ -1,0 +1,31 @@
+{
+ "format": 2,
+ "id": "ofa-map-taint-questlog",
+ "name": "OneForAll：地城頁的任務按鈕不自己開任務日誌，改成選好＋提示按 L（戰鬥中按 M 開地圖不再被擋）",
+ "file": "Interface\\AddOns\\OneForAll\\UI\\DungeonHelpers.lua",
+ "marker": "[修正 ofa-map-taint-questlog v1]",
+ "made": "2026-11-22",
+ "forVersion": "OneForAll 6.2.13",
+ "why": "taint.log 2026-11-20（17:31、18:10～18:15、19:04）：Execution tainted by OneForAll while reading field targetScrollY → 戰鬥中按 M 開世界地圖 Button:SetPassThroughButtons() 被擋；!BugGrabber 11/20、11/21 共 14 次算在 OneForAll。來源：OneForAll 從插件程式打開、切換世界地圖（SetMapID／OpenWorldMap／ToggleWorldMap），或從插件程式開任務日誌（永恆的任務日誌在世界地圖裡）。作者對手把已經改成不從程式開，滑鼠的還沒。 這一個：地城頁任務旁的任務日誌按鈕從插件程式 QuestMapFrame_OpenToQuestDetails／ShowUIPanel／ToggleQuestLog（Questie 同一種問題：questie-questlog-taint）。",
+ "note": "補丁裡不放原作者的程式碼：位置用那幾行的 SHA-256 認，只寫我們加的。OneForAll 改了那幾行就整個不補、檔案不動。",
+ "edits": [
+  {
+   "kind": "replace",
+   "lines": [
+    "0e610a06c906aeca0af519fac84d04119dbbee2c67d94b4d2c7963ae1af88097",
+    "cccfd8e8c09c5371eaf619f801a0b36cd9400734aa35bd02ff47c82d2f5bd715",
+    "fef90b054a67939684b43e5cb74e6d234209283c55d29351e4c476bd6608e3f7",
+    "26d2ae0e9c1caa8aa82ca22eeafdeafb33568ed2cab161ff04ba04e3b877ed58",
+    "03925d0419b7cc201ae43bf05a0168a25375b3225c1dd5d75bdd8645a290015d",
+    "b82a41a66951041be20acdbaa189123985cf0e4329137f7cabb7000e9f6f8815",
+    "5cfda9a43804d90a31a2b8bf1bef295d7b420ede4439d4f5587871fdceb87b15",
+    "8852822e14ca4d17a52776ad3abd07bcfc117f8706acbc89013a7bcdc4d7c4f5",
+    "1d5f433d65c0366c4193fa2f9a8a2c12ab55b47773d673f5a73e036552a01d06",
+    "fa41ccee63b10ebbf18fb5a4d2f7e915af210fa98c44f9f1ff428d2e546df494",
+    "48d344bcbd159a8806a32ff34728d910e894686900d95aa6480dba8d39b6a7ea"
+   ],
+   "text": "  -- [修正 ofa-map-taint-questlog v1] 不從插件程式開任務日誌（永恆的任務日誌在世界地圖裡，開了地圖會被記成插件動過，戰鬥中按 M 就被擋）：只選好，自己按 L 開\n  if C_QuestLog and C_QuestLog.SetSelectedQuest and id then pcall(C_QuestLog.SetSelectedQuest, id)\n  elseif SelectQuestLogEntry then pcall(SelectQuestLogEntry, index) end\n  if FLT.Msg then FLT.Msg(\"請按 L 打開任務日誌，這個任務已經幫你選好了（OneForAll 不再自己開任務日誌，戰鬥中按 M 才不會被擋）\") end\n",
+   "why": "只選好任務，不開任務日誌"
+  }
+ ]
+}

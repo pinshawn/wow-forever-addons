@@ -1,0 +1,25 @@
+{
+ "format": 2,
+ "id": "ofa-map-taint-landmarks",
+ "name": "OneForAll：點地圖上的區域出口不自己換地圖，改成提示（戰鬥中按 M 開地圖不再被擋）",
+ "file": "Interface\\AddOns\\OneForAll\\MapLandmarks.lua",
+ "marker": "[修正 ofa-map-taint-landmarks v1]",
+ "made": "2026-11-22",
+ "forVersion": "OneForAll 6.2.13",
+ "why": "taint.log 2026-11-20（17:31、18:10～18:15、19:04）：Execution tainted by OneForAll while reading field targetScrollY → 戰鬥中按 M 開世界地圖 Button:SetPassThroughButtons() 被擋；!BugGrabber 11/20、11/21 共 14 次算在 OneForAll。來源：OneForAll 從插件程式打開、切換世界地圖（SetMapID／OpenWorldMap／ToggleWorldMap），或從插件程式開任務日誌（永恆的任務日誌在世界地圖裡）。作者對手把已經改成不從程式開，滑鼠的還沒。 這一個：世界地圖上「區域出口」圖示被點時從插件程式 WorldMapFrame:SetMapID。",
+ "note": "補丁裡不放原作者的程式碼：位置用那幾行的 SHA-256 認，只寫我們加的。OneForAll 改了那幾行就整個不補、檔案不動。",
+ "edits": [
+  {
+   "kind": "replace",
+   "lines": [
+    "65c1f9547cde46c97f555019b1fb68503c0ad68af48a723d0308dd2b2d17bab0",
+    "d19c222f2118ac4aaf497034bb7bbe10c4e3e12779a22fb79ecc8d973f21bc48",
+    "51b918e2596d9a76bf77315031a1324a7087b7ed642f06a1afbf683cfb66b009",
+    "82fa15c472f9739642153065794e2620b50324a20570ffacf81423c799d85e2c",
+    "27da5703745dcf9a9729773f4fdc4cbbfed6054e74e7c344abfa8323e9efca22"
+   ],
+   "text": "    -- [修正 ofa-map-taint-landmarks v1] 不從插件程式換地圖（換了，地圖會被記成插件動過，戰鬥中按 M 開地圖就被擋）：提示自己切\n    local zone\n    if C_Map and C_Map.GetMapInfo then\n      local ok, info = pcall(C_Map.GetMapInfo, e.to)\n      if ok and info and info.name then zone = info.name end\n    end\n    if FLT.Msg then FLT.Msg(\"請在地圖上自己切到「\" .. tostring(zone or \"那一區\") .. \"」（OneForAll 不再自己換地圖，戰鬥中按 M 才不會被擋）\") end\n",
+   "why": "點區域出口：不換地圖，提示自己切"
+  }
+ ]
+}

@@ -1,0 +1,29 @@
+{
+ "format": 2,
+ "id": "ofa-map-taint-dungeonmap",
+ "name": "OneForAll：地城地圖的「世界地圖」按鈕不自己開世界地圖，改成提示按 L（戰鬥中按 M 開地圖不再被擋）",
+ "file": "Interface\\AddOns\\OneForAll\\UI\\DungeonMap.lua",
+ "marker": "[修正 ofa-map-taint-dungeonmap v1]",
+ "made": "2026-11-22",
+ "forVersion": "OneForAll 6.2.13",
+ "why": "taint.log 2026-11-20（17:31、18:10～18:15、19:04）：Execution tainted by OneForAll while reading field targetScrollY → 戰鬥中按 M 開世界地圖 Button:SetPassThroughButtons() 被擋；!BugGrabber 11/20、11/21 共 14 次算在 OneForAll。來源：OneForAll 從插件程式打開、切換世界地圖（SetMapID／OpenWorldMap／ToggleWorldMap），或從插件程式開任務日誌（永恆的任務日誌在世界地圖裡）。作者對手把已經改成不從程式開，滑鼠的還沒。 這一個：地城地圖視窗的「世界地圖」按鈕、副本裡 M 被 OneForAll 接走但這裡沒有地城地圖時，從插件程式 ToggleWorldMap。",
+ "note": "補丁裡不放原作者的程式碼：位置用那幾行的 SHA-256 認，只寫我們加的。OneForAll 改了那幾行就整個不補、檔案不動。",
+ "edits": [
+  {
+   "kind": "replace",
+   "lines": [
+    "b22de93195e7e3858e32099ae09a6ffd66de6dea56e76eed3e080d3969a3eb62"
+   ],
+   "text": "    -- [修正 ofa-map-taint-dungeonmap v1] 不從插件程式開世界地圖（會被記成插件動過，戰鬥中開地圖就被擋）：提示自己開\n    if FLT.Msg then FLT.Msg(\"請按 L 打開世界地圖（在有地城地圖的副本裡，M 開的是 OneForAll 的地城地圖；OneForAll 不再自己開世界地圖，戰鬥中開地圖才不會被擋）\") end\n",
+   "why": "「世界地圖」按鈕：提示自己開"
+  },
+  {
+   "kind": "replace",
+   "lines": [
+    "9bc9794cf9ca9693a135562daed2839a33acf0bdf91ba2bdbd6b0d7e33a7b8f4"
+   ],
+   "text": "  if not d then   -- [修正 ofa-map-taint-dungeonmap v1] 這裡沒有地城地圖：不從插件程式開世界地圖，提示自己開\n    if FLT.Msg then FLT.Msg(\"請按 L 打開世界地圖（OneForAll 不再自己開世界地圖，戰鬥中開地圖才不會被擋）\") end\n    return\n  end\n",
+   "why": "副本裡按 M 但這裡沒有地城地圖：提示自己開"
+  }
+ ]
+}

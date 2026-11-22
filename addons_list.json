@@ -39,6 +39,36 @@
       "name": "Questie：點追蹤清單的任務名字不從 Questie 開任務日誌（戰鬥中按 M 開地圖不再被擋）",
       "url": "https://raw.githubusercontent.com/pinshawn/wow-forever-addons/main/patches/questie-questlog-taint.json",
       "sha256": "bdeec87dc7521d2d8f1e5ed4b9e324ab3892154fbdf6bca84741e7b1e8be998d"
+    },
+    {
+      "id": "ofa-map-taint-showonmap",
+      "name": "OneForAll：「在地圖上顯示」不自己開地圖、換地圖（戰鬥中按 M 開地圖不再被擋）",
+      "url": "https://raw.githubusercontent.com/pinshawn/wow-forever-addons/main/patches/ofa-map-taint-showonmap.json",
+      "sha256": "e38bfb806ff8312bf8207bcb67a0f56e4bc62e4c094e53ad56e833566d4e1f72"
+    },
+    {
+      "id": "ofa-map-taint-landmarks",
+      "name": "OneForAll：點地圖上的區域出口不自己換地圖，改成提示（戰鬥中按 M 開地圖不再被擋）",
+      "url": "https://raw.githubusercontent.com/pinshawn/wow-forever-addons/main/patches/ofa-map-taint-landmarks.json",
+      "sha256": "bed27a9f2ed76764de421c54a255ed178d516e3c62e147fabfa020cabd54a4b6"
+    },
+    {
+      "id": "ofa-map-taint-questlog",
+      "name": "OneForAll：地城頁的任務按鈕不自己開任務日誌，改成選好＋提示按 L（戰鬥中按 M 開地圖不再被擋）",
+      "url": "https://raw.githubusercontent.com/pinshawn/wow-forever-addons/main/patches/ofa-map-taint-questlog.json",
+      "sha256": "06faf9f88d988b670177fef685186efc6ee992b60e789d533785092beee5890e"
+    },
+    {
+      "id": "ofa-map-taint-gearmarks",
+      "name": "OneForAll：找獎勵有裝備的任務時不自己開任務日誌，改成選好＋提示按 L（戰鬥中按 M 開地圖不再被擋）",
+      "url": "https://raw.githubusercontent.com/pinshawn/wow-forever-addons/main/patches/ofa-map-taint-gearmarks.json",
+      "sha256": "0fc348248a12b27de6095f32c77030fe5cf58bb9a1d8e08e8a4c1f018bc6e274"
+    },
+    {
+      "id": "ofa-map-taint-dungeonmap",
+      "name": "OneForAll：地城地圖的「世界地圖」按鈕不自己開世界地圖，改成提示按 L（戰鬥中按 M 開地圖不再被擋）",
+      "url": "https://raw.githubusercontent.com/pinshawn/wow-forever-addons/main/patches/ofa-map-taint-dungeonmap.json",
+      "sha256": "126d1d6496fae058509fc42b33d7ca6765b91adea1bd497ca497192763de6212"
     }
   ],
   "addons": [
@@ -218,7 +248,7 @@
         "Polestar"
       ],
       "folderPrefix": "Polestar_",
-      "optional": true
+      "autoInstall": true
     }
   ]
 }

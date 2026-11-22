@@ -1,0 +1,27 @@
+{
+ "format": 2,
+ "id": "ofa-map-taint-gearmarks",
+ "name": "OneForAll：找獎勵有裝備的任務時不自己開任務日誌，改成選好＋提示按 L（戰鬥中按 M 開地圖不再被擋）",
+ "file": "Interface\\AddOns\\OneForAll\\UI\\GearMarks.lua",
+ "marker": "[修正 ofa-map-taint-gearmarks v1]",
+ "made": "2026-11-22",
+ "forVersion": "OneForAll 6.2.13",
+ "why": "taint.log 2026-11-20（17:31、18:10～18:15、19:04）：Execution tainted by OneForAll while reading field targetScrollY → 戰鬥中按 M 開世界地圖 Button:SetPassThroughButtons() 被擋；!BugGrabber 11/20、11/21 共 14 次算在 OneForAll。來源：OneForAll 從插件程式打開、切換世界地圖（SetMapID／OpenWorldMap／ToggleWorldMap），或從插件程式開任務日誌（永恆的任務日誌在世界地圖裡）。作者對手把已經改成不從程式開，滑鼠的還沒。 這一個：找獎勵有裝備的任務時從插件程式 QuestMapFrame_OpenToQuestDetails／ShowUIPanel／ToggleQuestLog。",
+ "note": "補丁裡不放原作者的程式碼：位置用那幾行的 SHA-256 認，只寫我們加的。OneForAll 改了那幾行就整個不補、檔案不動。",
+ "edits": [
+  {
+   "kind": "replace",
+   "lines": [
+    "663ece6e771601eb64f405cf102ee508d972ea34f99660ed1ae1aeab1edc67a3",
+    "38fbe8ab45e4b50d688d82798d3a3ab14e36233563ff15aa67134c6e529f10b2",
+    "421185ca32f0cea532153b1b8c67d3fcf21af4997933f12d79a580b0ccfcceca",
+    "fac5e1c1d57035cc71f06ff6d157946a8601626a025eb69e0f5c18eddfda25bc",
+    "034525a0871b43c706e08c850a7b7f5b1ebd7ab61e5fd438e76b0b672fe13f21",
+    "3e44e1b49ceee0205fd54bed869e23087314b34cc3dc295d920184283d66b383",
+    "48d344bcbd159a8806a32ff34728d910e894686900d95aa6480dba8d39b6a7ea"
+   ],
+   "text": "  -- [修正 ofa-map-taint-gearmarks v1] 不從插件程式開任務日誌（永恆的任務日誌在世界地圖裡，開了地圖會被記成插件動過，戰鬥中按 M 就被擋）：只選好，自己按 L 開\n  choose(best, bestQid)\n  FLT.Msg(\"請按 L 打開任務日誌，這個任務已經幫你選好了（OneForAll 不再自己開任務日誌，戰鬥中按 M 才不會被擋）\")\n",
+   "why": "只選好任務，不開任務日誌"
+  }
+ ]
+}

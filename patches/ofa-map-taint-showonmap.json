@@ -1,0 +1,65 @@
+{
+ "format": 2,
+ "id": "ofa-map-taint-showonmap",
+ "name": "OneForAll：「在地圖上顯示」不自己開地圖、換地圖（戰鬥中按 M 開地圖不再被擋）",
+ "file": "Interface\\AddOns\\OneForAll\\Map.lua",
+ "marker": "[修正 ofa-map-taint-showonmap v1]",
+ "made": "2026-11-22",
+ "forVersion": "OneForAll 6.2.13",
+ "why": "taint.log 2026-11-20（17:31、18:10～18:15、19:04）：Execution tainted by OneForAll while reading field targetScrollY → 戰鬥中按 M 開世界地圖 Button:SetPassThroughButtons() 被擋；!BugGrabber 11/20、11/21 共 14 次算在 OneForAll。來源：OneForAll 從插件程式打開、切換世界地圖（SetMapID／OpenWorldMap／ToggleWorldMap），或從插件程式開任務日誌（永恆的任務日誌在世界地圖裡）。作者對手把已經改成不從程式開，滑鼠的還沒。 這一個：「在地圖上顯示」（OneForAll 視窗裡任務、書、配方、裝備規劃、獵人寵物的 Map 按鈕）從插件程式 OpenWorldMap／SetMapID。",
+ "note": "補丁裡不放原作者的程式碼：位置用那幾行的 SHA-256 認，只寫我們加的。OneForAll 改了那幾行就整個不補、檔案不動。",
+ "edits": [
+  {
+   "kind": "replace",
+   "lines": [
+    "6f62f85fdb5bb23f05b8f46177ec3eb155103deacdb044b8e4fc5dfa9f92213b",
+    "0ab5174797771b433580a39293d3e4d8cd78eca60a6e3033deaf7e877d76c83f",
+    "7654be0cdf7e0ef272e611124bc8f25c8f41840c040383d85103d004bed36986",
+    "fbbdad49389e942c137d99a6c927b99a0beeea0e36f03bf4e9a86d631bd43c26",
+    "48d344bcbd159a8806a32ff34728d910e894686900d95aa6480dba8d39b6a7ea"
+   ],
+   "text": "  -- [修正 ofa-map-taint-showonmap v1] 不從插件程式換地圖（換了，地圖會被記成插件動過，戰鬥中按 M 開地圖就被擋）\n",
+   "why": "放標記之前不換地圖"
+  },
+  {
+   "kind": "replace",
+   "lines": [
+    "5efe837b94ed0109fd6a085535b45e1d993cf0d44b0a93657779f373f8f5316c"
+   ],
+   "text": "    FLT._mapPending = { book = book, mapID = mapID }   -- (ofa-map-taint-showonmap) 地圖已經不在那一區：等你切回來再標\n",
+   "why": "地圖已經不在那一區：等你切回來再標，不跳錯誤"
+  },
+  {
+   "kind": "replace",
+   "lines": [
+    "ede8d69f04a73c545ea29ff9ba9c943efd816defdff6acab211310e6e9407d32",
+    "c261f071333eefcd7f0a31cdd3df72d4ef70306a22cd939a1c87cc15b2961cff",
+    "1130aee535ba69cb3cf272c2b76f987b7ca9df1f85c026dd737714ff8ec28f05",
+    "e6ee2312178be0b6338896a770f86673ebcab6974e378e8e46e12b2add46878b",
+    "eb053cef3a2d921516e289640700efb5c56cd8681164e0bed9441c87a581d216",
+    "3ef7f9fe93dbe13db93e2492356bad45b53d223e6a567fab08dfca72f4e0fad6",
+    "ca02346470a2ef8982f187bdcfbec1a69262fa013abd8a87d051ee0acab2d29c",
+    "9c39384a9bafac624c7905c208dc348953de5731fe48747084250b0adad34671",
+    "1b44abde0d598a28d9633775f79ce1740cba8af4396530d161bbfe7c353269cd",
+    "c45f79eab7f149ca7355ce26db861e59a2eaa353fd36eb500073ae43206bd33b",
+    "448510ccdefc45c0e44ceb3b6d5871101c21e486b5e1b491f521b72880278a40",
+    "46c03a803ab6894bd8940ad7d2187cfa825f2edafae7246f2fb029b83932cc81",
+    "2c2b9bfcf87c011ed91190e2e4131d444284fae47c3d99ea451c2fd69354fc4f",
+    "82fa15c472f9739642153065794e2620b50324a20570ffacf81423c799d85e2c",
+    "dded12086a3fd08652b595572a958d6362e6b2d70765ebecec1c6c0589e155c8",
+    "68279b1eae0b8e3728ac1d850147a95551b1ae74d88dbd8248d11f141d4b2f12",
+    "48d344bcbd159a8806a32ff34728d910e894686900d95aa6480dba8d39b6a7ea",
+    "70efc166ec84edee7aa7b436fac46b8df689affaa27504928e149e570707dfe3",
+    "e88a6eefea461dd6e9f817f6257662c919f79a1c2672a8858137f803ef6ef7e3",
+    "68279b1eae0b8e3728ac1d850147a95551b1ae74d88dbd8248d11f141d4b2f12",
+    "48d344bcbd159a8806a32ff34728d910e894686900d95aa6480dba8d39b6a7ea",
+    "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "79dbcd08a3f4f7d51764f29334a8e017cf178cfe3b2d2a2ccaef40c21d1a6b82",
+    "1b300ef5911aa43e6d8e796e8292214d2729ba296727851a5d62c6aa6a428eeb",
+    "bec8fe884721e33681842804b6a761f1a43d3c1227a4a2ee61916e1bb94d7e38"
+   ],
+   "text": "  -- [修正 ofa-map-taint-showonmap v1] 不從插件程式打開、切換世界地圖：那樣地圖會被記成插件動過，之後戰鬥中按 M 開地圖會被遊戲擋下\n  -- （Button:SetPassThroughButtons() blocked）。改成你自己打開地圖、切到那一區時才把標記放上去。\n  FLT._mapPending = { book = book, mapID = mapID }\n  if not FLT._mapPendingFix and WorldMapFrame and WorldMapFrame.HookScript then\n    FLT._mapPendingFix = true\n    local function check()\n      local p = FLT._mapPending\n      if not p or not WorldMapFrame:IsShown() then return end\n      if not (WorldMapFrame.GetMapID and WorldMapFrame:GetMapID() == p.mapID) then return end\n      FLT._mapPending = nil\n      C_Timer.After(0.05, function() positionMarker(p.book, p.mapID) end)\n      C_Timer.After(0.25, function() positionMarker(p.book, p.mapID) end)\n    end\n    WorldMapFrame:HookScript(\"OnShow\", check)\n    if WorldMapFrame.OnMapChanged then hooksecurefunc(WorldMapFrame, \"OnMapChanged\", check) end\n  end\n  if WorldMapFrame and WorldMapFrame:IsShown() and WorldMapFrame.GetMapID and WorldMapFrame:GetMapID() == mapID then\n    FLT._mapPending = nil\n    C_Timer.After(0.05, function() positionMarker(book, mapID) end)\n    return\n  end\n  local zone\n  if C_Map and C_Map.GetMapInfo then\n    local ok, info = pcall(C_Map.GetMapInfo, mapID)\n    if ok and info and info.name then zone = info.name end\n  end\n  zone = zone or book.zone or book.label or book.name or \"那一區\"\n  self.Msg(\"請按 M 打開地圖，切到「\" .. tostring(zone) .. \"」就會看到標記（OneForAll 不再自己開地圖、換地圖，戰鬥中按 M 才不會被擋）\")\n",
+   "why": "不打開地圖：你自己打開、切到那一區時才放標記"
+  }
+ ]
+}
