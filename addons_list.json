@@ -231,6 +231,17 @@
       "autoInstall": true
     },
     {
+      "name": "一鍵推薦外觀（Polestar＋Questie 推薦設定，可切換）",
+      "type": "github-branch",
+      "repo": "pinshawn/wow-forever-addons",
+      "branch": "main",
+      "toc": "ForeverLook/ForeverLook.toc",
+      "folders": [
+        "ForeverLook"
+      ],
+      "autoInstall": true
+    },
+    {
       "name": "ProcDoc（觸發提示，每個職業都有）",
       "type": "github-tag",
       "repo": "wsmaxcy/ProcDoc",

@@ -1,0 +1,12 @@
+## Interface: 16001
+## Title: Forever Look
+## Title-zhTW: 一鍵推薦外觀
+## Notes: A ready-made look for Polestar and Questie, kept as a profile named "推薦" next to your own. Switch with the minimap button, /flook or in Options > AddOns. Your own settings are never changed.
+## Notes-zhTW: 在 Polestar 和 Questie 裡各放一套「推薦」設定，跟你自己的設定互相切換（點小地圖旁的「推」圓鈕、聊天框打 /推薦，或 Esc → 選項 → 插件）。你自己的設定不會被改。
+## Version: 1.0
+## IconTexture: Interface\AddOns\ForeverLook\Media\Icon
+## AddonCompartmentFunc: ForeverLook_OnCompartmentClick
+## OptionalDeps: Polestar, Questie
+## SavedVariables: ForeverLookDB
+Data.lua
+ForeverLook.lua
