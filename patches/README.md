@@ -24,3 +24,5 @@
 | ofa-map-taint-questlog | OneForAll（UI/DungeonHelpers.lua） | 地城頁任務旁的任務日誌按鈕原本用插件程式開任務日誌（永恆的任務日誌在世界地圖裡，同上會被擋；跟 Questie 那個一樣）。改成只把任務選好，提示「請按 L 打開任務日誌」。 |
 | ofa-map-taint-gearmarks | OneForAll（UI/GearMarks.lua） | 找「獎勵有裝備」的任務時原本用插件程式開任務日誌（同上）。改成只選好，提示按 L。 |
 | ofa-map-taint-dungeonmap | OneForAll（UI/DungeonMap.lua） | 地城地圖視窗的「世界地圖」按鈕、副本裡 M 被 OneForAll 接走但那裡沒有地城地圖時，原本用插件程式開世界地圖（同上）。改成提示「請按 L 打開世界地圖」。 |
+| polestar-zhtw-plus-texts | Polestar 中文包（Polestar_zhTW\Texts.lua） | 不是修錯，是接線：在中文包把指南句子交給 Polestar 那一行之前，加一行讓「Polestar 中文補充」（`!PolestarPlus_zhTW`）先補上作者還沒翻的句子（作者有翻的不動）。沒裝中文補充的話這一行什麼都不做。Polestar 出新版蓋掉就再補一次。 |
+| polestar-zhtw-plus-ui | Polestar 中文包（Polestar_zhTW\Interface.lua） | 同上，介面文字：在 `local L = ns.L` 之後加一行，讓中文補充先放進作者沒翻的介面字（作者後面有翻的會蓋過去，作者優先）。 |

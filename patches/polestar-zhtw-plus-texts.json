@@ -1,0 +1,19 @@
+{
+ "format": 2,
+ "id": "polestar-zhtw-plus-texts",
+ "name": "Polestar 中文補充：指南句子接上（Polestar 中文包把翻譯交出去之前，先補上作者還沒翻的句子）",
+ "file": "Interface\\AddOns\\Polestar_zhTW\\Texts.lua",
+ "marker": "polestar-zhtw-plus v1",
+ "made": "2026-11-24",
+ "note": "補丁裡不放原作者的程式碼：位置用每一行的 SHA-256 認，只寫我們加的那一行。要配「Polestar 中文補充」（!PolestarPlus_zhTW）一起用；沒裝它的話，這一行什麼都不做。",
+ "edits": [
+  {
+   "kind": "insertBefore",
+   "lines": [
+    "1eaef219bf87c5e87455d4ed72b0b6a2e881a85338113a37d4ca7d3509b8097e"
+   ],
+   "text": "if type(PolestarPlusZhTW) == \"table\" and PolestarPlusZhTW.MergeGuides then pcall(PolestarPlusZhTW.MergeGuides, t) end -- [補 polestar-zhtw-plus v1] 中文補充：只補作者還沒翻的句子（作者有翻的用作者的）\n",
+   "why": "交出翻譯之前，先補上作者還沒翻的句子"
+  }
+ ]
+}

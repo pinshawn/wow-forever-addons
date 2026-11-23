@@ -1,0 +1,19 @@
+{
+ "format": 2,
+ "id": "polestar-zhtw-plus-ui",
+ "name": "Polestar 中文補充：介面字接上（作者有翻的介面字會蓋過我們的）",
+ "file": "Interface\\AddOns\\Polestar_zhTW\\Interface.lua",
+ "marker": "polestar-zhtw-plus v1",
+ "made": "2026-11-24",
+ "note": "補丁裡不放原作者的程式碼：位置用每一行的 SHA-256 認，只寫我們加的那一行。要配「Polestar 中文補充」（!PolestarPlus_zhTW）一起用；沒裝它的話，這一行什麼都不做。",
+ "edits": [
+  {
+   "kind": "insertAfter",
+   "lines": [
+    "4629359457046f82506f2d183a1ef5c4e1d9a6260dc00ced866f22234c92ceb8"
+   ],
+   "text": "if type(PolestarPlusZhTW) == \"table\" and PolestarPlusZhTW.MergeUI then pcall(PolestarPlusZhTW.MergeUI, L) end -- [補 polestar-zhtw-plus v1] 中文補充：先放我們的，作者下面那幾行會蓋過去\n",
+   "why": "在作者的介面字之前先放我們的（作者的會蓋過去）"
+  }
+ ]
+}

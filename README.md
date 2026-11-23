@@ -9,6 +9,8 @@
 | `QuestieZoneOnly` | Questie 只顯示這一區 | Questie 任務追蹤只列你所在區域的任務，標題旁 [只看這區] 切換（要先裝 Questie） |
 | `!Details_zhTW` | Details! 繁體中文 | Details!（傷害統計）的介面翻成繁體中文，我們自己翻的；不改 Details! 本體（要先裝 Details!） |
 | `ForeverLook` | 一鍵推薦外觀 | 在 Polestar 和 Questie 裡各放一套「推薦」設定，跟自己的設定一鍵切換（小地圖「推」圓鈕、/推薦）；自己的設定不會被改 |
+| `!PolestarPlus_zhTW` | Polestar 中文補充 | Polestar（練等指南）繁體中文包還沒翻到的句子先補上中文；作者有翻的一律用作者的，作者翻好後從這裡刪掉。要配兩個共用補丁（`polestar-zhtw-plus-texts`、`polestar-zhtw-plus-ui`，更新程式會自動補）；/pszh 看補了幾句（要先裝 Polestar） |
+| `ForeverAHScan` | 拍賣場掃描（配無限副本手冊） | 每次打開拍賣場就掃一次（全場清單 15 分鐘一次，其間用摘要掃描），把每樣東西「在賣幾個、一個最低多少」交給無限副本手冊的專業路線；拍賣場底下多一個「掃描」分頁；滑鼠提示在「售價：」下面顯示「拍賣：」最低價。不幫你買賣 |
 
 ## 線上清單 `addons_list.json`
 
@@ -28,6 +30,8 @@
 ## 授權
 
 - 有愛黑體切換：字型是 Nowar Sans（有愛黑體）1.0.1 改成 TrueType 外框的版本，依 SIL Open Font License 1.1（`AAA_NowarSansSwitch/Fonts/LICENSE.txt`）散布；依授權，字型名稱改成「WCHei TW TT」，不使用原本的保留名稱。簡轉繁資料取自 OpenCC，Apache License 2.0（`AAA_NowarSansSwitch/OpenCC-LICENSE.txt`）。
-- OneForAll 繁體中文包、Questie 只顯示這一區、一鍵推薦外觀：GPL-3.0（各資料夾的 `LICENSE.txt`）。
+- OneForAll 繁體中文包、Questie 只顯示這一區、一鍵推薦外觀、拍賣場掃描：GPL-3.0（各資料夾的 `LICENSE.txt`）。
+- Polestar 中文補充：GPL-3.0（`!PolestarPlus_zhTW/LICENSE.txt`）；裡面是 Polestar（GPL-3.0，fitzforge/polestar）指南和介面句子的英文原句和我們的中文翻譯。
+- 拍賣場掃描提供的是無限副本手冊本來就會讀的 `EasyAuctionAPI` 接口（沒裝 EasyAuction 時才提供）；程式全部是我們自己寫的，不含無限副本手冊、EasyAuction、Auctionator 的程式碼。
 - Details! 繁體中文：中文翻譯是我們自己翻的，可以自由分享；檔案裡只有 Details! 字串的代號和我們的中文，沒有 Details! 的程式碼和英文原文（Details! 本體是作者 Tercioo 的作品，保留所有權利）。內附的 LibStub、AceLocale-3.0 來自 Ace3（BSD 式授權，`!Details_zhTW/Libs/Ace3-LICENSE.txt`）。
 - 免費分享，不得販售。

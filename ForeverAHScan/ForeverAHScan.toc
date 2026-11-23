@@ -1,0 +1,9 @@
+## Interface: 16001
+## Title: |cff66ccff拍賣場掃描（配無限副本手冊）|r
+## Notes: 每次開拍賣場就掃一次，把每樣東西「在賣幾個、最低多少錢」交給無限副本手冊的專業路線用；拍賣場下面多一個「掃描」分頁；滑鼠提示顯示拍賣價。
+## Author: wow-forever-addons
+## Version: 0.3.1
+## IconTexture: Interface\Icons\INV_Misc_Coin_02
+## SavedVariables: ForeverAHScanDB
+
+Core.lua
