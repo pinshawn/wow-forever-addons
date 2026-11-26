@@ -24,8 +24,10 @@
 # v1.3.10：清單可以寫 folderPrefix（例：Polestar 的 "Polestar_"）：下載裡名字這樣開頭的資料夾全部一起裝；
 #       作者拿掉的（上次裝過、這次下載裡沒有）搬到 插件備份。addons.json 可以寫 want（例：["Polestar"]）：
 #       清單上標 optional 的、你沒裝的，寫在這裡也會幫你裝。
+# v1.3.11：作者網站版本清單（json-manifest，例：GearInsight）版本一樣、但清單上寫的資料夾你電腦少了（作者新加的資料夾，
+#       上次只裝了清單上舊的那幾個）→ 再裝一次同一版把它補上；下載裡本來就沒有的，同一版只試一次。
 
-$UpdaterVersion = '1.3.10'
+$UpdaterVersion = '1.3.11'
 $SelfPath = $MyInvocation.MyCommand.Path
 $ErrorActionPreference = 'Stop'
 $ProgressPreference = 'SilentlyContinue'   # 不顯示下載進度條（PowerShell 5.1 顯示進度條會慢很多）
@@ -634,7 +636,7 @@ function Update-GitHubBranch($entry, $state) {
 function Update-JsonManifest($entry, $state) {
     $name = $entry.name
     $localStr = Get-LocalVersion $entry.folders[0]
-    $info = $null; $base = $null; $errs = @()
+    $info = $null; $base = $null; $errs = @(); $repair = $null
     foreach ($u in @($entry.manifest)) {
         try {
             $m = Get-JsonUrl $u
@@ -650,7 +652,14 @@ function Update-JsonManifest($entry, $state) {
     $localVer = Get-Ver $localStr
     if (-not $remoteVer) { Add-Result $name $localStr $remoteStr '看不懂網站上的版本號，略過' 'Yellow'; return }
     if ($localStr -and -not $localVer) { Add-Result $name $localStr $remoteStr '看不懂本機的版本號，略過' 'Yellow'; return }
-    if ($localVer -and $remoteVer -le $localVer) { Add-Result $name $localStr $remoteStr '已經是最新' 'DarkGray'; return }
+    if ($localVer -and $remoteVer -le $localVer) {
+        # v1.3.11：版本一樣、清單上的資料夾少了 → 同一版再裝一次補上（下載裡本來就沒有的，記在 state，同一版不再試）
+        $lackKey = 'lack|' + $entry.folders[0]
+        $lack = @(@($entry.folders) | Where-Object { $_ -and -not (Test-Path -LiteralPath (Join-Path $script:AddOns ([string]$_))) })
+        if ($lack.Count -eq 0 -or [string]$state.$lackKey -eq $remoteStr) { Add-Result $name $localStr $remoteStr '已經是最新' 'DarkGray'; return }
+        $repair = $lack
+        Say "  $name 少了 $($lack -join '、')，再裝一次同一版補上…"
+    }
 
     $url = [string]$info.download
     if ($url -notmatch '^https?://') { $url = $base + '/' + $url.TrimStart('/') }
@@ -666,6 +675,16 @@ function Update-JsonManifest($entry, $state) {
     Expand-Zip $zip $ex
     $note = Install-Folders $entry $ex
     $state | Add-Member -NotePropertyName $entry.name -NotePropertyValue @{ version = $remoteStr; updated = (Get-Date -Format 'yyyy-MM-dd HH:mm') } -Force
+    if ($repair) {
+        $still = @($repair | Where-Object { -not (Test-Path -LiteralPath (Join-Path $script:AddOns ([string]$_))) })
+        $got = @($repair | Where-Object { $still -notcontains $_ })
+        if ($still.Count -gt 0) { $state | Add-Member -NotePropertyName ('lack|' + $entry.folders[0]) -NotePropertyValue $remoteStr -Force }
+        $word = '同一版再裝一次（檢查碼對過）'
+        if ($got.Count -gt 0) { $word += "：補上了 $($got -join '、')" }
+        if ($still.Count -gt 0) { $word += "；作者的下載裡沒有 $($still -join '、')（這一版不再試）" }
+        Add-Result $name $localStr $remoteStr ($word + $note) 'Green'
+        return
+    }
     $notes = Get-NotesSafe { Get-ManifestNotes $info $localVer $remoteVer }
     if ($notes.Count -eq 0) { $notes = Get-NotesSafe { Get-NotesFromFolder (Join-Path $script:AddOns $entry.folders[0]) $localVer $remoteVer } }
     Add-Result $name $localStr $remoteStr ((Get-DoneWord $localStr) + "（檢查碼對過）" + $note) 'Green' $notes
