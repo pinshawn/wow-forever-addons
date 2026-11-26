@@ -1,7 +1,9 @@
 -- 一鍵推薦外觀：「推薦」那一套設定（由 make_data.py 從作者電腦的設定抽出來；位置和狀態不帶）。
 -- 改了內容就把 VERSION 加 1，朋友下次登入會被問要不要換成新的。
+-- VERSION 2（1.2，配 Polestar 0.4.3）：手動加 arcade.game、mobMarkers.enabled、behavior.skipGrey，拿掉 maps.flightArcade（Polestar 改存法）。
+-- VERSION 3（11/26 他試過重生點標記「好雜」→ 關）。
 local _, ns = ...
-ns.VERSION = 1
+ns.VERSION = 3
 
 -- Polestar：PolestarDB.settings 的同一個樣子（Polestar 的設定檔就是這個表）
 ns.POLESTAR = {
@@ -10,6 +12,10 @@ ns.POLESTAR = {
 		autoTurnin = false,
 		groupQuests = "skip",
 		offerClassQuests = false,
+		skipGrey = false,        -- 灰色任務照排（0.4.3 起作者預設跳過）
+	},
+	arcade = {
+		game = "none",          -- 坐飛機不問要不要玩小遊戲（0.4.3 前是 maps.flightArcade = false）
 	},
 	dungeons = {
 		enabled = true,
@@ -20,10 +26,12 @@ ns.POLESTAR = {
 	},
 	maps = {
 		coords = false,
-		flightArcade = false,
 		flightTimer = false,
 		instances = false,
 		zoneLevels = false,
+	},
+	mobMarkers = {
+		enabled = false,         -- 0.4.3 新的「重生點標記」：關（11/26 開來試過，地圖太雜）
 	},
 	nav = {
 		lineStyle = "dots",

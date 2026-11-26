@@ -1,5 +1,5 @@
 -- 這個檔是程式產生的（build.py／gen.py，來源 master.json），不要手改。
--- Polestar 0.4.2.2 的繁體中文包還沒翻到的句子；作者翻好的句子，整理時會從這裡刪掉。
+-- Polestar 0.4.3 的繁體中文包還沒翻到的句子；作者翻好的句子，整理時會從這裡刪掉。
 -- 左邊是 Polestar 原本的英文（一字不能改），右邊是中文；{npc:123} 這種代號遊戲會換成名字。
 
 local P = PolestarPlusZhTW
@@ -30,9 +30,7 @@ P.guides["forever/50-60/mount-hyjal"] = {
 	["A group choice below level 58: the {npc:260148} that answers the burnt bone pile is level 59-60. Grouping up is advised. The hand-in waits for the ride back to {area:16848} at the end of this guide."] = "不到58級要看有沒有隊伍：燒骨堆叫出來的{npc:260148}是59-60級。建議組隊。要等本指南最後騎回{area:16848}時才交。",
 	["A group choice below level 58: the {npc:260148} that answers the burnt bone pile is level 59-60. Grouping up is advised. {npc:244511} takes the amulet on the ride back to {area:16848} at the end of this guide."] = "不到58級要看有沒有隊伍：燒骨堆叫出來的{npc:260148}是59-60級。建議組隊。本指南最後騎回{area:16848}時，{npc:244511}收護身符。",
 	["A group choice below level 58: the {npc:260148} that answers the burnt bone pile is level 59-60. Grouping up is advised; alone, this guide comes back past the pile later."] = "不到58級要看有沒有隊伍：燒骨堆叫出來的{npc:260148}是59-60級。建議組隊；一個人的話，本指南之後會再經過骨堆。",
-	["A group choice: {npc:263394} and {npc:252457} are level 60 elites until {npc:263406}'s eye drains them. Drain each one first, then fight it; players in our recordings killed both once drained. Grouping up is advised."] = "要看有沒有隊伍：{npc:263394}和{npc:252457}在被{npc:263406}的眼睛吸乾之前是60級精英。先吸乾再打；我們紀錄裡的玩家吸乾後都殺掉了兩隻。建議組隊。",
 	["A group stop: the Blackthorne camps north-east of the Summit hold elite Outrunners, Priests and a Courier (60) as often as the Cultists and Adepts, with {npc:260674} (60, elite) in the middle and Ghansurok (61, elite) on the ridge. Grouping up is encouraged, look for people to do it with. Skip these if you are alone."] = "組隊的一站：山頂東北方的黑棘營地裡，精英的先行者、祭司和一個信使（60級）跟教徒、侍僧一樣多，{npc:260674}（60級，精英）在中間，甘蘇洛克（61級，精英）在山脊上。建議組隊，找人和你一起做。獨自一人就跳過。",
-	["About 100 quests in Forever's new endgame zone, 57 to 59, then on to {zone:1451}."] = "Forever新的滿級前地區，約100個任務，57到59級，之後前往{zone:1451}。",
 	["Alchemy Workstation"] = "鍊金工作台",
 	["Alliance: the amulet from the second pass goes to {npc:244517}: ride west across the foothills and north up the valley to {area:16848}, about four minutes, then back up to the Summit."] = "聯盟：第二趟拿到的護身符交給{npc:244517}：往西越過山腳丘陵、沿山谷往北到{area:16848}，大約四分鐘，然後回山頂。",
 	["At the northern end of {area:16868}: something has dug up the grave. The Fleshflay Raveners around it carry what was taken."] = "在{area:16868}的北端：有東西把墳墓挖開了。周圍的{npc:249228}身上帶著被拿走的東西。",
@@ -98,8 +96,6 @@ P.guides["forever/50-60/mount-hyjal"] = {
 	["Slime Workstation"] = "軟泥工作台",
 	["Slime ooze as you go"] = "順路收集軟泥",
 	["Soil and venison"] = "土壤和鹿肉",
-	["South Bonfire"] = "南邊的營火",
-	["South down the west side of the shrub field to the ancients' outpost: kill the {npc:248395} you pass for {npc:249235}. {npc:260626}, the flight mistress, waits by the outpost; {npc:248367} and {npc:265586} stand with the ancient {npc:248366}."] = "沿灌木田的西側往南到古樹前哨：沿路殺{npc:248395}，給{npc:249235}。飛行管理員{npc:260626}在前哨旁；{npc:248367}和{npc:265586}跟古樹{npc:248366}站在一起。",
 	["South to {area:493}'s flight master (the Alliance's at the southern end of the valley, the Horde's at its south-western end) and fly to {area:2255} for {npc:249235}'s parts order."] = "往南到{area:493}的飛行管理員（聯盟的在山谷南端，部落的在西南端），飛往{area:2255}拿{npc:249235}訂的零件。",
 	["South to {npc:267113}, another wild god, at {area:16868}'s eastern edge."] = "往南找另一位荒野之神{npc:267113}，在{area:16868}東緣。",
 	["South-east across {area:16866} to {npc:259695}, the wild god, indoors at its south-eastern edge."] = "往東南越過{area:16866}，找荒野之神{npc:259695}，在它東南緣的室內。",
@@ -111,7 +107,6 @@ P.guides["forever/50-60/mount-hyjal"] = {
 	["South-west back towards Barkskin Burrow: the Deadwood camps on the slopes east of the burrow hold the Totemics and Fel-Tenders. An elite named {quest:92446} (level 60) may roam the camps' eastern end."] = "往西南回樹皮巢穴的方向：巢穴東邊山坡上的死木營地有圖騰師和魔化照料者。一隻叫{quest:92446}的精英（60級）可能在營地東端遊蕩。",
 	["South-west to {npc:216289}, the ancient. Talk to him again when you are ready and watch what he shows you."] = "往西南找古樹{npc:216289}。準備好時再跟他說一次話，看他給你看的東西。",
 	["South-west to {npc:263426}, in the middle of {area:16866}: drain him with the eye first, as {npc:263394}, then kill him. Undrained, he is a level 60 elite.\nCareful: Doomguards (elites, 58-59) stand around him: pull him out to you."] = "往西南找{area:16866}中間的{npc:263426}：跟{npc:263394}一樣先用眼睛吸乾他，再殺他。沒吸乾的話，他是60級精英。\n小心：他周圍站著末日守衛（精英，58-59級）：把他拉出來打。",
-	["Southeast Bonfire"] = "東南邊的營火",
 	["Still under 58 after the second pass through {area:16868}? Abandon {quest:92591}: the route doesn't come back for it."] = "第二次經過{area:16868}後還不到58級？放棄{quest:92591}：路線不會再回來做它。",
 	["Still under 58 after the second pass through {area:16868}? Abandon {quest:92592}: the route doesn't come back for it."] = "第二次經過{area:16868}後還不到58級？放棄{quest:92592}：路線不會再回來做它。",
 	["The Ashen Acolytes hold the camp at the north of the scar. Not every Acolyte carries notes: keep killing them after the twelve kills until you have all twelve notes.\nCareful: Awakened Fel Ash Slimes (58, elite) ooze about the scar: pull the Acolytes away from them."] = "{npc:260422}佔據裂痕北邊的營地。不是每個侍僧都帶著筆記：殺滿十二隻後繼續殺，直到十二份筆記都拿到。\n小心：{npc:264306}（58級，精英）在裂痕裡蠕動：把侍僧拉離牠們。",
@@ -251,23 +246,6 @@ P.guides["forever/50-60/mount-hyjal"] = {
 	["{quest:96991}: for {npc:264795} at the {area:16849}, later in this guide"] = "{quest:96991}：給本指南稍後{area:16849}的{npc:264795}",
 }
 
-P.guides["forever/alliance/02-westfall"] = {
-	["Back north past {area:918} to the mine.\nCareful: pull the four Kobold Diggers from the mouth of {area:111}, one at a time. There is no need to go deeper."] = "往北經過{area:918}回礦坑。\n小心：從{area:111}的洞口一次一隻地拉那四隻{npc:1236}。不用再往裡面走。",
-	["Defias Pillagers and Looters hold the farms west of {area:108}, between the coast road and {area:20}. {object:1166} stands in the farmhouse at the {area:219}, among them: {npc:1646}' compass is inside.\nCareful: the Pillagers and Looters crowd the Alexston farm and the quarry entrance. Pull one out into the open before fighting it."] = "{npc:589}和迪菲亞搶劫者佔據{area:108}西邊、海岸道路和{area:20}之間的農場。{object:1166}在他們之間{area:219}的農舍裡：{npc:1646}的羅盤就在裡面。\n小心：掠奪者和搶劫者擠滿亞歷克斯頓農場和採石場入口。先把一隻拉到空地再打。",
-	["Defias Trappers and Smugglers"] = "{npc:504}和走私者",
-	["Finish the Goretusk Livers"] = "把{item:723}收齊",
-	["Goretusk Livers as you go"] = "順路收集{item:723}",
-	["Goretusks and Young Goretusks root along every leg of this loop: kill the ones you pass for the pie's livers."] = "這一圈路上到處都有{npc:157}和{npc:454}在拱土：經過的就殺，派要用牠們的肝。",
-	["North to the hills above {area:111}: Riverpaw Gnolls and Scouts (level 11-13) roam there, east toward the {area:916}. The gnolls further south and west are 13-19: stay in the north hills.\nCareful: Gnolls that stand close together tend to join a fight as a group. Pulling one at a time is safer."] = "往北到{area:111}上方的丘陵：{npc:117}和河爪斥候（11-13級）在那裡往東到{area:916}一帶遊蕩。更南邊和西邊的豺狼人是13-19級：待在北邊的丘陵。\n小心：站得近的豺狼人常常會一起加入戰鬥。一次拉一隻比較安全。",
-	["North-west from {area:108} toward {area:918}: Defias Trappers and Smugglers camp in the fields between them."] = "從{area:108}往西北朝{area:918}走：{npc:504}和走私者在兩地之間的田野紮營。",
-	["On the way south from the {area:916} to {area:107}: Harvest Watchers (level 14-15) work the fields west of the road. Stick to them: they are the only mechanicals that count for {quest:9}, and they drop everything else here too: the isosprings, gyrostabilizers, {item:732} and sometimes a {item:255155}. Harvest Golems drop some of the parts but don't count, and the Harvest Reapers (17) are too high. {npc:573}, a level 20 rare, walks these fields: leave it alone."] = "從{area:916}往南到{area:107}的路上：{npc:114}（14-15級）在道路西邊的田裡工作。只打它們：只有它們算{quest:9}的機械，這裡其他東西它們也都會掉：等軸彈簧、陀螺穩定器、{item:732}，有時還有{item:255155}。{npc:36}會掉部分零件但不算數，{npc:115}（17級）等級太高。稀有的{npc:573}（20級）在這些田裡走動：別惹它。",
-	["Right-click the {quest:2998} he gives you"] = "右鍵點他給你的{quest:2998}",
-	["South-west to the coast, west of {area:918}. Riverpaw Miners work the quarry.\nCareful: pull the Riverpaw Miners away from the quarry mouth. The Defias stand close together inside the cave."] = "往西南到{area:918}西邊的海岸。{npc:1426}在採石場工作。\n小心：把{npc:1426}拉離採石場洞口。迪菲亞的人在洞裡站得很近。",
-	["Still short of eight? Young Goretusks root in the fields just west of {area:107}."] = "還不到八個？{npc:454}在{area:107}西邊不遠的田裡拱土。",
-	["Still short of fifteen? Defias Trappers camp in the fields just west of {area:108}."] = "還不到十五個？{npc:504}在{area:108}西邊不遠的田野紮營。",
-	["Still short of three? Young Fleshrippers circle the fields north-west of {area:107}."] = "還不到三個？{npc:199}在{area:107}西北方的田野上空盤旋。",
-}
-
 P.guides["forever/alliance/03-darkshore"] = {
 	["North along the hills. {npc:3650} waits in the ruins of {quest:954}; Wild Grells and Vile Sprites fill them, Deth'ryll Satyrs the eastern edge. {quest:1001} stands by the road north-north-west of {npc:3650}; a {quest:4723} lies on the shore on the way to him."] = "沿丘陵往北。{npc:3650}在{quest:954}的廢墟裡等你；{npc:2190}和{npc:2189}佈滿廢墟，{npc:2212}在東緣。{quest:1001}在{npc:3650}北北西方的路旁；去找他的路上，海岸有一隻{quest:4723}。",
 	["North from the falls to the shore: the {quest:4727} lies on the beach there, for {npc:10219} in {area:442}."] = "從瀑布往北到海岸：{quest:4727}就躺在那裡的沙灘上，給{area:442}的{npc:10219}。",
@@ -278,21 +256,14 @@ P.guides["forever/alliance/03-darkshore"] = {
 }
 
 P.guides["forever/alliance/03-darkshore-return"] = {
-	["Take the portal up to {npc:4217}, then fly back to {area:442} for the road south to {zone:1440}. {npc:4217} is a Druid trainer: learn your new spells from him."] = "搭傳送門上去找{npc:4217}，再飛回{area:442}走往南到{zone:1440}的路。{npc:4217}是德魯伊訓練師：跟他學新法術。",
 	["{npc:8997}, a short walk west of {npc:3693}: Argos's message from {zone:1453}"] = "{npc:8997}，在{npc:3693}西邊走幾步路：{zone:1453}阿茍斯的口信",
 }
 
 P.guides["forever/alliance/03-loch-modan"] = {
-	["Back to {area:442} for {zone:1439}'s southern loops: the gryphon to {zone:1453}, then the boat from the harbour. Hearthstone ready (bound in {area:442} since the first {zone:1439} visit)? Use it instead: these steps drop once you are in {zone:1439}."] = "回{area:442}做{zone:1439}南邊那幾圈：搭獅鷲到{zone:1453}，再從港口搭船。爐石好了嗎（第一次來{zone:1439}起就綁在{area:442}）？好了就用爐石：到了{zone:1439}這幾步就不用了。",
-	["Cross the long bridge north into town: {npc:8965} and {npc:8962} play by the shore at its north end, {npc:341} stands there too, {npc:415} by the smithy, {npc:344} in the town hall, {npc:381} on the docks, {npc:266} upstairs in the inn and {npc:379} and {npc:343} inside it."] = "往北過長橋進城：{npc:8965}和{npc:8962}在橋北端的岸邊玩，{npc:341}也站在那裡，{npc:415}在鐵匠鋪旁，{npc:344}在市政廳，{npc:381}在碼頭，{npc:266}在旅店樓上，{npc:379}和{npc:343}在旅店裡。",
-	["Defias Pathstalkers and Knuckledusters walk {area:20}; Highwaymen (level 17) patrol the hills south and east of it in pairs: pull them apart. {area:1581} entrance in the smithy is a group dungeon.\nCareful: The camps in the hills hold mixed groups of Defias, so it is easy to pull more than one at a time if you are low level."] = "{npc:121}和迪菲亞拳手在{area:20}走動；攔路賊（17級）兩兩一組在它南邊和東邊的丘陵巡邏：把他們分開拉。鐵匠鋪裡的{area:1581}入口是組隊地城。\n小心：丘陵上的營地是迪菲亞各種人混在一起，等級低的話很容易一次拉到不只一隻。",
 	["No Defias Brotherhood from Wiley (it starts with {npc:234}'s letter in {zone:1436}): skip {zone:1436}. North along the road from {area:87} to {zone:1453}: {npc:466} sits on his horse at the far end of the bridge outside the main gate. Then the gryphons in the {object:2096}, back to {area:69}.\nIf {npc:466} isn't at the arrow, he is walking his horse along the {area:1617} nearby: look along the avenue or wait a moment."] = "黑衣威利那邊沒有「迪菲亞兄弟會」任務（它從{zone:1436}{npc:234}的信開始）：跳過{zone:1436}。從{area:87}沿道路往北到{zone:1453}：{npc:466}騎在馬上，在正門外那座橋的另一頭。然後到{object:2096}搭獅鷲回{area:69}。\n{npc:466}不在箭頭處的話，他正牽著馬在附近的{area:1617}走：沿著大道找，或等一下。",
-	["Off the boat, walk up the pier to the flight master by the inn. Nothing to take here yet: Menethil's quests are for your {zone:1437} visit, after {zone:1440} and the {zone:1442}."] = "下船後沿碼頭走到旅店旁的飛行管理員。這裡還沒有要接的：米奈希爾港的任務是在你做完{zone:1440}和{zone:1442}之後、來{zone:1437}那一趟才做。",
 	["On the way to the harbour: {npc:4984}'s message goes to {npc:8997} in {area:442}, beside Terenthis, where the boat lands."] = "去港口的路上：{npc:4984}的口信要交給{area:442}的{npc:8997}，在特倫希斯旁邊，就是船停靠的地方。",
-	["South of Thelsamar, Ylva lies dead in the mouth of a trogg cave. Take her banner, raise it beside her and hold the spot: troggs come in waves from both sides, then {npc:269185}.\nCareful: Stonevault Cave Hunters (36, elite) hold the pass just south of Ylva, toward the {zone:1418}: stay by the banner and don't chase troggs south."] = "在塞爾薩瑪南邊，伊爾娃倒在一個穴居人洞穴的入口。拿起她的旗子，在她旁邊豎起來並守住那裡：穴居人會從兩邊一波一波來，最後是{npc:269185}。\n小心：{npc:4856}（36級，精英）守著伊爾娃南邊往{zone:1418}的山口：待在旗子旁，別往南追穴居人。",
 	["{item:253247}: raise it beside Ylva, then hold the spot until {npc:269185} comes"] = "{item:253247}：在伊爾娃旁邊豎起來，然後守住那裡直到{npc:269185}出現",
 	["{npc:332} is upstairs in the SI:7 building in {object:2100}: the stairs are hard to see at first. {npc:466} sits on his horse at the far end of the bridge outside the main gate, then back to the gryphons in the {object:2096}.\nIf {npc:466} isn't at the arrow, he is walking his horse along the {area:1617} nearby: look along the avenue or wait a moment."] = "{npc:332}在{object:2100}軍情七處建築的樓上：樓梯一開始不容易看到。{npc:466}騎在馬上，在正門外那座橋的另一頭，然後回{object:2096}搭獅鷲。\n{npc:466}不在箭頭處的話，他正牽著馬在附近的{area:1617}走：沿著大道找，或等一下。",
-	["{npc:332}, SI:7; upstairs"] = "{npc:332}，軍情七處；在樓上",
 }
 
 P.guides["forever/alliance/04-redridge-mountains"] = {
@@ -331,7 +302,6 @@ P.guides["forever/alliance/06-ashenvale"] = {
 	["For {npc:3649}, back in {area:442} (the {zone:1437} guide)"] = "給{area:442}的{npc:3649}（{zone:1437}指南）",
 	["From the {area:418} head north-west to the {area:417} and go in from the east side: {npc:3664} and his guards hold a hill inside it. Pull his guards first."] = "從{area:418}往西北到{area:417}，從東側進去：{npc:3664}和他的守衛佔據裡面的一座小丘。先拉他的守衛。",
 	["Hearth to {area:415}, where your hearthstone is bound, or follow the road east from the {area:414}: {npc:3845} stands by the flight master, {npc:3691} in the inn, {npc:3894} inside the building beyond it."] = "用爐石回{area:415}（你的爐石綁在那裡），或從{area:414}沿道路往東：{npc:3845}站在飛行管理員旁，{npc:3691}在旅店裡，{npc:3894}在旅店後面那棟建築裡。",
-	["Mathias Shaw is at SI:7 in {object:2100}, south of the Keep."] = "馬迪亞斯·肖爾在要塞南邊{object:2100}的軍情七處。",
 	["North again to the shore of {area:441}. Teronis lies among the Saltspittle murlocs; any murloc can drop the {item:5463}."] = "再往北到{area:441}岸邊。泰洛尼斯倒在鹽沫魚人之間；任何魚人都可能掉{item:5463}。",
 	["North along the road to {area:467}: {npc:3994} stands by the flight master, {npc:16458} in the inn just west of them."] = "沿道路往北到{area:467}：{npc:3994}站在飛行管理員旁，{npc:16458}在他們西邊不遠的旅店裡。",
 	["North from {area:421}, past {area:415}'s east side, to the Thistlefur camp: {npc:3987} leads the furbolgs there. Then south to {area:415}.\nCareful: Dal is level 25, and the furbolgs near him usually join in when he is pulled. Kill the ones along his path first so you fight him alone."] = "從{area:421}往北，經過{area:415}東側，到薊皮熊怪的營地：{npc:3987}帶領那裡的熊怪。然後往南回{area:415}。\n小心：達爾是25級，拉他時附近的熊怪通常會一起上。先殺掉他路線上的熊怪，再單獨打他。",
@@ -373,7 +343,6 @@ P.guides["forever/alliance/06-wetlands"] = {
 	["East from {npc:1244}: the Crimson Whelps (25-26) nest in the hills north-east of the {area:1036}, and the Highland Razormaws (27-28) hunt the highlands north of them, towards {area:205}. The Perfect Razormaw Eggs lie in the raptors' nests.\nCareful: {quest:98283}, an elite raptor, prowls the hills north of the whelps, and Ados, an elite {npc:270892} guardian, stands at the {area:1038}: give both room. The Dragonmaw east of {npc:270637} are elite too."] = "從{npc:1244}往東：{npc:1069}（25-26級）在{area:1036}東北方的丘陵築巢，{npc:1018}（27-28級）在牠們北邊往{area:205}的高地獵食。{item:280132}在迅猛龍的巢裡。\n小心：精英迅猛龍{quest:98283}在雛龍北邊的丘陵徘徊，精英{npc:270892}守衛阿多斯站在{area:1038}：兩個都離遠一點。{npc:270637}東邊的龍喉獸人也是精英。",
 	["Follow the road east to the {area:419}. {npc:3916} stands by the moonwell."] = "沿道路往東到{area:419}。{npc:3916}站在月井旁。",
 	["For the Dragonmaw catapult, on the {zone:1437} loop of the {zone:1424} guide"] = "給龍喉投石車，在{zone:1424}指南的{zone:1437}那一圈",
-	["For {npc:1284} in {zone:1453}, at the end of this guide"] = "給{zone:1453}的{npc:1284}，本指南最後",
 	["For {npc:1416} in {zone:1453}, on this guide's {zone:1453} stop"] = "給{zone:1453}的{npc:1416}，本指南去{zone:1453}那一站",
 	["For {npc:2700} at {area:320}, on your {zone:1417} visit (30-40)"] = "給{area:320}的{npc:2700}，你去{zone:1417}時（30-40）",
 	["From level 29: north along the coast from Menethil to the wreck of the Intrepid. {npc:1160} (30) is aboard, and the locked strongbox sits in the wreck.\nCareful: Cursed Marines (27-28) crowd the deck around him: clear them first. {npc:270589}, a level 31-32 elite, roams the {zone:1437}: give it a wide berth."] = "29級起：從米奈希爾沿海岸往北到無畏號的殘骸。{npc:1160}（30級）在船上，上鎖的保險箱在殘骸裡。\n小心：{npc:1158}（27-28級）擠在他周圍的甲板上：先清掉。31-32級的精英{npc:270589}在{zone:1437}遊蕩：遠遠避開。",
@@ -381,7 +350,6 @@ P.guides["forever/alliance/06-wetlands"] = {
 	["Go west from {area:415} to {area:441}. Teronis lies on the shore among the Saltspittle murlocs."] = "從{area:415}往西到{area:441}。泰洛尼斯倒在岸邊的鹽沫魚人之間。",
 	["Hearth back to {area:150} if you bound at the {area:2104}, or walk west along the road: {npc:2104} stands on the top floor of {area:2103}, {npc:2094} by the docks."] = "如果爐石綁在{area:2104}就用爐石回{area:150}，或沿道路往西走：{npc:2104}站在{area:2103}頂層，{npc:2094}在碼頭旁。",
 	["In the river under the Arathi end of the span, a {item:4433} lies on the bottom: {npc:2695} in {zone:1455}, at the end of this guide, takes it."] = "在橋阿拉希那一頭下方的河裡，河底有一封{item:4433}：本指南最後{zone:1455}的{npc:2695}收。",
-	["Mosshide gnolls"] = "苔皮豺狼人",
 	["North along the road from {area:205} towards the {area:880}: Ebenezer Rustlocke's corpse lies under the span. His parchment goes back to {npc:1075}.\nCareful: Two elite Dark Iron Saboteurs (28-29) stand by the corpse inside the span: loot the corpse and walk straight out without fighting, or, from level 31, pull them one at a time."] = "從{area:205}沿道路往北朝{area:880}走：艾本尼澤·鏽鎖的屍體在橋下。他的羊皮紙交回給{npc:1075}。\n小心：兩隻精英{npc:1052}（28-29級）站在橋下屍體旁：拾取屍體後不要打，直接走出來；或31級起一次拉一隻。",
 	["North-west to the road and north along it to {area:205}. {npc:1071} and {npc:1075} stand together in the dwarves' camp on the east side of the road; the {object:147516} ruins west of it are full of elites: keep to the road.\nCareful: Modr (32, elite) walks the {object:147516} ruins about 55 yards west of {npc:1075}; players have met it from the camp and the road: stay on the camp's east side."] = "往西北到道路，再沿道路往北到{area:205}。{npc:1071}和{npc:1075}一起站在道路東側的矮人營地；營地西邊的{object:147516}廢墟滿是精英：待在路上。\n小心：莫德爾（32級，精英）在{npc:1075}西邊約55碼的{object:147516}廢墟裡走動；玩家在營地和路上都遇過它：待在營地東側。",
 	["Not done on your first {zone:1440} visit? {npc:3691} also has {quest:1025} (the Foulweald, on the way to {npc:3897}) and {quest:1054} ({npc:3987}, on the way back from {area:413})."] = "第一次來{zone:1440}沒做完？{npc:3691}還有{quest:1025}（腐木林，往{npc:3897}的路上）和{quest:1054}（{npc:3987}，從{area:413}回來的路上）。",
@@ -400,7 +368,6 @@ P.guides["forever/alliance/06-wetlands"] = {
 	["{npc:1075} stands beside {npc:1071} in the dwarves' camp at {area:205}, east of the road; keep out of the {object:147516} ruins west of it, where Modr (32, elite) walks."] = "{npc:1075}站在{area:205}道路東側矮人營地裡{npc:1071}的旁邊；別進營地西邊的{object:147516}廢墟，莫德爾（32級，精英）在那裡走動。",
 	["{npc:1239}: {npc:1160} (30) is for the end of this visit, from level 29"] = "{npc:1239}：{npc:1160}（30級）留到這一趟最後，29級起",
 	["{npc:1416}: {quest:322}, from {npc:1217} in Menethil"] = "{npc:1416}：{quest:322}，來自米奈希爾的{npc:1217}",
-	["{npc:2094}: the crate for {npc:270637}, on the {zone:1437} loop of the {zone:1424} guide"] = "{npc:2094}：給{npc:270637}的箱子，在{zone:1424}指南的{zone:1437}那一圈",
 	["{npc:2097}, by the north gate: {npc:1071} takes it at {area:205}, at the north end of this visit's east loop"] = "{npc:2097}，在北門旁：{area:205}的{npc:1071}收，在這一趟東邊那一圈的北端",
 	["{npc:2784} holds court in the {object:171709}."] = "{npc:2784}在{object:171709}接見。",
 	["{npc:3691}'s delivery"] = "{npc:3691}的送貨",
@@ -415,7 +382,6 @@ P.guides["forever/alliance/06-wetlands"] = {
 	["{quest:288}, if the {zone:1440} guide's Menethil stop didn't do it: {npc:1239} wants a {item:2594} from {npc:1464}, both in the inn."] = "{quest:288}，如果{zone:1440}指南停米奈希爾港時沒做：{npc:1239}要{npc:1464}的{item:2594}，兩個都在旅店裡。",
 	["{quest:293}, from {npc:1217} in Menethil: {npc:1284} stands in the Cathedral of Light."] = "{quest:293}，來自米奈希爾的{npc:1217}：{npc:1284}站在聖光大教堂裡。",
 	["{quest:98246}: the Razormaw eggs, on the same walk"] = "{quest:98246}：剃刀之顎的蛋，同一趟路上",
-	["{quest:98283}, an elite raptor, on the {zone:1437} loop of the {zone:1424} guide"] = "{quest:98283}，一隻精英迅猛龍，在{zone:1424}指南的{zone:1437}那一圈",
 }
 
 P.guides["forever/alliance/07-thousand-needles"] = {
@@ -423,22 +389,10 @@ P.guides["forever/alliance/07-thousand-needles"] = {
 }
 
 P.guides["forever/alliance/30-40/01-hillsbrad-foothills"] = {
-	["For {npc:1284} in {zone:1453}, at the end of this guide"] = "給{zone:1453}的{npc:1284}，本指南最後",
-	["These are elite mobs: grouping up is encouraged, look for people to do it with. Dark Iron Dwarves, Tunnelers, Saboteurs and Demolitionists (27-31) fill the ruins west of the camp; {npc:1364} (34, elite) walks among them."] = "這些是精英怪：建議組隊，找人和你一起做。黑鐵矮人、挖掘者、破壞者和爆破專家（27-31級）佈滿營地西邊的廢墟；{npc:1364}（34級，精英）在他們之間走動。",
-	["These are elite mobs: grouping up is encouraged, look for people to do it with. South-east of Dun Modr, about 500 yards, the Dark Irons camp on {area:1016}: the {item:280806} lie among their tents. Then back past the camp and north to the {area:880}."] = "這些是精英怪：建議組隊，找人和你一起做。在丹莫德東南方約500碼，黑鐵矮人在{area:1016}紮營：{item:280806}散落在他們的帳篷之間。然後經過營地回來，再往北到{area:880}。",
-	["These are elite mobs: grouping up is encouraged, look for people to do it with. The Dragonmaw Reclaimers, Soulbinders and Infiltrators (29-30, elite) camp just east of {npc:270637}."] = "這些是精英怪：建議組隊，找人和你一起做。{npc:271351}、龍喉縛魂者和龍喉滲透者（29-30級，精英）在{npc:270637}東邊不遠紮營。",
-	["back west to {npc:270637}"] = "往西回{npc:270637}那裡",
 	["for {npc:2700} at {area:320}, in the {zone:1417} guide"] = "給{area:320}的{npc:2700}，在{zone:1417}指南",
-	["in the camp, beside {npc:1075}"] = "在營地裡，{npc:1075}旁邊",
-	["{npc:1073}, in the camp"] = "{npc:1073}，在營地裡",
-	["{npc:1074}, in the camp"] = "{npc:1074}，在營地裡",
 	["{npc:2276}, inside: keep it, the Syndicate camp waits for the road north to Arathi (the {zone:1417} guide)"] = "{npc:2276}，在裡面：先留著，辛迪加營地留到往北去阿拉希的路上（{zone:1417}指南）",
 	["{npc:2366}, in the inn: for {area:35} (the {zone:1434} guide)"] = "{npc:2366}，在旅店裡：給{area:35}（{zone:1434}指南）",
-	["{npc:270637}: {npc:2094}'s crate, from {area:150}"] = "{npc:270637}：{area:150}的{npc:2094}給的箱子",
 	["{npc:5479} trains warriors in {object:2100}, beside the Pig and Whistle. {npc:6236} waits on {area:720} in the {zone:1413}, on the way to {area:392} much later (the 40-50 {zone:1434} guide)."] = "{npc:5479}在{object:2100}訓練戰士，就在豬與哨旅店旁邊。{npc:6236}在{zone:1413}的{area:720}等你，很久以後去{area:392}的路上（40-50的{zone:1434}指南）。",
-	["{quest:303} is a group quest: 30 elite Dark Irons (27-31) in the ruins west of the camp. Skip it if you are alone."] = "{quest:303}是組隊任務：營地西邊廢墟裡的30隻精英黑鐵矮人（27-31級）。獨自一人就跳過。",
-	["{quest:88756} is a group quest: the {item:280806} lie in the {object:147516} camp on {area:1016}, south-east of {area:205}, among the same elite dwarves. Skip it if you are alone."] = "{quest:88756}是組隊任務：{item:280806}在{area:205}東南方{area:1016}上的{object:147516}營地裡，周圍是同一批精英矮人。獨自一人就跳過。",
-	["{quest:98291} is a group quest: 16 elite Dragonmaw (29-30) in {area:17716}, just east of {npc:270637}. Skip it if you are alone."] = "{quest:98291}是組隊任務：{npc:270637}東邊不遠的{area:17716}裡16隻精英龍喉獸人（29-30級）。獨自一人就跳過。",
 }
 
 P.guides["forever/alliance/30-40/02-desolace"] = {
@@ -447,12 +401,10 @@ P.guides["forever/alliance/30-40/02-desolace"] = {
 	["Keep north to {area:598} for {item:15881}: any Slitherblade can drop it. Work the Naga, Sorceresses and Warriors (32-34) of the strand's southern half until it drops.\nCareful: the Myrmidons (34-35) hold the beach's northern half with the Sea Witches and Oracles (34-36, casters), and Tidehunters (36-37) swim off the northern tip: on the way to the chest, keep to the beach and swim straight across."] = "繼續往北到{area:598}拿{item:15881}：任何滑刃納迦都可能掉。在海灘南半部打納迦、女巫和戰士（32-34級），直到掉出來。\n小心：侍從（34-35級）和海女巫、神諭者（34-36級，會施法）佔據海灘北半部，潮汐獵人（36-37級）在北端外海游：去箱子的路上沿著海灘走，直接游過去。",
 	["North-east from {npc:11596}'s camp to {area:609}, on the way back to {area:608}: every Kolkar drops Centaur Ears for {npc:5752} and {quest:93224} for {npc:5396}. The Magram south-east of {npc:11596}'s camp drop them too, but their village holds Necromancers (42-43) and Guardians (39-41): stay with the Kolkar (30-35)."] = "從{npc:11596}的營地往東北到{area:609}，順路回{area:608}：每個科卡爾半人馬都會掉{item:6067}給{npc:5752}，以及{quest:93224}給{npc:5396}。{npc:11596}營地東南方的瑪格拉姆也會掉，但他們的村子有死靈法師（42-43級）和守護者（39-41級）：打科卡爾（30-35級）就好。",
 	["North-west from {area:609} back along the road to {area:608}: {npc:11438} waits at {area:2407}. He sends you after the robber to {area:35}, where the next guide ends: keep it."] = "從{area:609}往西北沿道路回{area:608}：{npc:11438}在{area:2407}等你。他會要你去{area:35}追那個強盜，下一份指南在那裡結束：先留著。",
-	["Use {npc:11596}'s {item:13892} on an Aged, Dying or {npc:4702}: it becomes a tamed kodo that follows you. Walk it back to {npc:11596}'s camp; there, talk to the kodo: that counts it and lets you tame the next. Five kodos, one at a time; Aged Kodos also drop the hides, and the Scorpashi Lashers that hunt around the graveyard carry the venom. Careful: the Ancient Kodos (36-37) hit hard: tame them, and fight only the Aged Kodos for the hides."] = "對年老、垂死或{npc:4702}使用{npc:11596}的{item:13892}：牠會變成跟著你的馴服科多獸。帶牠走回{npc:11596}的營地；到了跟科多獸說話：這樣才算數，也才能馴服下一隻。總共五隻，一次一隻；{npc:4700}也會掉獸皮，在墓地周圍獵食的{npc:4697}身上有毒液。注意：{npc:4702}（36-37級）打很痛：馴服牠們就好，要獸皮只打{npc:4700}。",
 	["West into the {area:596} first: {npc:11438}'s {object:176751} lie among the skeletons on its western side. Just north of them an {object:417353} starts {quest:79229}, also for {npc:11438}."] = "先往西進{area:596}：{npc:11438}要的{object:176751}在西側的骨骸之間。就在它們北邊，一堆熄滅的營火會開始{quest:79229}，也是給{npc:11438}的。",
 	["West to the shore: the Drysnap Crawlers and Pincers (33-35) on the beach and the clam beds around the wreck carry {item:15878}, about one in seven."] = "往西到海岸：沙灘上的{npc:11562}和乾鉗蟹（33-35級），以及殘骸周圍的蛤床，大約七隻掉一把{item:15878}。",
 	["{area:2407} stands by the road south of the fortress, on the way to {npc:11596}'s camp. {npc:11438} collects {object:176751}; they lie among the skeletons of the {area:596}, where {npc:11596}'s kodos are."] = "{area:2407}在堡壘南邊的路旁，在去{npc:11596}營地的路上。{npc:11438}收集{object:176751}；它們在{area:596}的骨骸之間，{npc:11596}的科多獸也在那裡。",
 	["{item:13703}, among the skeletons"] = "{item:13703}，在骨骸之間",
-	["{item:15881}, from the Slitherblade naga"] = "{item:15881}，滑刃納迦掉落",
 	["{npc:11438}: Tokal waits in {area:35}, at the end of the next guide"] = "{npc:11438}：托卡爾在{area:35}，下一份指南最後",
 	["{npc:11863}: {npc:12369} (38) rises at the {object:177673}, for the south loop at the end of 30-40 (06b): keep it"] = "{npc:11863}：{npc:12369}（38級）會在{object:177673}出現，留到30-40最後的南邊那一圈（06b）：先留著",
 	["{npc:5638}: the satchel lies off the north-west coast, on {zone:1443}'s south loop at the end of 30-40: keep it"] = "{npc:5638}：背包在西北海岸外，在30-40最後{zone:1443}的南邊那一圈：先留著",
@@ -486,25 +438,13 @@ P.guides["forever/alliance/30-40/03-ashenvale"] = {
 }
 
 P.guides["forever/alliance/30-40/04-stranglethorn-vale"] = {
-	["Follow the main road north the length of the jungle, past the {object:3202} turn-off, to the hunters' camp just west of the road."] = "沿主要道路往北走過整片叢林，經過往{object:3202}的岔路，到道路西邊不遠的獵人營地。",
-	["From Nesingwary's camp head west to the {area:310} near the coast; the Crystal Spine Basilisks around it drop the shards.\nThe haunted island lies just off the coast south-west of the mine: just reach its edge. Careful: its Lesser Water Elementals are 36-37: don't stay. The Bloodscalp ruins of Zul'Kunda to the north wait for the second Stranglethorn loop."] = "從奈辛瓦里營地往西到海岸附近的{area:310}；周圍的{npc:689}會掉碎片。\n鬧鬼的小島就在礦坑西南方的海岸外：碰到它的邊緣就好。注意：島上的{npc:691}是36-37級：別久留。北邊血頂食人妖的祖昆達廢墟留到荊棘谷第二圈。",
-	["Hearth back to {area:35}."] = "用爐石回{area:35}。",
 	["Keep it for another visit: {npc:729} (37) prowls the Lashtail hill."] = "先留到下一趟：{npc:729}（37級）在鞭尾迅猛龍的山丘上徘徊。",
-	["North to {area:100}"] = "往北到{area:100}",
-	["River Crocolisks (30-31) swim the river right beside Nesingwary's camp and up toward the {area:99}."] = "{npc:1150}（30-31級）在奈辛瓦里營地旁邊的河裡游，一直到{area:99}那一帶。",
-	["Take the road north; the camp sits in the hills to the west.\n{npc:738} offers {quest:215} only while he is out of the camp: about every half hour he walks down the path to the road, where two Kurzen's Agents ambush him. Help him kill them and take the quest at once, before he walks back up. He isn't there? Leave it: the guide passes {quest:200}, which follows from it, as well.\n{npc:738} spends most of his time at the top of the {area:99}'s path, by the huts, and now and then walks down it to the road and back (about eight minutes). If he isn't at the arrow, look along that path."] = "走道路往北；營地在西邊的丘陵上。\n{npc:738}只有在營地外面時才給{quest:215}：大約每半小時他會沿小路走到大路上，那裡有兩個{npc:775}伏擊他。幫他殺掉、馬上接任務，趁他走回去之前。他不在？就算了：由它接下去的{quest:200}，指南也會帶你經過。\n{npc:738}大部分時間在{area:99}小路頂端的小屋旁，偶爾沿小路走到大路再走回來（大約八分鐘）。不在箭頭處的話，沿那條小路找。",
-	["The boat from {area:392}'s dock crosses to {area:35}, on Stranglethorn's southern cape."] = "{area:392}碼頭的船會開到荊棘谷南端海角的{area:35}。",
-	["The hunters' tents stand just west of the road. {npc:773}'s {quest:201} only asks you to look around it."] = "獵人的帳篷就在道路西邊不遠。{npc:773}的{quest:201}只要你在營地周圍看一看。",
-	["Your level 34 ranks: the class trainers stand around the {object:2096}, {object:2100}, the Cathedral and the {object:2101}; {npc:5504}, the druid trainer, stands north-west of the {object:2101}. Shamans train in {zone:1455}, later in 30-40."] = "34級的技能：職業訓練師在{object:2096}、{object:2100}、大教堂和{object:2101}周圍；德魯伊訓練師{npc:5504}站在{object:2101}西北方。薩滿在{zone:1455}訓練，30-40稍後會去。",
 	["{npc:250660}'s next errand sends you into the Venture Co. house at {area:37}, among Venture Co. Agents (39): leave it."] = "{npc:250660}的下一個任務要你進{area:37}的風險投資公司房子，周圍是{npc:260429}（39級）：先別接。",
 	["{npc:3945}, on the dock"] = "{npc:3945}，在碼頭上",
 	["{npc:3945}: for {npc:267} in {area:42}, where the second Stranglethorn loop starts"] = "{npc:3945}：給{area:42}的{npc:267}，荊棘谷第二圈從那裡開始",
 	["{npc:4631} stands on the dock where the boat lands. Bind your hearthstone at the inn: it is your way back here from the north of the jungle at the end of the loop."] = "{npc:4631}站在船停靠的碼頭上。在旅店綁爐石：這一圈最後要從叢林北邊用它回這裡。",
 	["{npc:4631}, on the dock"] = "{npc:4631}，在碼頭上",
 	["{npc:4631}: for {npc:2496}, upstairs in the tavern"] = "{npc:4631}：給酒館樓上的{npc:2496}",
-	["{npc:738}: at the top of the path by the huts, or on his walk down it"] = "{npc:738}：在小路頂端的小屋旁，或正走在那條小路上",
-	["{npc:773}, in the tavern; upstairs: {npc:738} is at the {area:99}, on the way"] = "{npc:773}，在酒館樓上：{npc:738}在{area:99}，順路",
-	["{npc:773}: Nesingwary's camp, on the way"] = "{npc:773}：奈辛瓦里的營地，順路",
 }
 
 P.guides["forever/alliance/30-40/04b-stranglethorn-vale"] = {
@@ -524,18 +464,14 @@ P.guides["forever/alliance/30-40/04b-stranglethorn-vale"] = {
 }
 
 P.guides["forever/alliance/30-40/05-arathi-highlands"] = {
-	["For characters of 36 to 38. {area:327}, where the naga and the professor's water elementals are 38-40, is a group stop: skip it if you are alone."] = "適合36到38級的角色。{area:327}的納迦和教授的水元素是38-40級，那一站要組隊：獨自一人就跳過。",
-	["Hay Weevils crawl about the north end of {quest:681}'s farm: catch one with the tool from {npc:217412}'s {item:213565}."] = "{npc:217589}在{quest:681}農場北端爬來爬去：用{npc:217412}的{item:213565}裡的工具抓一隻。",
 	["His next errand goes to {zone:1457}, off this route: leave it."] = "他的下一個任務要去{zone:1457}，不在這條路線上：先別接。",
 	["Leave the {zone:2548} for about level 41: its Western Front has elite patrols. After Stranglethorn, the {zone:2548} guide takes you from {zone:1455} to {area:69}, then through {area:2417}."] = "{zone:2548}留到約41級再去：它的西部前線有精英巡邏。荊棘谷之後，{zone:2548}指南會帶你從{zone:1455}到{area:69}，再穿過{area:2417}。",
-	["South from {area:318}, past {area:314}, to {area:317} in the hills: the Witch Doctors stand among the huts and the Shadow Hunters guard the far end of the valley. Every troll can drop a tusk. Careful: Witherbark Goliaths (35, elite) walk the far end with the Shadow Hunters: pull the Hunters out to you one at a time, away from the Goliaths."] = "從{area:318}往南，經過{area:314}，到丘陵上的{area:317}：巫醫站在小屋之間，暗影獵手守著山谷盡頭。每個食人妖都可能掉獠牙。注意：{npc:218032}（35級，精英）和暗影獵手一起在盡頭走動：把獵手一次一隻拉到你這裡，遠離巨人。",
 	["South from {area:42} to the {area:121}, on the way to {zone:1430}: the mound of dirt by the Nightbane worgen (29-31) holds the evidence {npc:661} wants."] = "從{area:42}往南到{area:121}，在去{zone:1430}的路上：夜禍狼人（29-31級）旁那堆土裡有{npc:661}要的證據。",
 	["The two wrecks lie in the bay west of the cove. The charts and logs are inside them; the gems lie on the sea floor around them. Daggerspine naga swim the whole bay.\nCareful: the charts and logs lie deep inside the wrecks: watch your breath bar and come up between them; a water breathing potion makes it easy."] = "兩艘沉船在海灣西邊的海灣裡。海圖和航海日誌在船裡面；寶石在周圍的海底。匕脊納迦在整個海灣游來游去。\n小心：海圖和日誌在沉船深處：注意呼吸條，中間浮上來換氣；有水下呼吸藥水會輕鬆很多。",
 	["the {object:19030}"] = "{object:19030}",
 	["{npc:2276}, inside, if the {zone:1424} guide didn't take it: the Syndicate camp is on the way to Arathi"] = "{npc:2276}，在裡面，如果{zone:1424}指南沒接：辛迪加的營地在往阿拉希的路上",
 	["{npc:2700}: {npc:1075}'s plea, from the {zone:1437}"] = "{npc:2700}：{zone:1437}的{npc:1075}的請求",
 	["{npc:661}, in {area:42}"] = "{npc:661}，在{area:42}",
-	["{quest:92458}: the {item:251961}, inside"] = "{quest:92458}：{item:251961}，在裡面",
 }
 
 P.guides["forever/alliance/30-40/06-badlands"] = {
@@ -543,7 +479,6 @@ P.guides["forever/alliance/30-40/06-badlands"] = {
 }
 
 P.guides["forever/alliance/30-40/06b-desolace"] = {
-	["The Slitherblade naga hold the north-west coast north of {npc:11863}'s tower, on the shore and out in the water. Karnitol's satchel drops now and then from their Tidehunters and Sea Witches, most of them underwater ({spell:131} helps): take it if it comes, it is optional. Any naga can drop Rackmore's golden key. Swim out to {area:2406} off the far northern tip and use the {item:15766} on the {object:177673}: {npc:12369} (38) rises; kill him for the {quest:6027}."] = "滑刃納迦佔據{npc:11863}的塔北邊的西北海岸，岸上和水裡都有。卡尼托的背包偶爾從牠們的潮汐獵人和海女巫身上掉，大多在水下（{spell:131}有幫助）：掉了就拿，可做可不做。任何納迦都可能掉拉克摩爾的金鑰匙。游到最北端外海的{area:2406}，對{object:177673}使用{item:15766}：{npc:12369}（38級）會出現；殺他拿{quest:6027}。",
 	["{npc:11438}, if the first {zone:1443} visit didn't give it"] = "{npc:11438}，如果第一次來{zone:1443}沒拿到",
 	["{npc:11863}, if the first {zone:1443} visit didn't give it"] = "{npc:11863}，如果第一次來{zone:1443}沒拿到",
 	["{npc:11863}, if the first {zone:1443} visit didn't take the sceptre back to him"] = "{npc:11863}，如果第一次來{zone:1443}沒把權杖帶回給他",
@@ -555,7 +490,6 @@ P.guides["forever/alliance/30-40/06b-desolace"] = {
 
 P.guides["forever/alliance/40-50/01-stranglethorn-vale"] = {
 	["Already have all eight Tumbled Crystals? Hand them to {npc:737} now."] = "八個{item:4106}都拿到了？現在交給{npc:737}。",
-	["An {npc:217588} crawls in the jungle south-east of Nesingwary's camp, on the way to the {area:99}: catch one with the tool from {npc:217412}'s {item:213565}."] = "奈辛瓦里營地東南方、往{area:99}的路上，叢林裡有{npc:217588}在爬：用{npc:217412}給的{item:213565}裡的工具抓一隻。",
 	["Back down to town: Shaky stands at the tunnel mouth; {npc:2488} and MacKinley are on the top floor."] = "回到城鎮：『病鬼』菲力浦站在隧道口；{npc:2488}和馬克基雷在頂層。",
 	["Back east along the road to Theramore: {npc:4944} takes the deserters' news on the top floor of {area:514}, and the flight master stands by its gate."] = "沿道路往東回塞拉摩：在{area:514}頂層把逃兵的消息交給{npc:4944}，飛行管理員就站在它的大門旁。",
 	["Back to Theramore for the boat to {area:150}."] = "回塞拉摩搭船去{area:150}。",
@@ -577,8 +511,6 @@ P.guides["forever/alliance/40-50/01-stranglethorn-vale"] = {
 	["\"Sea Wolf\" MacKinley: for Stoley in {zone:1446}, keep it"] = "『海狼』馬克基雷：給{zone:1446}的史托利，先留著",
 	["for {area:1438}, just south of the swamp"] = "去沼澤南邊不遠的{area:1438}",
 	["{area:720} lies off the {area:391} just south of {area:392}: wade over the sand bar shallows. {npc:6236} sends four challengers and then {npc:6238} (level 33) at you, one at a time."] = "{area:720}在{area:392}南邊不遠的{area:391}外海：涉水走過沙洲淺灘過去。{npc:6236}會先派四名挑戰者，再派{npc:6238}（33級），一次一個來打你。",
-	["{item:1524}, from the trolls of the ruins"] = "{item:1524}，廢墟裡的食人妖掉落",
-	["{item:216617}, in the supply crate deep in the cave"] = "{item:216617}，在洞穴深處的補給箱裡",
 	["{npc:217412}: {quest:93176}, from the {zone:1417} guide"] = "{npc:217412}：{quest:93176}，來自{zone:1417}指南",
 	["{npc:2494}' Akiris by the Bundle waits for the level-48 {area:35} stop (its naga are 43-44): leave it for now."] = "{npc:2494}的「成捆的阿基利斯蘆葦」留到48級回{area:35}時再做（那裡的納迦是43-44級）：先別管。",
 	["{npc:2498}'s Zanzil's Secret waits for the same stop (Zanzil's village is 43-44): leave it for now."] = "{npc:2498}的「贊吉爾的秘密」也留到同一趟再做（贊吉爾的村莊是43-44級）：先別管。",
@@ -598,7 +530,6 @@ P.guides["forever/alliance/40-50/01b-riverglades"] = {
 	["the Wanted poster"] = "通緝海報",
 	["{npc:259158}: {quest:94961}, in his cage"] = "{npc:259158}：{quest:94961}，在他的籠子裡",
 	["{npc:260026} waits beside the road east of the pass.\nThis guide is written for levels 41-45: the route comes here at about 41, after {zone:1434}. The port's second wave and the Western Front's camps in the north are 43-45, with elite Twilight Enforcers (45) on patrol and {npc:256881} (46, elite) for groups only: below 41, do Stranglethorn first."] = "{npc:260026}在山口東邊的路旁等你。\n本指南寫給41-45級：路線約41級、做完{zone:1434}後來到這裡。港口的第二波和北邊西部前線的營地是43-45級，有精英{npc:256800}（45級）巡邏，{npc:256881}（46級，精英）只適合組隊：不到41級就先做荊棘谷。",
-	["{object:621813}, west of Elbrim's farm: each grave takes one of the {item:266148} the Twilight Raiders drop, so loot five first"] = "鬆軟的土堆，在艾爾布林農場西邊：每座墳要用一個{npc:256952}掉的{item:266148}，所以先撿五個",
 }
 
 P.guides["forever/alliance/40-50/03-feralas"] = {
@@ -611,31 +542,20 @@ P.guides["forever/alliance/40-50/03-feralas"] = {
 
 P.guides["forever/alliance/40-50/04-tanaris"] = {
 	["Only if a Southsea pirate gave you a {item:9250}: it starts a quest for {npc:7882}, inside, where you stand."] = "只有南海海盜掉了{item:9250}給你時才做：它會開始一個交給{npc:7882}的任務，他就在你所在的建築裡。",
-	["The little turtle {npc:5955} wanders the west edge of the {quest:3362}, most often where the arrow leads: take him from the edge and leave the Thistleshrubs (48-50) alone. Lead him home to his wife {npc:6015}, by the water just east of {area:977}: he walks slowly and the desert's beasts go for him, so keep him alive."] = "小烏龜{npc:5955}在{quest:3362}的西緣遊蕩，最常在箭頭指的地方：從邊緣把他帶走，別惹灌木獸（48-50級）。帶他回家找他太太{npc:6015}，她在{area:977}東邊不遠的水邊：他走得很慢，沙漠的野獸會攻擊他，要保住他。",
 	["The {area:2240} lies on the {area:439} in south-east {zone:1441}: {npc:4454} is in the gnomes' camp beside the track, {npc:4630} and {npc:4709} by the goblins' camp. With {quest:1137} handed in, {npc:4630} has work: {npc:4630} first, then {npc:4709}, who runs off to keep Rizzle busy; then take Rizzle's plans from the gnomes' camp and bring them back to {npc:4630}."] = "{area:2240}在{zone:1441}東南部的{area:439}上：{npc:4454}在賽道旁的地精營地，{npc:4630}和{npc:4709}在哥布林營地旁。交完{quest:1137}後{npc:4630}有工作給你：先找{npc:4630}，再找{npc:4709}，他會跑去纏住瑞茲；然後從地精營地拿走瑞茲的設計圖，帶回來給{npc:4630}。",
 	["{npc:7771}: the {item:10556} is in {area:392}, on the Un'Goro guide's flight to {area:976}, which hands it in here: keep it"] = "{npc:7771}：{item:10556}在{area:392}，安戈洛指南飛往{area:976}時會順路做，之後回這裡交：先留著",
 	["{npc:7771}: {quest:3380}, from Angelas in Feathermoon"] = "{npc:7771}：{quest:3380}，羽月的安吉拉斯給的",
 }
 
 P.guides["forever/alliance/40-50/05-the-hinterlands"] = {
-	["Group quest: {quest:348} ends at {npc:1449} in Mistvale. Hand him ten gorilla fangs and he calls three waves of gorillas (41-42), one after another, then {npc:1514} (44). In players' recordings, 12 of the 27 people who started it died there. Take it if you have a friend or two along."] = "組隊任務：{quest:348}在迷霧谷的{npc:1449}結束。交給他十顆猩猩牙，他會一波接一波召喚三波猩猩（41-42級），然後是{npc:1514}（44級）。在玩家的記錄裡，開始這個任務的27人中有12人死在那裡。有一兩個朋友同行再接。",
 	["Only if you escorted the {zone:1425} robot: {npc:7406} has its reward too."] = "只有護送過{zone:1425}的機器人才做：{npc:7406}這裡也有它的獎勵。",
 	["Only if you escorted the {zone:1444} robot: its reward waits with {npc:7406} here in {area:35}."] = "只有護送過{zone:1444}的機器人才做：獎勵在{area:35}這裡的{npc:7406}那裡。",
 	["Only with the distress beacon, a rare drop in the {zone:1425}: it starts a quest to find the robot it calls for."] = "只有拿到遇難信標（{zone:1425}的稀有掉落）時才做：它會開始一個任務，去找它呼叫的那個機器人。",
-	["Set your hearth at the {object:26486}: the {zone:1427} guide starts with the hearth back here and the gryphon to {area:144}."] = "把爐石設在{object:26486}：{zone:1427}指南一開始會用爐石回這裡，再搭獅鷲去{area:144}。",
-	["The Vilebranch Soothsayers (46-47) walk the ground around the foot of the {area:355}: their totems are for Maret Firetend, and more Vilebranch Totems lie on the ground among them: pick those up too. Careful: {npc:7996} and {npc:8636} (50, elites) stand on the altar's south-east side: take the Soothsayers on its west side, away from them, and stay off the altar."] = "{npc:4467}（46-47級）在{area:355}腳下的地面走動：他們的圖騰是給瑪瑞特·焰心的，他們之間的地上還有更多{item:279225}：也一起撿。小心：{npc:7996}和{npc:8636}（50級，精英）站在祭壇東南側：在祭壇西側、遠離他們的地方打{npc:4467}，別上祭壇。",
 	["The robot sits at the head of the river west of {area:351}. Escort it east to the shore beyond the {area:307}, then ride back west for {area:348}; its reward waits with {npc:7406} in {area:35}, later in this guide.\nCareful: Two ambushes spawn during the escort: first three wildkin owlbeasts, then three trolls. Before each, the robot halts and announces it senses danger. Oozes, stealthed wolves and a large turtle along the path can join fights, and they respawn even if cleared beforehand."] = "機器人在{area:351}西邊的河流源頭。護送它往東到{area:307}另一頭的岸邊，然後往西騎回{area:348}；獎勵在{area:35}的{npc:7406}那裡，本指南稍後會去。\n小心：護送途中會有兩次伏擊：先是三隻梟獸，然後是三個食人妖。每次之前機器人都會停下來說它感覺到危險。沿路的軟泥怪、潛行的狼和一隻大海龜可能加入戰鬥，而且就算事先清掉也會重生。",
 	["for {quest:2990} at {area:1438}: the {zone:1428} guide hands it in"] = "給{area:1438}的{quest:2990}：{zone:1428}指南會去交",
-	["{area:43}: kill these as you meet them"] = "{area:43}：遇到就殺",
 	["{item:3925}, from {npc:2536}"] = "{item:3925}，{npc:2536}掉落",
-	["{item:4457}: in your bags already if you cook"] = "{item:4457}：會烹飪的話背包裡已經有了",
-	["{npc:1449}, inside {area:1742}"] = "{npc:1449}，在{area:1742}裡面",
-	["{npc:1494} comes only for his food: hand in {quest:619} at Captain Smotts' ruined lifeboat on the shore south-east of {area:35}, with 10 Barbecued Buzzard Wings and 5 {item:4595}, and he comes to the boat. {npc:2832}, the food and drink vendor at the inn, sells the wine. The wings are a cook's dish: if you don't cook, bring them from the Auction House."] = "{npc:1494}只會為了食物出現：帶著10個{item:4457}和5瓶{item:4595}，到{area:35}東南方海岸上斯莫特船長的破救生艇繳交{quest:619}，他就會來到船邊。旅店的食物飲料商人{npc:2832}有賣酒。雞翅是烹飪做的料理：不會烹飪就從拍賣場買。",
-	["{npc:1494}'s bait"] = "{npc:1494}的誘餌",
-	["{npc:2486}, beside the inn"] = "{npc:2486}，在旅店旁邊",
 	["{npc:2486}, by the inn"] = "{npc:2486}，在旅店旁",
 	["{npc:2535} and Jon-Jon"] = "{npc:2535}和{npc:2536}",
-	["{object:2289}: the food goes in, {npc:1494} comes"] = "{object:2289}：放進食物，{npc:1494}就會來",
 }
 
 P.guides["forever/alliance/40-50/06-searing-gorge"] = {
@@ -644,7 +564,6 @@ P.guides["forever/alliance/40-50/06-searing-gorge"] = {
 	["Dark Iron Slavers"] = "{npc:5844}",
 	["Dark Iron Steamsmiths at the surface furnaces carry Thorium Plated Daggers as well as the {item:18959}. Pull from the outside of the camp."] = "地面熔爐旁的{npc:5840}身上除了{item:18959}，也有{item:10551}。從營地外圍拉。",
 	["Dark Iron Taskmasters"] = "{npc:5846}",
-	["If you skipped The {item:3985} or Facing Negolash, grind here to level 48.27 to stay on the route's plan."] = "如果你跳過了「{item:3985}」或「直面奈古拉什」，在這裡刷到48.27級，才能跟上路線的安排。",
 	["Still under level 48.66 after the {area:1443} (a solo player usually is; a group's Culling the Competition or {quest:7701} covers it)? Top up on the Incendosaurs (47) in the {area:1443}'s lava pools, pulled to the edge.\nCareful: {npc:14621} (50, elite) and his elite guards hold the {area:1443}'s depths: keep to the pools near the entrance and don't follow the tunnels in."] = "打完{area:1443}還不到48.66級？（單人通常不到；組隊做「淘汰競爭者」或{quest:7701}就夠了）在{area:1443}的熔岩池打{npc:9318}（47級）補經驗，把牠們拉到邊緣。\n小心：{npc:14621}（50級，精英）和他的精英守衛佔據{area:1443}深處：待在入口附近的熔岩池，別跟著隧道往裡走。",
 	["Still under level 48.98 (a solo player usually is; a group's {quest:3452} covers it)? Top up on the Searing Lava Spiders (47-48) of the western plateaus, away from the {object:147516} camps.\nCareful: Magma Elementals (46-48) drift among the spiders: pull one at a time. Keep south of the Twilight camp at {area:1442}, whose cultists are elites."] = "還不到48.98級？（單人通常不到；組隊做{quest:3452}就夠了）在西邊高地打{npc:5858}（47-48級）補經驗，遠離{object:147516}的營地。\n小心：{npc:5855}（46-48級）在蜘蛛之間飄蕩：一次拉一隻。待在{area:1442}暮光營地的南邊，那裡的教徒是精英。",
 	["Take the bounty from the board only if you want to hunt the linked dwarf packs with a group."] = "只有想跟隊伍一起獵殺成群相連的矮人時，才去告示板接這個懸賞。",
@@ -652,23 +571,17 @@ P.guides["forever/alliance/40-50/06-searing-gorge"] = {
 	["The Twilight elites of {npc:8436}'s camp drop the {quest:3378} page, about one in five: keep the group together here until one drops."] = "{npc:8436}營地的暮光精英會掉落{quest:3378}的書頁，大約五隻掉一張：讓隊伍待在這裡一起打，直到掉出來。",
 	["The furnaces and southern ridges"] = "熔爐和南邊的山脊",
 	["Thorium Plated Daggers"] = "{item:10551}",
-	["With your group, look for Taskmasters on the open ledges. Stay on the surface; don't follow the arrow into the {area:1443}."] = "跟隊伍一起在開闊的岩架上找監工。待在地面上；別跟著箭頭進{area:1443}。",
 	["grind on {npc:5858}"] = "刷{npc:5858}",
 	["{quest:3378}: the page"] = "{quest:3378}：那張書頁",
 }
 
 P.guides["forever/alliance/40-50/07-un-goro-crater"] = {
-	["For characters of 49 to 50, but most quests here are level 51-53: on purpose, for their experience. This first visit keeps to the crater's eastern half, where the beasts are 48-52, so pull them one at a time; the pylons, the bones and the hive wait for the later Un'Goro visit at about 54."] = "適合49到50級的角色，但這裡大多數任務是51-53級：這是刻意的，為了它們的經驗。這第一趟只在環形山東半部，那裡的野獸是48-52級，所以一次拉一隻；水晶塔、骨頭和蜂巢留到約54級第二次來安戈洛時再做。",
 	["For {npc:7740} in {zone:1457}, on the {zone:1448} guide's {zone:1457} stop: keep it"] = "給{zone:1457}的{npc:7740}，在{zone:1448}指南去{zone:1457}時交：先留著",
 	["Level 50"] = "50級",
 	["On the ride south, {npc:7771}'s dig camp stands at the {area:1938}: hand him the {item:10556}."] = "往南騎的路上，{npc:7771}的挖掘營地在{area:1938}：把{item:10556}交給他。",
 	["Still short of level 50 after the refuge's hand-ins? The next guide opens in {zone:1455} with quests that need level 50: top up on the Bloodpetal Lashers and Threshers (48-50) of the eastern jungle, where you took the petals, before you leave the crater."] = "在避難營交完任務還不到50級？下一份指南在{zone:1455}開始，任務需要50級：離開環形山前，在東部叢林（你拿花瓣的地方）打{npc:6509}和血瓣花打穀者（48-50級）補經驗。",
 	["The flight lands in {area:976}."] = "飛行降落在{area:976}。",
 	["The gorillas on {area:1943} carry the pelts: keep it for the second Un'Goro visit, around 54"] = "{area:1943}上的猩猩身上有毛皮：留到約54級第二次來安戈洛時再做",
-	["Theramore"] = "塞拉摩",
-	["{item:8593}; below ground"] = "{item:8593}；地下",
-	["{npc:12046}, below ground"] = "{npc:12046}，在地下",
-	["{npc:5594}, inside"] = "{npc:5594}，在裡面",
 	["{npc:7771}'s next task, Into the Depths, is inside the {area:1417}: skip it."] = "{npc:7771}的下一個任務「深入深處」在{area:1417}裡面：跳過。",
 	["{npc:7771}'s {item:10556} stands in {area:392}: fly there first, then on to {area:976}."] = "{npc:7771}的{item:10556}在{area:392}：先飛去那裡，再前往{area:976}。",
 	["{npc:9272}, {npc:9271}, {npc:9270} and {npc:9618} have quests among mobs of 51-55: leave them for the later Un'Goro visit, at about 54."] = "{npc:9272}、{npc:9271}、{npc:9270}和{npc:9618}的任務都在51-55級的怪物之間：留到約54級第二次來安戈洛時再做。",
@@ -705,7 +618,6 @@ P.guides["forever/alliance/50-60/01-burning-steppes"] = {
 	["{npc:239822}: {quest:92345}, for {npc:4217} in {zone:1457}, on the {zone:1448} guide: keep it"] = "{npc:239822}：{quest:92345}，給{zone:1457}的{npc:4217}，在{zone:1448}指南：先留著",
 	["{npc:266524}: {npc:266508} is in the {area:1440} caverns, on this loop"] = "{npc:266524}：{npc:266508}在{area:1440}洞穴裡，就在這一圈路線上",
 	["{npc:7312}, the mage trainer: for {npc:8395} in {zone:1447}, at the end of this guide: keep it"] = "{npc:7312}，法師訓練師：給本指南最後{zone:1447}的{npc:8395}：先留著",
-	["{zone:1419}: kill these as you meet them"] = "{zone:1419}：遇到就殺",
 }
 
 P.guides["forever/alliance/50-60/02-felwood"] = {
@@ -754,7 +666,6 @@ P.guides["forever/alliance/50-60/03-winterspring"] = {
 	["For Greta in {zone:1448}, later in this guide: keep it"] = "給本指南稍後{zone:1448}的格雷塔：先留著",
 	["For {npc:11558} in {area:1769}, later in this guide: keep it"] = "給本指南稍後{area:1769}的{npc:11558}：先留著",
 	["For {npc:9116} in {zone:1448}, later in this guide: keep it"] = "給本指南稍後{zone:1448}的{npc:9116}：先留著",
-	["Lead {npc:9999} north to {area:541}. When he faints, use {item:11804} on him to wake him."] = "帶{npc:9999}往北到{area:541}。他昏倒時對他使用{item:11804}叫醒他。",
 	["Loot the horns from Ice Thistle Matriarchs"] = "從{npc:7459}身上拿角",
 	["Moontouched Feathers lie on the ground all along the road west to {npc:9298}, where the Ragged Owlbeasts (53) roam: pick them up as you ride.\nThe same road crosses the Rogue Ice Thistles' ground (about one in three drops a {item:12366} for Umi) and the Fledgling Chillwinds' (about one in five drops an {item:12444} for {npc:10468}): work both here, around the road's middle.\nCareful: both are 53-55: pull the lower ones and take them one at a time."] = "往西到{npc:9298}的整條路上，地上都散落著{item:12383}，{npc:7450}（53級）在那裡遊蕩：邊騎邊撿。\n同一條路會經過{npc:7457}的地盤（大約三隻掉一個{item:12366}，給烏米）和{npc:7447}的地盤（大約五隻掉一個{item:12444}，給{npc:10468}）：在道路中段一起打。\n小心：兩種都是53-55級：挑等級低的，一次拉一隻。",
 	["North-east from the pylon to {area:543}: {npc:10302} the goblin sits by the water."] = "從水晶塔往東北到{area:543}：哥布林{npc:10302}坐在水邊。",
@@ -784,7 +695,6 @@ P.guides["forever/alliance/50-60/03-winterspring"] = {
 	["With the {item:11243} from Gregan"] = "帶著格雷甘給的{item:11243}",
 	["{area:1769}, {zone:1448} side"] = "{area:1769}，{zone:1448}那一側",
 	["{area:1770} is the cave at the back of {area:1763}, west of the road. Use the {item:12906} on the four braziers inside.\nCareful: Shadow Council mobs of level 53-55 fill the cave and often come in large linked groups, many with stuns: pull at the edge of each group and fight one pack at a time.\nThe Jaedenar Darkweavers, Warlocks and Enforcers in here drop a {item:13140}, about one kill in thirty: keep killing them until it drops. It opens the cell of {npc:11018}, the night elf held in the cave."] = "{area:1770}是{area:1763}後方、道路西邊的洞穴。對裡面的四個火盆使用{item:12906}。\n小心：洞裡滿是53-55級的暗影議會怪，常常一大群連在一起，很多會擊暈：在每一群的邊緣拉，一次打一群。\n這裡的{npc:7118}、術士和執行者會掉{item:13140}，大約三十隻一個：一直打到掉出來。它能打開關在洞裡的夜精靈{npc:11018}的牢房。",
-	["{area:538}: kill these as you meet them"] = "{area:538}：遇到就殺",
 	["{item:11515}, from the same cultists: {npc:9528} takes six by the Sanctuary if you did Cleansing Felwood"] = "{item:11515}，同一批教徒掉落：做過「淨化費伍德」的話，聖所旁的{npc:9528}收六個",
 	["{item:12366}, from the Rogue Ice Thistles"] = "{item:12366}，{npc:7457}掉落",
 	["{item:12444}, from the Fledgling Chillwinds"] = "{item:12444}，{npc:7447}掉落",
@@ -823,7 +733,6 @@ P.guides["forever/alliance/50-60/04-western-plaguelands"] = {
 	["Back to {area:3197}."] = "回{area:3197}。",
 	["Back to {npc:11063} at {area:2268} with your group."] = "跟隊伍一起回{area:2268}找{npc:11063}。",
 	["Careful: Scarlet Paladins (55-56) and priests guard {item:12954} inside {area:190}'s town hall. They are elite, and a {npc:1839} (63, elite) stands near the book. Go in with your group; stay out of the Clerist's reach."] = "小心：{npc:1834}（55-56級）和牧師守著{area:190}鎮公所裡的{item:12954}。他們是精英，書旁邊還站著一個{npc:1839}（63級，精英）。跟隊伍一起進去；別進到高階牧師打得到的範圍。",
-	["Climb the hill west of {area:190} to look down on the town.\nCareful: Sentinels posted at the gate can detect stealthed players. Additional sentinels are found within the town, and an elite walks a patrol route nearby."] = "爬上{area:190}西邊的山丘俯瞰城鎮。\n小心：守在城門的哨兵能看穿潛行。鎮裡還有更多哨兵，附近也有一隻精英在巡邏。",
 	["Close enough to see the Blightcaller in front of the house"] = "近到可以看見房子前面的凋零者",
 	["Cross the river south-east to the {area:2261}, the crypt in the south-west of the zone.\nCareful: About four non-elite adds come with Mercutio. They walk to the grave instead of appearing on the spot."] = "往東南過河到{area:2261}，地區西南部的地穴。\n小心：米庫提奧會帶大約四隻非精英小怪一起來。牠們是走到墳墓那裡，不是當場出現。",
 	["Cross the river west to {npc:1855}'s hut.\nCareful: the short way from {area:2627} to {npc:1855} is the {area:2626}, whose south mouth opens by his hut: Crypt Fiends, Walkers, Horrors and Slayers (53-58) stand close together inside. Pull them one at a time, or ride round by the road outside it."] = "往西過河到{npc:1855}的小屋。\n小心：從{area:2627}到{npc:1855}的捷徑是{area:2626}，它的南口就開在他的小屋旁：裡面的{npc:8555}、地穴巡邏者、地穴恐魔和地穴屠戮者（53-58級）站得很近。一次拉一隻，或從外面的路繞過去。",
@@ -859,13 +768,11 @@ P.guides["forever/alliance/50-60/04-western-plaguelands"] = {
 	["The ruins of {area:2262} lie south of the road. {npc:10926}'s ghost plays by the ruined house at the south end."] = "{area:2262}的廢墟在道路南邊。{npc:10926}的鬼魂在南端那間毀壞的房子旁玩耍。",
 	["The shield lies east of the barn at {area:201}. Take your group around the barn to reach it."] = "盾牌在{area:201}穀倉的東邊。跟隊伍一起繞過穀倉去拿。",
 	["The skeletons of Andorhal, next on this guide"] = "安多哈爾的骷髏，本指南接下來就去",
-	["Use the {item:12627} by the grain silos to draw out Temporal Parasites. {quest:5154} is one of the musty tomes in the town hall. Every skeleton in town drops {quest:5537}.\nCareful: the Temporal Parasites are 55-57, and Skeletal Warlords and Flesh Golems (57, elites) walk the streets: draw the parasites out by the silos, one at a time, and let the elites pass.\n{npc:1852} is elite: grouping up is advised. He guards his phylactery in the middle of Andorhal."] = "在穀倉旁使用{item:12627}把{npc:10717}引出來。{quest:5154}是鎮公所裡那些發霉的書之一。鎮上每具骷髏都會掉{quest:5537}。\n小心：{npc:10717}是55-57級，{npc:1788}和{npc:1805}（57級，精英）在街上走動：在穀倉旁一次引一隻，讓精英過去。\n{npc:1852}是精英：建議組隊。他在安多哈爾中間守著自己的護命匣。",
 	["Use the {item:12815} at the foot of each of the four watchtowers around the edge of Andorhal, north of the camp, on the way to {area:199}.\nCareful: Skeletal Warlords and Flesh Golems (57, elites) walk Andorhal's streets, and the {npc:7572} (59, elite) wanders between Andorhal and Northridge: keep to the towers at the town's edge and let them pass."] = "在營地北邊、往{area:199}的路上，對安多哈爾外圍四座瞭望塔的塔腳各使用一次{item:12815}。\n小心：{npc:1788}和{npc:1805}（57級，精英）在安多哈爾的街上走動，{npc:7572}（59級，精英）在安多哈爾和北谷之間遊蕩：待在城鎮邊緣的塔旁，讓他們過去。",
 	["West across the zone to {npc:1855}'s hut on the way back to {area:3197}."] = "往西穿過整個地區到{npc:1855}的小屋，順路回{area:3197}。",
 	["West into the middle of the zone: Marduk's sword lies in the {area:2623} and Horgus' skull at {area:2624}, north of it, each where ghosts fight; grown Plaguehounds hunt the plains between."] = "往西到地區中部：馬杜克的劍在{area:2623}，霍古斯的頭骨在它北邊的{area:2624}，兩處都有鬼魂在打鬥；兩地之間的平原有成年的{npc:8597}在獵食。",
 	["West of Andorhal to {area:199}: {npc:11075} (53) guards the cauldron among the Jabbering Ghouls (54).\n{npc:10778}'s ghost wanders by the farmhouse at the field's edge, upstairs; her parcel lies inside the house: take it for {zone:1453}, at the end of this guide."] = "往安多哈爾西邊到{area:199}：{npc:11075}（53級）在{npc:10801}（54級）之間守著大鍋。\n{npc:10778}的鬼魂在田地邊緣農舍的樓上徘徊；她的包裹在屋子裡：拿著，本指南最後去{zone:1453}時交。",
 	["West through the {area:2277} to {area:2627}: fill the {item:15042} at the big termite mounds, and kill the Frenzied Plaguehounds and the Carrion Devourers on the way.\nCareful: the Frenzied Plaguehounds are 57-58: pull them one at a time."] = "往西穿過{area:2277}到{area:2627}：在大白蟻丘裝滿{item:15042}，沿路打{npc:8598}和{npc:8605}。\n小心：{npc:8598}是57-58級：一次拉一隻。",
-	["Western & {zone:1423}"] = "西瘟疫與{zone:1423}",
 	["Without the flight to {zone:1453} at 56 earlier in this guide: {npc:10778}'s parcel goes to {npc:10782} in the {object:2096}, then {npc:3520} takes her own errand on the canals. {npc:14722} takes sixty Silk, sixty Mageweave and sixty {item:14047}: hand in what you carry (or buy at the Auction House), skip the rest."] = "本指南前面56級時沒飛去{zone:1453}的話：{npc:10778}的包裹交給{object:2096}的{npc:10782}，然後{npc:3520}在運河邊有她自己的任務。{npc:14722}收六十份絲綢、六十份魔紋布和六十份{item:14047}：身上有多少交多少（或從拍賣場買），其餘的跳過。",
 	["Without the {zone:1428} guide's {area:3197} quests: {npc:10838} stands in the middle of the camp. His {quest:5092} opens the camp's chain."] = "沒做{zone:1428}指南的{area:3197}任務的話：{npc:10838}站在營地中間。他的{quest:5092}開啟營地的任務鏈。",
 	["Without the {zone:1428} guide's {area:3197} quests: {npc:10877} walks the ring of {zone:1455} and sends you to {npc:10838}, whose camp this guide visits next. Chillwind's chain starts with it."] = "沒做{zone:1428}指南的{area:3197}任務的話：{npc:10877}在{zone:1455}的環狀大道上走，他會叫你去找{npc:10838}，本指南接下來就去他的營地。寒風營地的任務鏈從這裡開始。",
@@ -899,13 +806,11 @@ P.guides["forever/alliance/50-60/04-western-plaguelands"] = {
 	["{quest:5845}'s symbol lies in the lake south of the {area:2277}: your group fetches it before the ride back to {area:3197}."] = "{quest:5845}的徽記在{area:2277}南邊的湖裡：騎回{area:3197}之前，跟隊伍一起去拿。",
 	["{quest:6184} at {area:3197}, on the flight back"] = "{area:3197}的{quest:6184}，飛回來時交",
 	["{quest:6762} in {zone:1450}: {zone:2482}'s {zone:1450} errand takes you to her, in the next guide; keep it"] = "{zone:1450}的{quest:6762}：下一份指南裡，{zone:2482}去{zone:1450}的任務會帶你去找她；先留著",
-	["{zone:1455} flight master"] = "{zone:1455}的飛行管理員",
 }
 
 P.guides["forever/alliance/50-60/06-silithus"] = {
 	["Back from {zone:2482} in {area:2255}: {npc:11118}'s mail went astray in the hills east of town, where the Ice Thistle yetis carry it off."] = "從{zone:2482}回到{area:2255}：{npc:11118}的郵件在城鎮東邊的山丘弄丟了，被冰薊雪人拿走。",
 	["Back to {area:3425}. {npc:15189} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "回到{area:3425}。{npc:15189}站在他那棟建築的樓上：從裡面走上去，箭頭分不清樓層。",
-	["Bring a Silithyst to the Alliance extractor"] = "把一塊希利蘇斯晶體送到聯盟的萃取器",
 	["Careful: the Twilight Keepers are level 60: clear the cultists around each one first and fight the keeper at full health.\n{npc:11803} holds the cultists' camp in the far south-west."] = "小心：暮光守護者是60級：先清掉每一位周圍的教徒，滿血再打守護者。\n{npc:11803}佔據遙遠西南方的教徒營地。",
 	["Dredge Strikers dig in the dunes north-west of the hold; Stonelash Scorpids and Sand Skitterers roam all around.\nCareful: {npc:15185} (62, elite) guard the Caverns of Time's mouth in the south-west, around 21,82: stay out of there."] = "{npc:11740}在要塞西北的沙丘裡挖洞；{npc:11735}和{npc:11738}到處遊蕩。\n小心：{npc:15185}（62級，精英）守著西南方約21,82的時光之穴入口：別去那裡。",
 	["Fly to {area:541} in {zone:1449}, the way into {zone:1451}."] = "飛到{zone:1449}的{area:541}，那是進入{zone:1451}的路。",
@@ -917,18 +822,14 @@ P.guides["forever/alliance/50-60/06-silithus"] = {
 	["The Twilight's Hammer dig fills the north-west corner: tablet fragments lie on the ground and the Dust Stormers and Desert Rumblers carry them too. Every cultist can drop an {item:20404}: keep twenty, ten for {npc:15306} and ten for {npc:15194} later.\nCareful: take the texts from the Twilight Avengers and Geolords; leave the Twilight Flamereavers (60) and stay out of the hive's mouth, where the {area:2742} elites (59-60) wait.\nThe {area:2742} silithids sometimes drop {quest:8308}: keep it for Bronzebeard's Encampment in the south."] = "暮光之錘的挖掘場佔滿西北角：石板碎片散落在地上，{npc:11744}和{npc:11746}身上也有。每個教徒都可能掉{item:20404}：留二十份，十份給{npc:15306}、十份之後給{npc:15194}。\n小心：從{npc:11880}和暮光地領主身上拿文件；別碰{npc:15201}（60級），也別進蜂巢入口，那裡有{area:2742}的精英（59-60級）。\n{area:2742}的異種蟲有時會掉{quest:8308}：留著給南邊的銅鬚營地。",
 	["The tortured druids and sentinels haunt the ruined village east of the hold."] = "受折磨的德魯伊和哨兵在要塞東邊那座毀壞的村莊遊蕩。",
 	["{area:3425}'s last hand-ins can leave a player who followed only this route short of 60 (up to about a level for the slowest; most players less).\nWith a group: run the {area:2057} dungeon or the {area:2279} dungeon, in the Plaguelands by {area:3197} and {area:2268}.\nAlone: the Twilight's Hammer camps of {zone:1451}'s north-west (Twilight Avengers 57-59 and Geolords 58-60; leave the Flamereavers, 60) and the Stonelash Flayers and Rock Stalkers (57-59) around {area:3425} are at your level. {area:3425}'s repeatable quests open only at 60."] = "只走這條路線的玩家，交完{area:3425}最後的任務可能還差一點才到60級（最慢的大約差一級；大多數人差得少）。\n有隊伍的話：去打{area:2057}地城或{area:2279}地城，在瘟疫之地的{area:3197}和{area:2268}旁邊。\n一個人的話：{zone:1451}西北的暮光之錘營地（{npc:11880}57-59級、暮光地領主58-60級；別碰60級的烈焰搶奪者），以及{area:3425}周圍的{npc:11737}和{npc:11739}（57-59級）都適合你的等級。{area:3425}的可重複任務要60級才會開放。",
-	["{npc:11741} walks around here: look inside the circle on the map"] = "{npc:11741}在這附近走動：看地圖上的圓圈裡面",
 	["{npc:13220} stands at {area:3077}, where the pass comes out."] = "{npc:13220}站在山口出口的{area:3077}。",
 	["{npc:13220}'s next task goes to {zone:1450}: skip it."] = "{npc:13220}的下一個任務要去{zone:1450}：跳過。",
 	["{npc:15181} (from level 58): Bronzebeard's Encampment comes later, on the way south"] = "{npc:15181}（58級起）：銅鬚營地之後往南的路上才去",
 	["{npc:15306}: his Twilight texts come from the dig"] = "{npc:15306}：他要的暮光文件來自挖掘場",
-	["{zone:1451}: kill these as you meet them"] = "{zone:1451}：遇到就殺",
-	["{zone:1451}: {area:3425}'s quests, to 60."] = "{zone:1451}：{area:3425}的任務，練到60級。",
 }
 
 P.guides["forever/alliance/dwarf/01-dun-morogh"] = {
 	["East through the South Gate tunnel into {area:38}. {npc:1089} and {npc:1092} stand at the dwarven post just past it."] = "往東穿過南門隧道進入{area:38}。{npc:1089}和{npc:1092}站在隧道出口不遠的矮人哨站。",
-	["Follow the road all the way east to the {area:806} at the {area:38} tunnel."] = "沿道路一直往東到{area:38}隧道口的{area:806}。",
 	["Follow the road back to {area:1537} if you left the city. {npc:6175} walks through the Commons."] = "如果你出了城，沿道路回{area:1537}。{npc:6175}在大廳裡走動。",
 	["Follow the road north-east from {area:131} to the depot: the whole east of {area:1} is one sweep from here."] = "從{area:131}沿道路往東北到補給站：{area:1}東部從這裡一趟走完。",
 	["From the tram to {area:1519}"] = "從地鐵到{area:1519}",
@@ -943,33 +844,18 @@ P.guides["forever/alliance/dwarf/01-dun-morogh"] = {
 	["West from the {object:32383} into the {object:32362}: {npc:5149}, {npc:6179} and {npc:6178} are in the {object:32386}, {npc:6179} and {npc:6178} on its upper floor: the stairs up start just north-east of {npc:5149}. {npc:6175}, a beggar, wanders the city. John needs ten {item:2589}. Bring what you have; if you’re short, Rockjaw Skullthumpers at Gol’Bolar Quarry drop it."] = "從{object:32383}往西進入{object:32362}：{npc:5149}、{npc:6179}和{npc:6178}在{object:32386}，{npc:6179}和{npc:6178}在它的樓上：上樓的樓梯就在{npc:5149}東北方不遠。乞丐{npc:6175}在城裡到處走。約翰要十份{item:2589}。有多少帶多少；不夠的話，古博拉採掘場的{npc:1115}會掉。",
 	["{area:135} is the troll cave in the hills south-west of {area:137}. Kill Headhunters at its mouth, then walk through the cave to its far end: Fully explore {area:135} ticks only in there, not on the hill above it.\nCareful: the Frostmane Hideskinners inside the Hold are level 9-10 and stand in pairs: pull them one at a time back to the mouth."] = "{area:135}是{area:137}西南方丘陵裡的食人妖洞穴。在洞口殺獵頭者，然後穿過洞穴走到最裡面：「完整探索{area:135}」只有在裡面才會打勾，在它上方的山丘不算。\n小心：要塞裡的{npc:1122}是9-10級、兩兩站在一起：一次一隻拉回洞口。",
 	["{area:1}: kill these as you meet them"] = "{area:1}：遇到就殺",
-	["{npc:1699}: Camping 101 asks you to learn it; below ground"] = "{npc:1699}：「露營入門」要你學會它；在地下",
 	["{npc:5505} in {zone:1453}; {area:1} has no druid trainer"] = "{zone:1453}的{npc:5505}；{area:1}沒有德魯伊訓練師",
 	["{npc:6179} and {npc:6178}"] = "{npc:6179}和{npc:6178}",
 }
 
 P.guides["forever/alliance/gnome/01-dun-morogh"] = {
 	["East through the South Gate tunnel into {area:38}. {npc:1089} and {npc:1092} stand at the dwarven post just past it."] = "往東穿過南門隧道進入{area:38}。{npc:1089}和{npc:1092}站在隧道出口不遠的矮人哨站。",
-	["Follow the road all the way east to the {area:806} at the {area:38} tunnel."] = "沿道路一直往東到{area:38}隧道口的{area:806}。",
 	["From the tram to {area:1519}"] = "從地鐵到{area:1519}",
 	["Go through the tunnel into {area:38}. Just past it, a path marked by stones climbs the hills on the right of the road north to {npc:257808}'s camp."] = "穿過隧道進入{area:38}。剛出隧道，道路右邊有一條用石頭標示的小路爬上丘陵，往北通到{npc:257808}的營地。",
 	["North of the post, west of the road: the Stonesplinter troggs and scouts camp in the hills. Both drop the Trogg Stone Teeth.\nCareful: pull the Stonesplinter Scouts and Troggs one at a time. Stay at the north edge of the valley; Headsplitter patrols the deeper camps."] = "哨站北邊、道路西邊：碎石穴居人和碎石斥候在丘陵上紮營。兩種都會掉穴居人石牙。\n小心：{npc:1162}和穴居人一次拉一隻。待在山谷北緣；碎顱者在更深的營地巡邏。",
 	["On the {zone:1455} platform of the {area:2257}, {npc:12997} asks for help with the rats: use his {item:17117} on the Deeprun Rats around the platform, hand them in, then take his letter to his brother {npc:13018} at the {zone:1453} end. The tram has no map inside. The city markers show the entrances, not the two brothers."] = "在{area:2257}的{zone:1455}月台，{npc:12997}請你幫忙抓老鼠：對月台周圍的{npc:13016}使用他的{item:17117}，交回給他，然後把他的信帶到{zone:1453}那一頭給他的兄弟{npc:13018}。地鐵裡面沒有地圖。城裡的標記指的是入口，不是兩兄弟。",
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:1388} is a level 12 elite: take him on with a group. Alone, skip it: the {area:38} quests ahead make up the experience."] = "這些是精英怪：建議組隊，找人和你一起做。{npc:1388}是12級精英：跟隊伍一起打。一個人就跳過：前面{area:38}的任務會把經驗補回來。",
 	["{area:135} is the troll cave in the hills south-west of {area:137}. Kill Headhunters at its mouth, then walk through the cave to its far end: Fully explore {area:135} ticks only in there, not on the hill above it.\nCareful: the Frostmane Hideskinners inside the Hold are level 9-10 and stand in pairs: pull them one at a time back to the mouth."] = "{area:135}是{area:137}西南方丘陵裡的食人妖洞穴。在洞口殺獵頭者，然後穿過洞穴走到最裡面：「完整探索{area:135}」只有在裡面才會打勾，在它上方的山丘不算。\n小心：要塞裡的{npc:1122}是9-10級、兩兩站在一起：一次一隻拉回洞口。",
-	["{npc:1699}: Camping 101 asks you to learn it; below ground"] = "{npc:1699}：「露營入門」要你學會它；在地下",
-}
-
-P.guides["forever/alliance/human/01-elwynn-forest"] = {
-	["Follow the path north to the mine. Kobold Workers swarm outside it; every kobold in the valley can drop the {object:83763}.\nNow and then a kobold here drops a {quest:91741}: right-click it and hand it to {npc:951} on your next Abbey stop."] = "沿小路往北到礦坑。{npc:257}擠在礦坑外；山谷裡每隻狗頭人都可能掉{object:83763}。\n偶爾這裡的狗頭人會掉{quest:91741}：右鍵點它，下次回修道院時交給{npc:951}。",
-	["From level 5 {npc:248362}, a level 3 elite, is two levels under you: he waits down the second turn on the right inside the mine.\nCareful: clear the Laborers around him first and fight him at full health."] = "5級起，3級精英{npc:248362}比你低兩級：他在礦坑裡右手邊第二個轉角下去的地方。\n小心：先清掉他周圍的勞工，滿血再打他。",
-	["From level 5: Kelsey's {quest:91752}. {npc:248362} (3, elite) is two levels under you then."] = "5級起：凱爾西的{quest:91752}。那時{npc:248362}（3級，精英）比你低兩級。",
-	["Kobold Laborers work the tunnels inside the mine. {npc:248362} waits down the second turn on the right.\nNow and then a Laborer drops a {quest:91741}: right-click it and hand it to {npc:951} at the Abbey after the mine.\nCareful: {npc:248362} (3) is elite: below level 5, leave him be."] = "{npc:80}在礦坑裡的隧道工作。{npc:248362}在右手邊第二個轉角下去的地方。\n偶爾勞工會掉{quest:91741}：右鍵點它，出礦坑後交給修道院的{npc:951}。\n小心：{npc:248362}（3級）是精英：不到5級就別惹他。",
-	["She stands outside the mine entrance. Her next errand, {quest:91752}, sends you after {npc:248362} inside, a level 3 elite: the guide gives it from level 5, when he is two levels under you."] = "她站在礦坑入口外。她的下一個任務{quest:91752}要你進去找{npc:248362}，一隻3級精英：指南會在你5級時才給，那時他比你低兩級。",
-	["{npc:1430}: Camping 101 asks you to learn it; below ground"] = "{npc:1430}：「露營入門」要你學會它；在地下",
-	["{npc:247226}, outside the mine"] = "{npc:247226}，在礦坑外",
-	["{npc:279} in {zone:1453} takes it (the {zone:1436} guide)"] = "{zone:1453}的{npc:279}收它（{zone:1436}指南）",
-	["{npc:514}, at the smithy beside Dughan: {npc:1416} in {zone:1453} takes it (the {zone:1436} guide)"] = "{npc:514}，在杜漢旁邊的鐵匠鋪：{zone:1453}的{npc:1416}收它（{zone:1436}指南）",
 }
 
 P.guides["forever/alliance/nightelf/01-teldrassil"] = {
@@ -980,8 +866,6 @@ P.guides["forever/alliance/nightelf/01-teldrassil"] = {
 	["Nightsabers, Strigid Owls and Webwood Lurkers roam all around {area:186} and along the road east; the lurkers also drop the recipe's spider legs. The moonwell is at the west edge of {area:260}.\nCareful: the Befouled Webwoods (10-11) in the woods north-west of {area:186}, around 47-52,34-56, are over you now: take the silk from the Webwood Lurkers and leave the webwoods for {npc:3567}'s quest later. Duskstalker (9, a rare nightsaber) and Oakenscowl (9, elite) roam the woods south of {area:186}, around 54-62,73-77: leave them be."] = "夜刃豹、{npc:1995}和{npc:1998}在{area:186}周圍和往東的道路沿途遊蕩；潛伏者也會掉食譜要的蜘蛛腿。月井在{area:260}的西緣。\n小心：{area:186}西北方樹林約47-52,34-56的{npc:272096}（10-11級）現在比你高：從{npc:1998}身上拿蛛絲，污染的蛛網林留給之後{npc:3567}的任務。暮色潛獵者（9級，稀有夜刃豹）和橡木怒容（9級，精英）在{area:186}南邊約54-62,73-77的樹林遊蕩：別惹他們。",
 	["Take the portal down from {zone:1457} to the hippogryphs."] = "從{zone:1457}搭傳送門下去找角鷹獸。",
 	["Take the portal down to the hippogryphs at {area:702}."] = "搭傳送門下到{area:702}的角鷹獸那裡。",
-	["{npc:3595}'s quest, {quest:97979}, asks for your two night elf racial spells: open your spellbook (P), cast {spell:1259799} and Shadowmeld once each, then hand it back to her."] = "{npc:3595}的任務{quest:97979}要你用兩個夜精靈種族技能：打開法術書（P），各施放一次{spell:1259799}和影遁，再交回給她。",
-	["{npc:6286}, south of the inn: Camping 101 asks you to learn it"] = "{npc:6286}，在旅店南邊：「露營入門」要你學會它",
 	["{quest:983}: Thresher Eyes, on the {zone:1439} guide's first beach stop"] = "{quest:983}：{item:5412}，在{zone:1439}指南第一次停沙灘時",
 }
 
@@ -1020,11 +904,6 @@ P.guides["forever/alliance/nightelf/02-darkshore"] = {
 
 P.guides["forever/alliance/skyborne/01-zephras-isle"] = {
 	["Speak to {npc:252448} by the inn on the west side, then cross town to {npc:252359} and {npc:259012}."] = "先跟西邊旅店旁的{npc:252448}說話，再穿過城鎮找{npc:252359}和{npc:259012}。",
-	["{npc:251905}: Camping 101 asks you to learn it"] = "{npc:251905}：「露營入門」要你學會它",
-}
-
-P.guides["forever/horde/40-50/01-stranglethorn-vale"] = {
-	["Group quest: {quest:348} ends at {npc:1449} in Mistvale. Hand him ten gorilla fangs and he calls three waves of gorillas (41-42), one after another, then {npc:1514} (44). In players' recordings, 12 of the 27 people who started it died there. Take it if you have a friend or two along."] = "組隊任務：{quest:348}在迷霧谷的{npc:1449}結束。交給他十顆猩猩牙，他會一波接一波召喚三波猩猩（41-42級），然後是{npc:1514}（44級）。在玩家的記錄裡，開始這個任務的27人中有12人死在那裡。有一兩個朋友同行再接。",
 }
 
 P.guides["forever/horde/40-50/01b-riverglades"] = {
@@ -1032,15 +911,6 @@ P.guides["forever/horde/40-50/01b-riverglades"] = {
 }
 
 P.guides["forever/horde/40-50/02-feralas"] = {
-	["Group quest: {quest:348} ends at {npc:1449} in Mistvale. Hand him ten gorilla fangs and he calls three waves of gorillas (41-42), one after another, then {npc:1514} (44). In players' recordings, 12 of the 27 people who started it died there. Take it if you have a friend or two along."] = "組隊任務：{quest:348}在迷霧谷的{npc:1449}結束。交給他十顆猩猩牙，他會一波接一波召喚三波猩猩（41-42級），然後是{npc:1514}（44級）。在玩家的記錄裡，開始這個任務的27人中有12人死在那裡。有一兩個朋友同行再接。",
 	["{npc:2486}, by the inn"] = "{npc:2486}，在旅店旁",
-}
-
-P.guides["forever/horde/50-60/01-un-goro-crater"] = {
-	["Lead {npc:9999} north to {area:541}. When he faints, use {item:11804} on him to wake him."] = "帶{npc:9999}往北到{area:541}。他昏倒時對他使用{item:11804}叫醒他。",
-}
-
-P.guides["forever/horde/skyborne/01-zephras-isle"] = {
-	["{npc:251905}: Camping 101 asks you to learn it"] = "{npc:251905}：「露營入門」要你學會它",
 }
 

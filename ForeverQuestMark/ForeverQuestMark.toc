@@ -1,0 +1,9 @@
+## Interface: 16001
+## Title: |cff66ccff副本任務怪標記|r
+## Notes: 副本裡遊戲把怪的編號藏起來時，問遊戲「這隻跟你的任務有沒有關」，有關就在名條左邊畫骷髏（野外照舊交給 Polestar／Questie）。/任務怪 開關、/任務怪 測 看目標。
+## Author: wow-forever-addons
+## Version: 0.1
+## IconTexture: Interface\TargetingFrame\UI-RaidTargetingIcon_8
+## SavedVariables: ForeverQuestMarkDB
+
+Core.lua

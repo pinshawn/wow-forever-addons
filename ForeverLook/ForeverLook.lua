@@ -15,10 +15,13 @@
 --   'Reload()', seen 11/23), so every button that switches is a secure macro
 --   button running "/reload": PreClick (ours) writes the saved tables, then
 --   the game's own secure click handler runs the /reload macro.
--- Also: with the recommended look on and Polestar loaded, five of Polestar's
+-- Also: with the recommended look on and Polestar loaded, seven of Polestar's
 -- map layers are hidden through Polestar.Pins.SetLayerVisible (spawn areas,
 -- other goals' areas, "while you're here" areas, small spot dots, the target
--- pin), and the game's quest objective areas (CVar questPOI) are turned on,
+-- pin; since 1.1 also the step's other goals and the "while you're here"
+-- pins, round drop-shaped marks Polestar draws in the skin's medallion;
+-- Polestar/Nav/Layers.lua). The travel route's stops stay. The game's quest
+-- objective areas (CVar questPOI) are turned on,
 -- because the recommended Questie leaves objective areas to the game. The
 -- player's earlier questPOI value comes back when they switch back.
 --
@@ -31,7 +34,8 @@ local REC = "推薦"
 local TITLE = "一鍵推薦外觀"
 local ICON = "Interface\\AddOns\\" .. ADDON .. "\\Media\\Icon"
 local HOW = "之後想換回來或再換過去：\n・點小地圖旁的「推」圓鈕\n・或聊天框打 /推薦\n・或 Esc → 選項 → 插件 → " .. TITLE
-local LAYERS = { "nav.areas", "nav.goalAreas", "nav.hereAreas", "nav.spots", "nav.target" }
+local LAYERS = { "nav.areas", "nav.goalAreas", "nav.hereAreas", "nav.spots", "nav.target",
+	"nav.goals", "nav.here" }
 -- Kept from the player's own copy when the recommended look is written again:
 -- where they put things on their screen.
 local PS_KEEP = { { "nav", "arrowPos" }, { "ui", "pos" }, { "ui", "shown" } }
@@ -622,7 +626,7 @@ SlashCmdList.FOREVERLOOK = function(msg)
 	if msg == "地圖" or msg == "map" then
 		mapQuiet = not mapQuiet
 		applyMap()
-		say(mapQuiet and "地圖上的黃框、黃點、目標標記藏起來了。" or "地圖上的黃框、黃點、目標標記顯示中（只到這次登出）。")
+		say(mapQuiet and "地圖上 Polestar 的黃框、黃點、水滴標記藏起來了。" or "地圖上 Polestar 的黃框、黃點、水滴標記顯示中（只到這次登出）。")
 		return
 	end
 	showMain()

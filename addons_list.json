@@ -36,9 +36,10 @@
     },
     {
       "id": "questie-questlog-taint",
-      "name": "Questie：點追蹤清單的任務名字不從 Questie 開任務日誌（戰鬥中按 M 開地圖不再被擋）",
+      "name": "Questie：點追蹤清單的任務名字不從 Questie 開任務日誌（停用：Questie 12.13.0 起自己修好了）",
       "url": "https://raw.githubusercontent.com/pinshawn/wow-forever-addons/main/patches/questie-questlog-taint.json",
-      "sha256": "bdeec87dc7521d2d8f1e5ed4b9e324ab3892154fbdf6bca84741e7b1e8be998d"
+      "sha256": "bdeec87dc7521d2d8f1e5ed4b9e324ab3892154fbdf6bca84741e7b1e8be998d",
+      "retired": true
     },
     {
       "id": "ofa-map-taint-showonmap",
@@ -124,7 +125,7 @@
       ]
     },
     {
-      "name": "DungeonsForever（無限副本手冊，8 個模組）",
+      "name": "DungeonsForever（無限副本手冊，9 個模組）",
       "type": "github-branch",
       "repo": "ayuanbro/DungeonsForever",
       "branch": "master",
@@ -295,6 +296,17 @@
       "toc": "ForeverAHScan/ForeverAHScan.toc",
       "folders": [
         "ForeverAHScan"
+      ],
+      "autoInstall": true
+    },
+    {
+      "name": "副本任務怪標記（地城裡要打的任務怪，名條上標骷髏；沒開 Polestar 也能用）",
+      "type": "github-branch",
+      "repo": "pinshawn/wow-forever-addons",
+      "branch": "main",
+      "toc": "ForeverQuestMark/ForeverQuestMark.toc",
+      "folders": [
+        "ForeverQuestMark"
       ],
       "autoInstall": true
     }

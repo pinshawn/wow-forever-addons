@@ -10,7 +10,8 @@
 --      （原本是 EasyAuction 插件的）。沒裝 EasyAuction 才由我們提供；有裝的話不搶。
 --      所以無限副本手冊畫面上寫「EasyAuction 行情」，其實是這裡掃的。
 --   3. 拍賣場下面多一個「掃描」分頁：狀態、按鈕、設定都在那裡。
---   4. 滑鼠指到物品時，在遊戲「售價：」那行下面顯示「拍賣：」一個的最低價（一樣靠左，數字對齊）。
+--   4. 滑鼠指到物品時，在遊戲「售價：」那行下面顯示「拍賣：」一個的最低價（一樣靠左，數字對齊）；
+--      指著一堆（2 個以上）時後面加「（一個）　這 N 個：整堆的價錢」（0.3.2）。
 -- 不做什麼：不幫你買、不幫你賣、不自動出價（遊戲規定這些都要自己按）。
 
 local ADDON = ...
@@ -573,14 +574,69 @@ local function tooltipOn()
 	return DB.tooltip
 end
 
-local function addLine(tt, itemID)
+-- 一堆有幾個（0.3.2）：遊戲的「售價：」指著一堆時寫的是整堆加起來，所以先用
+-- 那行的整堆售價 ÷ 一個的售價（GetItemInfo 第 11 個值）算出個數，跟遊戲用的是同一個數；
+-- 沒有售價的東西，再看滑鼠指的是不是背包格子。都拿不到就當 1 個。
+local issecret = issecretvalue or function() return false end
+local SELL_LINE = Enum and Enum.TooltipDataLineType and Enum.TooltipDataLineType.SellPrice
+
+local function unitSellPrice(itemID)
+	local f = (C_Item and C_Item.GetItemInfo) or GetItemInfo
+	if not f then return nil end
+	local ok, _, _, _, _, _, _, _, _, _, _, sell = pcall(f, itemID)
+	if ok and type(sell) == "number" and sell > 0 then return sell end
+	return nil
+end
+
+local function stackFromSellLine(data, itemID)
+	if not (SELL_LINE and type(data) == "table" and type(data.lines) == "table") then return nil end
+	local unit = unitSellPrice(itemID)
+	if not unit then return nil end
+	for _, line in ipairs(data.lines) do
+		if type(line) == "table" and line.type == SELL_LINE then
+			local price = line.price
+			if type(price) == "number" and not issecret(price) then
+				local n = math.floor(price / unit + 0.5)
+				if n >= 1 and n * unit == price then return n end
+			end
+			return nil
+		end
+	end
+	return nil
+end
+
+local function stackFromBagSlot(tt, itemID)
+	if not (tt and tt.GetOwner and C_Container and C_Container.GetContainerItemInfo) then return nil end
+	local ok, bag, slot = pcall(function()
+		local owner = tt:GetOwner()
+		if type(owner) ~= "table" or not owner.GetBagID or not owner.GetID then return nil end
+		return owner:GetBagID(), owner:GetID()
+	end)
+	if not ok or type(bag) ~= "number" or type(slot) ~= "number" then return nil end
+	local ok2, info = pcall(C_Container.GetContainerItemInfo, bag, slot)
+	if ok2 and type(info) == "table" and info.itemID == itemID and type(info.stackCount) == "number" then
+		return info.stackCount
+	end
+	return nil
+end
+
+local function stackCount(tt, data, itemID)
+	return stackFromSellLine(data, itemID) or stackFromBagSlot(tt, itemID) or 1
+end
+
+local function addLine(tt, itemID, count)
 	if not (tt and itemID and tooltipOn()) then return end
 	local sc = currentScan()
 	if not sc then return end
 	local it = sc.items[itemID]
 	if it and (it[1] or 0) > 0 then
 		-- 跟遊戲的「售價：19●」一樣靠左：「拍賣：」也是兩個字＋冒號，數字會跟售價的數字對齊
-		tt:AddLine("|cffffd100拍賣：|r" .. money(it[2]), 1, 1, 1)
+		local line = "|cffffd100拍賣：|r" .. money(it[2])
+		if count and count >= 2 then
+			-- 0.3.2：指著一堆（2 個以上）時，後面加「（一個）　這 N 個：整堆」，跟售價比同樣的數量
+			line = line .. "|cff9d9d9d（一個）|r　|cffffd100這 " .. count .. " 個：|r" .. money(it[2] * count)
+		end
+		tt:AddLine(line, 1, 1, 1)
 	else
 		tt:AddLine("|cffffd100拍賣：|r沒人在賣", 0.6, 0.6, 0.6)
 	end
@@ -595,12 +651,13 @@ if TooltipDataProcessor and TooltipDataProcessor.AddTooltipPostCall and Enum and
 			local _, link = tt:GetItem()
 			id = link and tonumber(link:match("item:(%d+)"))
 		end
-		addLine(tt, id)
+		if id then addLine(tt, id, stackCount(tt, data, id)) end
 	end)
 elseif GameTooltip and GameTooltip.HookScript then
 	GameTooltip:HookScript("OnTooltipSetItem", function(tt)
 		local _, link = tt:GetItem()
-		addLine(tt, link and tonumber(link:match("item:(%d+)")))
+		local id = link and tonumber(link:match("item:(%d+)"))
+		if id then addLine(tt, id, stackFromBagSlot(tt, id) or 1) end
 	end)
 end
 

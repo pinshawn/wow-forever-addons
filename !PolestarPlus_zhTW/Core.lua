@@ -9,8 +9,8 @@
 --       資料夾名字開頭是「!」，所以這個插件會比 Polestar 先載入。
 
 PolestarPlusZhTW = {
-	version = "0.1",
-	basedOn = "0.4.2.2",    -- 這一版的句子是照 Polestar 哪一版整理的
+	version = "0.2",
+	basedOn = "0.4.3",    -- 這一版的句子是照 Polestar 哪一版整理的
 	guides = {},            -- [指南代號] = { [英文原句] = 中文 }
 	ui = {},                -- [英文介面字] = 中文
 	merged = { guides = false, ui = false },

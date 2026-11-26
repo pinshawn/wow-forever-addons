@@ -2,7 +2,7 @@
 ## Title: |cff66ccffPolestar 中文補充|r
 ## Notes: 補上 Polestar 繁體中文包還沒翻到的句子（作者有翻的一律用作者的）。打 /pszh 看補了幾句。
 ## Author: wow-forever-addons
-## Version: 0.1
+## Version: 0.2
 ## IconTexture: Interface\Icons\INV_Misc_Book_09
 
 Core.lua
